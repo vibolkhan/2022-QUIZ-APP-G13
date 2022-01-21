@@ -1,0 +1,82 @@
+@import url("https://fonts.googleapis.com/css2?family=Battambang&display=swap");
+body{
+    margin: 0;
+    padding: 0;
+    font-family: "Battambang", sans-serif;
+    border: none;
+    font-size: 80%;
+}
+.container{
+    width: 100%;
+    text-align: center;
+}
+.container .img{
+    width: 50%;
+    margin: auto;
+    margin-top: 50px;
+}
+.container .img img{
+    width: 30%;
+}
+.container .container-body .title{
+    font-size: 42px;
+    color: #0593E3;
+    text-shadow: 2px 10px 10px #aaa;
+}
+.container .fill-input{
+    width: 100%;
+}
+.container .fill-input #user-name{
+    padding: 8px;
+    width: 20%;
+    font-size: 18px;
+}
+.container .paragraph{
+    margin-top: 10px;
+    font-size: 18px;
+}
+.container #next-button{
+    margin-top: 20px;
+    padding: 4px 20px;
+    font-size: 20px;
+    border-radius: 6px;
+    border: none;
+    background: #0593E3;
+    color: #fff;
+    cursor: pointer;
+    font-family: "Battambang", sans-serif;
+}
+.container #next-button:hover{
+    transform: translateY(-2px);
+    background-color: none;
+    box-shadow: 2px 3px 8px 2px #aaa;
+}
+
+.menu-bar{
+    box-sizing: border-box;
+    font-size: 22px;
+    width:30%;
+    /* background: #000; */
+    margin: auto;
+}
+.menu-bar li {
+    list-style: none;
+    cursor: pointer;
+    background: rgb(218, 42, 42);
+    margin: 10px;
+    border-radius: 50px;
+    color: #fff;
+}
+.menu-bar li:hover{
+    transform: translateY(-2px);
+    box-shadow: 2px 3px 8px 2px #aaa;
+}
+.menu-bar #start-quiz{
+    background: #00934C;
+}
+.menu-bar #view-question{
+    background: #DCA10B;
+}
+.menu-bar #edit-questions{
+    background: #007DC3;
+}
