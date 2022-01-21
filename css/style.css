@@ -5,6 +5,7 @@ body{
     font-family: "Battambang", sans-serif;
     border: none;
     font-size: 80%;
+    box-sizing: border-box;
 }
 .container{
     width: 100%;
@@ -81,5 +82,17 @@ body{
 
 
 /* start header container  */
+header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    background-color: rgb(192, 17, 17);
+}
+
+.header-left {
+    display: flex;
+    padding: 30px;
+}
+
 
 /* end header container  */
