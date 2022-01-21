@@ -43,6 +43,9 @@ function createMenu(){
     li_3.id = "edit-questions";
     li_3.textContent = "Edit/Create Questions";
 
+
+
+
     // append all 3 li to ul-----------------------------------------
     ul.appendChild(li_1);
     ul.appendChild(li_2);
@@ -54,8 +57,30 @@ function createMenu(){
     // append menu to container-------------------------------
     let container = document.querySelector('.container');
     container.appendChild(menu);
+
+    // // start quiz menu
+    let startquiz = document.getElementById('start-quiz');
+    startquiz.addEventListener('click',inProgress)
+
+    // create button to review question 
+    let btnReview = document.getElementById('view-question');
+    btnReview.addEventListener('click',inProgress);
+
+    // create button to edit question 
+    let btnEdit = document.getElementById('edit-questions');
+    btnEdit.addEventListener('click',inProgress);
 }
 
 // Define button next to get on next page
 const btnNext = document.getElementById('next-button');
 btnNext.addEventListener("click",nextPage);
+
+
+
+// start Headers--------------------------------------------------
+function inProgress(event){
+    let container = document.querySelector('.container');
+    container.style.display = "none";
+
+}
+// end header-----------------------------------------------------

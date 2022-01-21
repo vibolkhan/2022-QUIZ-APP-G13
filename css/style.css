@@ -56,15 +56,13 @@ body{
     box-sizing: border-box;
     font-size: 22px;
     width:30%;
-    /* background: #000; */
     margin: auto;
 }
 .menu-bar li {
     list-style: none;
     cursor: pointer;
-    background: rgb(218, 42, 42);
     margin: 10px;
-    border-radius: 50px;
+    border-radius: 6px;
     color: #fff;
 }
 .menu-bar li:hover{
@@ -80,3 +78,8 @@ body{
 .menu-bar #edit-questions{
     background: #007DC3;
 }
+
+
+/* start header container  */
+
+/* end header container  */
