@@ -71,60 +71,78 @@ function createMenu(){
     // create button to edit question 
     let btnEdit = document.getElementById('edit-questions');
     btnEdit.addEventListener('click',inProgress);
+
+    // Add and edit question and hide the question card
+    // show
+    let edit_createbtn = document.getElementById("menu-edit")
+    edit_createbtn.addEventListener("click",editQuestion)
+    let btn_editout = document.getElementById("edit-questions")
+    btn_editout.addEventListener("click",editQuestion)
+    // hide
+    let quiz_btn = document.getElementById("menu-quiz")
+    quiz_btn.addEventListener("click",hideQuestion)
+    let question_btn = document.getElementById("menu-question")
+    question_btn.addEventListener("click",hideQuestion)
+  
 }
 
 // Define button next to get on next page
 const btnNext = document.getElementById('next-button');
 btnNext.addEventListener("click",nextPage);
 
+// Function for add a question 
+function addQuestion (){
+    // get the value from input question
+    let questioninput_btn = document.getElementById("questionInput")
+    console.log(questioninput_btn.value)
+    // create question
+    let questions = {};
+    questions["question"] = questioninput_btn.value;
+    // append question to list of question
+    listOf_question.push(questions)
+    console.log(questions)
+    console.log(listOf_question)
+}
+// Function for edit and add a question
+function editQuestion () {
+    // get element question card
+    let question_card = document.querySelector(".question-card")
+    question_card.style.display = "flex";
+    // Add question to list of question
+    let nexbtn_ques = document.getElementById("btn-nextQuestion");
+    nexbtn_ques.addEventListener("click",addQuestion)
+  
+}
+// Function card question
+function hideQuestion (){
+    let question_card = document.querySelector(".question-card")
+    question_card.style.display = "none";
+}
 
 
 // start Headers--------------------------------------------------
 function inProgress(event){
     let container = document.querySelector('.container');
     container.style.display = "none";
-    // create header 
-    let header = document.createElement("header");
-    header.className = "header";
-    //create header left and append it to header
-    let header_left = document.createElement("div");
-    header_left.className = "header-left";
-    // creater div and set class name to logo 
-    let logo = document.createElement("div");
-    logo.className = "logo";
-    // create img tage set class name as img
-    let img = document.createElement("img")
-    img.className = "img";
-    img.src = "images/pnc-logo.png"
-    img.style.width = '80px'
-    // create header left title
-    let logo_title = document.createElement("h1");
-    logo_title.className = "logo-title";
-    logo_title.textContent = "StudyEnglishHere";
-    // create header right and append it to header 
-    let header_right = document.createElement("div");
-    header_right.className = "header-right";
-    
-    // get username input
-    // let inputName = document.getElementById('user-name');
-    let userName = document.createElement('h2');
+    // // create header 
+    let header = document.querySelector("header");
+    header.style.display = "flex"
+    // // get username input
+    // // let inputName = document.getElementById('user-name');
+    let userName = document.querySelector('.header-right h1');
+    userName.className = "userName";
     userName.textContent =  user_name;
-    
-    header_right.appendChild(userName);
-
-    // append img to logo div and append logo to header left div
-    logo.appendChild(img)
-    header_left.appendChild(logo)
-    header_left.appendChild(logo_title)
-    header.appendChild(header_left)
-    console.log(header)
-    document.body.appendChild(header)
-
-    header.appendChild(header_right);
+    //create menu in start quiz page
+    let menu = document.querySelector(".menu")
+    menu.style.display = "block";
+    console.log(menu)
     
 
+
+    
 }
 // end header-----------------------------------------------------
 
 
 let user_name = "";
+let listOf_question = [];

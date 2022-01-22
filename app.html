@@ -38,9 +38,46 @@
 
 
     <!-- start header container  -->
-
+    <header class="header">
+        <div class="header-left">
+            <div class="logo">
+                <img class="img" src="images/pnc-logo.png" style="width: 80px;">
+            </div>
+            <h1 class="logo-title">StudyEnglishHere</h1>
+        </div>
+        <div class="header-right">
+            <h1></h1>
+        </div>
+    </header>
     <!-- end header container  -->
+    <!-- menu bar -->
+    <div class="menu">
+        <ul>
+            <li id="menu-quiz">Quiz</li>
+            <li id="menu-question">Question</li>
+            <li id="menu-edit">Edit/Create</li>
+        </ul>
+    </div>
+    <!-- <-- end menu bar -->
 
+    
+    <!-- Create question card --> 
+    <div class="question-card">
+        <div class="card-header">
+            <input type="text" id = "questionInput" placeholder="Input your question here...">
+        </div>
+        <div class="card-body">
+            <input type="text" id = "anw1" placeholder="Answer1">
+            <input type="text" id = "anw2" placeholder="Answer2">
+            <input type="text" id = "anw3" placeholder="Answer3">
+            <input type="text" id = "anw4" placeholder="Answer4">
+        </div>
+        <div class="card-footer">
+            <span>Question1/20</span>
+            <button id = "btn-nextQuestion">Next Que</button>
+        </div>
+    </div>
+    <!-- end card question -->
 
 </body>
 </html>

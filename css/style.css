@@ -85,14 +85,108 @@ body{
 header {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     width: 100%;
-    background-color: rgb(192, 17, 17);
+    display: none;
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
 }
 
 .header-left {
     display: flex;
-    padding: 30px;
+    align-items: center;
+    padding: 10px 30px;
 }
 
+.header-left .logo-title {
+    margin-left: 10px;
+    color: #007DC3;
+    font-size: 18px;
+}
 
-/* end header container  */
+.header-right {
+    color: #007DC3;
+    margin-right: 30px;
+}
+.userName {
+    color: red;
+}
+/* / end header container  / */
+
+/* start create menu bar */
+.menu {
+    display: flex;
+    width: 40%;
+    margin: auto;
+    display: none;
+}
+.menu ul{
+    margin-top: -0.5px;
+    display: flex;
+    justify-content: space-between;
+    
+}
+.menu ul li {
+    list-style: none;
+    font-size: 16px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 20px 60px;    
+    background-color: #007DC3;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+}
+.menu ul li:hover {
+    background-color:rgb(143, 143, 233) ;
+}
+/* end create menu bar */
+/* card-question */
+.question-card {
+    display: flex;
+    width: 60%;
+    background-color: grey;
+    margin: auto;
+    flex-wrap: wrap;
+    display: none;
+}
+.card-header {
+    width: 90%;
+    margin: auto;
+}
+#questionInput {
+    margin-top: 15px;
+    padding: 10px;
+    width: 100%;
+    border: none;
+    background-color: grey;
+}
+#questionInput::placeholder {
+    color: white;
+}
+.card-body {
+    width: 90%;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+}
+.card-body input {
+    width: 45%;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 20px;
+    border: none;
+}
+.card-footer {
+    width: 80%;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+}
+#btn-nextQuestion {
+    padding: 10px;
+    background-color: #007DC3;
+    color: white;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+}
