@@ -64,7 +64,7 @@ body{
     cursor: pointer;
     background: rgb(218, 42, 42);
     margin: 10px;
-    border-radius: 50px;
+    border-radius: 8px;
     color: #fff;
 }
 .menu-bar li:hover{
