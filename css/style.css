@@ -218,3 +218,33 @@ header {
     border-radius: 7px;
     cursor: pointer;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* <!-- start show question to play one by one --> */
+.container-question {
+    display: none;
+    margin: 40px auto;
+    font-size: 20px;
+    background: #ccc;
+    width: 60%;
+    padding: 16px 30px;
+    border-radius: 8px;
+}
+/* <!-- end show question to play one by one --> */

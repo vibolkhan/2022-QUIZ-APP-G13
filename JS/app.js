@@ -93,9 +93,9 @@ function createMenu(){
     btn_editout.addEventListener("click",editQuestion);
     // hide
     let quiz_btn = document.getElementById("menu-quiz");
-    quiz_btn.addEventListener("click",hideQuestion);
+    quiz_btn.addEventListener("click",playQuiz);
     let question_btn = document.getElementById("menu-question");
-    question_btn.addEventListener("click",hideQuestion);
+    question_btn.addEventListener("click",playQuiz);
 }
 
 // Define button next to get on next page
@@ -120,16 +120,23 @@ function editQuestion () {
     // get element question card
     let question_card = document.querySelector(".question-card");
     question_card.style.display = "flex";
+    let question_to_play = document.querySelector('.container-question');
+    question_to_play.style.display = "none";
     // Add question to list of question
     let nexbtn_ques = document.getElementById("btn-nextQuestion");
     nexbtn_ques.addEventListener("click",addQuestion);
 }
-// Function card question
-function hideQuestion (){
-    let question_card = document.querySelector(".question-card")
-    question_card.style.display = "none";
-}
 
+
+
+// ------------Play quiz--------------------------
+function playQuiz(){
+    let question_card = document.querySelector(".question-card");
+    question_card.style.display = "none";
+
+    let question_to_play = document.querySelector('.container-question');
+    question_to_play.style.display = "block";
+}
 
 // start Headers--------------------------------------------------
 function inProgress(event){
