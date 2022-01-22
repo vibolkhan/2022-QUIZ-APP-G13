@@ -58,9 +58,6 @@ function createMenu(){
     li_3.id = "edit-questions";
     li_3.textContent = "Edit/Create Questions";
 
-
-
-
     // append all 3 li to ul-----------------------------------------
     ul.appendChild(li_1);
     ul.appendChild(li_2);
@@ -130,6 +127,11 @@ function hideQuestion (){
     question_card.style.display = "none";
 }
 
+/* add page edit and create display question after edit */
+
+
+
+/* add page edit and create display question after edit */
 
 // start Headers--------------------------------------------------
 function inProgress(event){
