@@ -109,17 +109,74 @@ btnNext.addEventListener("click",nextPage);
 
 // ------------start coding Play quiz--------------------------
 function playQuiz(){
+    let quiz_btn = document.getElementById("menu-quiz");
+    quiz_btn.style.background = "#0d6ba1";
+
+    let edit_createbtn = document.getElementById("menu-create");
+    edit_createbtn.style.background = "#0593E3";
+
+    let btnReview_2 = document.getElementById('menu-question');
+    btnReview_2.style.background = "#0593E3";
+
     let question_card = document.querySelector(".container-create-questions");
     question_card.style.display = "none";
 
     let question_to_play = document.querySelector('.container-question');
     question_to_play.style.display = "block";
+
+    let next_question = document.getElementById("next-question");
+    next_question.addEventListener("click",nextQuestion);
+}
+
+function nextQuestion(){
+    let question = document.querySelector('.question h2');
+    let count = document.getElementById('count');
+    if (index_of_list_of_questions < total_questions-1){
+        question.textContent = list_of_questions[index_of_list_of_questions]["question"];
+        
+        // CHANGE ANSWER ALL TIME WHENEVER USER CLICK NEXT
+        let answer_1 = document.getElementById('answer-1');
+        answer_1.textContent = list_of_questions[index_of_list_of_questions]["answer_1"];
+
+        let answer_2 = document.getElementById('answer-2');
+        answer_2.textContent = list_of_questions[index_of_list_of_questions]["answer_2"];
+
+        let answer_3 = document.getElementById('answer-3');
+        answer_3.textContent = list_of_questions[index_of_list_of_questions]["answer_3"];
+
+        let answer_4 = document.getElementById('answer-4');
+        answer_4.textContent = list_of_questions[index_of_list_of_questions]["answer_4"];
+        
+        // INCREMENT COUNT QUESTION ONE BY ONE
+        count_question += 1;
+        count.textContent = count_question;
+
+        // INCREMENT INDEX BY 1
+        index_of_list_of_questions += 1;
+    }
+    // CHECK, IF QUESTION EQUAL TO LIMITED QUESTION CHANGE FROM "NEXT QUE" TO "SUBMIT"
+    if (index_of_list_of_questions=== list_of_questions.length){
+        btn_submit.style.display = "block";
+        btn_submit.addEventListener('click',submit_answers);
+
+        let next_question = document.getElementById("next-question");
+        next_question.style.display = "none";
+    }
 }
 // ------------end coding Play quiz--------------------------
 
 
 // ------------start coding review question--------------------------
 function reviewQuestion(){
+    let quiz_btn = document.getElementById("menu-quiz");
+    quiz_btn.style.background = "#0593E3";
+
+    let edit_createbtn = document.getElementById("menu-create");
+    edit_createbtn.style.background = "#0593E3";
+
+    let btnReview_2 = document.getElementById('menu-question');
+    btnReview_2.style.background = "#0d6ba1";
+
     let question_to_play = document.querySelector('.container-question');
     question_to_play.style.display = "none";
 
@@ -132,21 +189,72 @@ function reviewQuestion(){
 
 // ------------start coding create question--------------------------
 function createQuestion(){
+    let quiz_btn = document.getElementById("menu-quiz");
+    quiz_btn.style.background = "#0593E3";
+
+    let edit_createbtn = document.getElementById("menu-create");
+    edit_createbtn.style.background = "#0d6ba1";
+
+    let btnReview_2 = document.getElementById('menu-question');
+    btnReview_2.style.background = "#0593E3";
+
+
     let question_to_play = document.querySelector('.container-question');
     question_to_play.style.display = "none";
 
     let question_card = document.querySelector(".container-create-questions");
     question_card.style.display = "block";
-
-
-
-
-
 }
 
 // ------------end coding create question--------------------------
 
+    // START SUBMIT ANSWER---------------------------
+function submit_answers(event){
+    event.target.parentElement.remove();
+    let question_to_play = document.querySelector('.container-question');
+    for (let i = 0; i<list_of_questions.length; i++){
+        let question = document.createElement("question");
+        let h2 = document.createElement("h2")
+        h2.textContent = list_of_questions[i]["question"];
+        question.appendChild(h2);
+        
+        // CHANGE ANSWER ALL TIME WHENEVER USER CLICK NEXT
+        let content_li = document.createElement("div");
+        content_li.className = "multiple-answers";
+        question_to_play.appendChild(question);
 
+        let answer_1 = document.createElement('li');
+        answer_1.className = "answer";
+        answer_1.id = "answer-1";
+        answer_1.textContent = list_of_questions[i]["answer_1"];
+        content_li.appendChild(answer_1);
+
+        let answer_2 = document.createElement('li');
+        answer_2.className = "answer";
+        answer_2.id = "answer-2";
+        answer_2.textContent = list_of_questions[i]["answer_2"];
+        content_li.appendChild(answer_2);
+
+        let answer_3 = document.createElement('li');
+        answer_3.className = "answer";
+        answer_3.id = "answer-3";
+        answer_3.textContent = list_of_questions[i]["answer_3"];
+        content_li.appendChild(answer_3);
+
+        let answer_4 = document.createElement('li');
+        answer_4.className = "answer";
+        answer_4.id = "answer-4";
+        answer_4.textContent = list_of_questions[i]["answer_4"];
+        content_li.appendChild(answer_4);
+
+        let foot_question = document.createElement("div");
+        foot_question.className = "footer-question";
+        question_to_play.appendChild(content_li);
+    }
+    document.body.appendChild(question_to_play);
+    return confirm("You've finished all the questions");
+}
+    // END SUBMIT ANSWER---------------------------
 
 
 // start Headers--------------------------------------------------
@@ -169,5 +277,35 @@ function inProgress(event){
 
 var message = document.querySelector(".message-alert");
 message.style.display = "none";
+
+var btn_submit = document.querySelector("#sub-ans");
+btn_submit.style.display = "none";
+
 let USER_NAME = "";
 let listOf_question = [];
+
+let list_of_questions = [
+    {question: "How old are you? ", answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"} ,
+    {question: "How many tense are there in English? ", answer_1: "A/ 3 tenses", answer_2: "B/ 4 tenses", answer_3: "C/ 2 tenses",answer_4: "D/ 5 tenses"} ,
+    {question: "How old are you? ",  answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"} ,
+    {question: "How old are you? ", answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"} ,
+    {question: "How old are you? ", answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"} ,
+    {question: "How old are you? ",  answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"} ,
+    {question: "How old are you? ", answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"} ,
+    {question: "How old are you? ", answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"} ,
+    {question: "How old are you? ",  answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"} ,
+    {question: "How old are you? ",  answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"} ,
+    {question: "How old are you? ", answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"} ,
+    {question: "How old are you? ",  answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"} ,
+    {question: "How old are you? ",  answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"} ,
+    {question: "How old are you? ",  answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"} ,
+    {question: "How old are you? ",  answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"} ,
+    {question: "How old are you? ",  answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"} ,
+    {question: "How old are you? ",  answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"} ,
+    {question: "How old are you? ", answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"} ,
+    {question: "How old are you? ", answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"}
+]
+
+let index_of_list_of_questions = 0;
+let total_questions = 20;
+let count_question = 1;

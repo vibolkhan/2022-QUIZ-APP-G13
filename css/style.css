@@ -55,7 +55,7 @@ body{
     margin-top: 10px;
     font-size: 20px;
 }
-.container #next-button,#btn-edit, #next-question{
+button{
     margin-top: 20px;
     padding: 8px 20px;
     font-size: 20px;
@@ -64,10 +64,11 @@ body{
     background: #0593E3;
     color: #fff;
     cursor: pointer;
-    font-family: "Battambang", sans-serif;
-    letter-spacing: 2px;
+    font-family: 'Ubuntu', sans-serif;
+    letter-spacing: 1px;
+    font-weight: bold;
 }
-.container #next-button:hover,#btn-edit:hover,#next-question:hover{
+button:hover{
     transform: translateY(-2px);
     background-color: none;
     box-shadow: 2px 3px 8px 2px #aaa;
@@ -161,7 +162,6 @@ header {
     text-transform: uppercase;
 }
 .menu ul li:hover {
-    background-color: #0d6ba1;
     transform: scale(1.1);
 }
 /* end create menu bar */
@@ -248,29 +248,49 @@ header {
     display: none;
     margin: 40px auto;
     font-size: 20px;
-    background: #ccc;
+    background: #cccccc;
+    border-top: 8px solid #0593E3;
     width: 60%;
-    padding: 16px 30px;
-    border-radius: 8px;
+    padding: 10px 30px;
+    border-radius: 12px;
+    text-align: center;
+        box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
 }
- 
 .container-question .multiple-answers{
-    padding: 20px;
-    background-color: #eee;
-    height: 30vh;
+    padding: 10px 20px;
+    background-color: #ddd;
+    font-size: 20px;
+    border-radius: 12px;
 }
 .container-question .multiple-answers .answer{
-    background: blue;
-    margin: 20px;
-    width: 50%;
-    padding: 10px 50px;
-    line-height: 80px;
+    padding: 12px 20px;
+    cursor: pointer;
+    border-radius: 50px;
+    color: #fff;
+    font-weight: bold;
+    background: #0593E3;
+    width: 40%;
+    margin: 20px auto;
+    list-style: none;
+    
 }
+.container-question .multiple-answers .answer:hover{
+    box-shadow: #aaa 0px 6px 6px;
+    transform: translateY(-2px);
+    background: #0d6ba1;
+}
+.container-question .multiple-answers .answer:focus{
+    background: #00934C;
+}
+
 .container-question .footer-question{
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin: 20px 0;
+}
+.count-question{
+    font-weight: 900;
 }
 /* <!-- end show question to play one by one --> */
 
