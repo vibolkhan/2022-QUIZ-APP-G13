@@ -295,31 +295,23 @@ header {
 /* <!-- end show question to play one by one --> */
 
 /* add page edit and create display question after edit */
-/* .conteiner2 {
+.container2 {
     padding: 10px;
-    display: flex;
+    display: none;
 }
 
-.conteiner2 .card {
+.container2 .card {
     width: 60%;
     background-color: rgb(199, 199, 199);
     border-radius: 9px;
     margin: auto;
+    margin-top: 10px;
     border-left: 4px solid #0593E3;
+    padding: 15px;
 }
 
-.conteiner2 .card:hover .icons {
-    display: flex;
-}
-
-.fa-edit {
-    color: #0593E3;
-    padding: 5px;
-}
-
-.fa-trash {
-    color: red;
-    padding: 5px;
+.container2 .card:hover .icons {
+    display: block;
 }
 
 .icons {
@@ -328,7 +320,7 @@ header {
     cursor: pointer;
 }
 
-.conteiner2 .card .card-header {
+.container2 .card .card-header {
     width: 80%;
     font-size: 20px;
     color: #000;
@@ -337,13 +329,13 @@ header {
     justify-content: space-between;
     align-items: center;
 }
-.conteiner2 .card .card-body {
+.container2 .card .card-body {
     display: flex;
     width: 80%;
     padding: 10px;
 }
 
-.conteiner2 .card .card-body span {
+.container2 .card .card-body span {
     width: 40%;
     padding: 10px 20px;
     margin: 5px;
@@ -353,9 +345,9 @@ header {
     border: 2px solid #0593E3;
 }
 
-.conteiner2 .card .card-body span:hover {
+.container2 .card .card-body span:hover {
     background-color: #0593E3;
     color: #fff;
-} */
+}
 
 /* add page edit and create display question after edit */

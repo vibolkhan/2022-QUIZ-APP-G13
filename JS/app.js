@@ -87,18 +87,21 @@ function createMenu(){
     quiz_btn.addEventListener("click",playQuiz);
     let question_btn = document.getElementById("start-quiz");
     question_btn.addEventListener("click",playQuiz);
+    
+    // CREATE FUNCTION TO REVIEW QUESTIONS-------------------
+    let btnReview_1 = document.getElementById('view-question');
+    btnReview_1.addEventListener("click", reviewQuestion);
+    let btnReview_2 = document.getElementById('menu-question');
+    btnReview_2.addEventListener("click", reviewQuestion);
 
     // CREATE FUNCTION TO CREATE QUESTION----------------
     let edit_createbtn = document.getElementById("menu-create");
     edit_createbtn.addEventListener("click",createQuestion);
     let btn_editout = document.getElementById("create-questions");
     btn_editout.addEventListener("click",createQuestion);
+    let btn_update = document.querySelector('#btn-edit');
+    btn_update.addEventListener("click",addQuestiontolist);
 
-    // CREATE FUNCTION TO REVIEW QUESTIONS-------------------
-    let btnReview_1 = document.getElementById('view-question');
-    btnReview_1.addEventListener("click", reviewQuestion);
-    let btnReview_2 = document.getElementById('menu-question');
-    btnReview_2.addEventListener("click", reviewQuestion);
 
 }
 
@@ -126,6 +129,9 @@ function playQuiz(){
 
     let next_question = document.getElementById("next-question");
     next_question.addEventListener("click",nextQuestion);
+
+    let container2 = document.querySelector('.container2')
+    container2.style.display = 'none'
 }
 
 function nextQuestion(){
@@ -136,17 +142,21 @@ function nextQuestion(){
         
         // CHANGE ANSWER ALL TIME WHENEVER USER CLICK NEXT
         let answer_1 = document.getElementById('answer-1');
-        answer_1.textContent = list_of_questions[index_of_list_of_questions]["answer_1"];
+        
 
         let answer_2 = document.getElementById('answer-2');
-        answer_2.textContent = list_of_questions[index_of_list_of_questions]["answer_2"];
-
-        let answer_3 = document.getElementById('answer-3');
-        answer_3.textContent = list_of_questions[index_of_list_of_questions]["answer_3"];
-
-        let answer_4 = document.getElementById('answer-4');
-        answer_4.textContent = list_of_questions[index_of_list_of_questions]["answer_4"];
         
+        let answer_3 = document.getElementById('answer-3');
+        
+        let answer_4 = document.getElementById('answer-4');
+        
+        for (let object of list_of_questions) {
+            answer_1.textContent = list_of_questions[index_of_list_of_questions].answers["answer_1"];
+            answer_2.textContent = list_of_questions[index_of_list_of_questions].answers["answer_2"];
+            answer_3.textContent = list_of_questions[index_of_list_of_questions].answers["answer_3"];
+            answer_4.textContent = list_of_questions[index_of_list_of_questions].answers["answer_4"];
+        }
+
         // INCREMENT COUNT QUESTION ONE BY ONE
         count_question += 1;
         count.textContent = count_question;
@@ -182,6 +192,9 @@ function reviewQuestion(){
 
     let question_card = document.querySelector(".container-create-questions");
     question_card.style.display = "none";
+
+    let container2 = document.querySelector('.container2')
+    container2.style.display = 'none'
 }
 
 // ------------end coding review question--------------------------
@@ -204,6 +217,12 @@ function createQuestion(){
 
     let question_card = document.querySelector(".container-create-questions");
     question_card.style.display = "block";
+
+    let btn_update = document.getElementById('btn-edit');
+    btn_update.addEventListener('click',displayAfterUpdate)
+
+    let container2 = document.querySelector('.container2')
+    container2.style.display = 'block'
 }
 
 // ------------end coding create question--------------------------
@@ -256,6 +275,82 @@ function submit_answers(event){
 }
     // END SUBMIT ANSWER---------------------------
 
+// displayAfterUpdate ------------------------------------------------------
+
+function displayAfterUpdate(event) {
+    let container2 = document.querySelector('.container2')
+    container2.style.display = 'block'
+    // create card
+    let card = document.createElement('div');
+    card.className = 'card';
+    // create card header
+    let card_header = document.createElement('div');
+    card_header.className = 'card-header';
+
+    let icons = document.createElement('div');
+    icons.className = 'icons'
+
+    // create answer
+    let card_body = document.createElement('div');
+    card_body.className = 'card-body';
+
+    // create span answer
+    let spanAnswer1 = document.createElement('span');
+    let spanAnswer2 = document.createElement('span');
+    let spanAnswer3 = document.createElement('span');
+    let spanAnswer4 = document.createElement('span');
+
+    for (let object of list_of_questions) {
+        card_header.textContent = object.question;        
+
+        spanAnswer1.textContent = object.answers['answer_1']
+        card_body.appendChild(spanAnswer1)
+
+        spanAnswer2.textContent = object.answers['answer_2']
+        card_body.appendChild(spanAnswer2)
+
+        spanAnswer3.textContent = object.answers['answer_3']
+        card_body.appendChild(spanAnswer3)
+
+        spanAnswer4.textContent = object.answers['answer_4']
+        card_body.appendChild(spanAnswer4)
+    }
+    // add card header to card
+    card.appendChild(card_header)
+    // add card body to card
+    card.appendChild(card_body)
+    // add card to container
+    container2.appendChild(card);
+}
+
+// displayAfterUpdate ------------------------------------------------------
+
+// start add question
+function addQuestiontolist (){
+    // create list for each question 
+    let listQandA = {};
+    // get the question from input
+    let questionInput = document.getElementById("questionInput")
+    // append the value get from question input to the question eache
+    listQandA["question"] = questionInput.value;
+    // create list for answer
+    let answers = {};
+    //get the value from input answer
+    for (let index = 1 ; index <= 4; index++ ){
+        answers["answer_"+index] = document.getElementById("anw"+index).value;
+    }
+    listQandA["answers"] = answers
+    //append question and answer to list of question 
+    list_of_questions.push(listQandA)
+    console.log(list_of_questions)
+
+    // refres value inside input
+    questionInput.value = ""
+    for (let index = 1 ; index <= 4; index++ ){
+     document.getElementById("anw"+index).value = ""
+    }
+}
+// end add question
 
 // start Headers--------------------------------------------------
 function inProgress(event){
@@ -282,28 +377,9 @@ var btn_submit = document.querySelector("#sub-ans");
 btn_submit.style.display = "none";
 
 let USER_NAME = "";
-let listOf_question = [];
 
 let list_of_questions = [
-    {question: "How old are you? ", answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"} ,
-    {question: "How many tense are there in English? ", answer_1: "A/ 3 tenses", answer_2: "B/ 4 tenses", answer_3: "C/ 2 tenses",answer_4: "D/ 5 tenses"} ,
-    {question: "How old are you? ",  answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"} ,
-    {question: "How old are you? ", answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"} ,
-    {question: "How old are you? ", answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"} ,
-    {question: "How old are you? ",  answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"} ,
-    {question: "How old are you? ", answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"} ,
-    {question: "How old are you? ", answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"} ,
-    {question: "How old are you? ",  answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"} ,
-    {question: "How old are you? ",  answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"} ,
-    {question: "How old are you? ", answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"} ,
-    {question: "How old are you? ",  answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"} ,
-    {question: "How old are you? ",  answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"} ,
-    {question: "How old are you? ",  answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"} ,
-    {question: "How old are you? ",  answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"} ,
-    {question: "How old are you? ",  answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"} ,
-    {question: "How old are you? ",  answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"} ,
-    {question: "How old are you? ", answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"} ,
-    {question: "How old are you? ", answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"}
+
 ]
 
 let index_of_list_of_questions = 0;
