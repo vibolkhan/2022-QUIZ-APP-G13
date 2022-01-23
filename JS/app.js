@@ -5,7 +5,7 @@
 // Forward new page--------------------------------------------
 function nextPage(){
     var inputName = document.getElementById('user-name');
-    if (inputName.value === ""){
+    if (inputName.value === "" || inputName.value.length < 2){
         alertMessage();
     } else if (message.style.display === "none"){
         displayNextWebpage(event);
@@ -23,7 +23,7 @@ function deleteMessage(){
 function alertMessage(){
     var message = document.querySelector(".message-alert");
     message.style.display = "block";
-    let iconClose = document.querySelector('.fa-close')
+    let iconClose = document.querySelector('.fa-close');
     iconClose.addEventListener("click", deleteMessage);
 }
 
@@ -53,13 +53,10 @@ function createMenu(){
     li_2.id = 'view-question';
     li_2.textContent = "View Questions";
     
-    // create li with id name  "edit-questions" and text name  "Edit/Create Questions"
+    // create li with id name  "create-questions" and text name  "Create Questions"
     let li_3 = document.createElement('li');
-    li_3.id = "edit-questions";
-    li_3.textContent = "Edit/Create Questions";
-
-
-
+    li_3.id = "create-questions";
+    li_3.textContent = "Create Questions";
 
     // append all 3 li to ul-----------------------------------------
     ul.appendChild(li_1);
@@ -82,19 +79,21 @@ function createMenu(){
     btnReview.addEventListener('click',inProgress);
 
     // create button to edit question 
-    let btnEdit = document.getElementById('edit-questions');
-    btnEdit.addEventListener('click',inProgress);
+    let btnCreate = document.getElementById('create-questions');
+    btnCreate.addEventListener('click',inProgress);
 
-    // Add and edit question and hide the question card
+    // 
     // show
-    let edit_createbtn = document.getElementById("menu-edit");
-    edit_createbtn.addEventListener("click",editQuestion);
-    let btn_editout = document.getElementById("edit-questions");
-    btn_editout.addEventListener("click",editQuestion);
+    let edit_createbtn = document.getElementById("menu-create");
+    edit_createbtn.addEventListener("click",createQuestion);
+    let btn_editout = document.getElementById("create-questions");
+    btn_editout.addEventListener("click",createQuestion);
+
+
     // hide
     let quiz_btn = document.getElementById("menu-quiz");
     quiz_btn.addEventListener("click",playQuiz);
-    let question_btn = document.getElementById("menu-question");
+    let question_btn = document.getElementById("start-quiz");
     question_btn.addEventListener("click",playQuiz);
 }
 
@@ -102,34 +101,8 @@ function createMenu(){
 const btnNext = document.getElementById('next-button');
 btnNext.addEventListener("click",nextPage);
 
-// Function for add a question 
-function addQuestion (){
-    // get the value from input question
-    let questioninput_btn = document.getElementById("questionInput");
-    console.log(questioninput_btn.value);
-    // create question
-    let questions = {};
-    questions["question"] = questioninput_btn.value;
-    // append question to list of question
-    listOf_question.push(questions);
-    console.log(questions);
-    console.log(listOf_question);
-}
-// Function for edit and add a question
-function editQuestion () {
-    // get element question card
-    let question_card = document.querySelector(".question-card");
-    question_card.style.display = "flex";
-    let question_to_play = document.querySelector('.container-question');
-    question_to_play.style.display = "none";
-    // Add question to list of question
-    let nexbtn_ques = document.getElementById("btn-nextQuestion");
-    nexbtn_ques.addEventListener("click",addQuestion);
-}
 
-
-
-// ------------Play quiz--------------------------
+// ------------start coding Play quiz--------------------------
 function playQuiz(){
     let question_card = document.querySelector(".question-card");
     question_card.style.display = "none";
@@ -137,6 +110,34 @@ function playQuiz(){
     let question_to_play = document.querySelector('.container-question');
     question_to_play.style.display = "block";
 }
+// ------------end coding Play quiz--------------------------
+
+
+// ------------start coding review question--------------------------
+function reviewQuestion(){
+}
+
+// ------------end coding review question--------------------------
+
+
+// ------------start coding create question--------------------------
+function createQuestion(){
+    let question_to_play = document.querySelector('.container-question');
+    question_to_play.style.display = "none";
+
+    let question_card = document.querySelector(".question-card");
+    question_card.style.display = "block";
+
+
+
+
+
+}
+
+// ------------end coding create question--------------------------
+
+
+
 
 // start Headers--------------------------------------------------
 function inProgress(event){
@@ -153,7 +154,6 @@ function inProgress(event){
     //create menu in start quiz page
     let menu = document.querySelector(".menu");
     menu.style.display = "block";
-    console.log(menu);
 }
 // end header-----------------------------------------------------
 
