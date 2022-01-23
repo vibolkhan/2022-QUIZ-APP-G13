@@ -82,19 +82,24 @@ function createMenu(){
     let btnCreate = document.getElementById('create-questions');
     btnCreate.addEventListener('click',inProgress);
 
-    // 
-    // show
+    // CREAT FUNCTION TO PLAY QUIZ
+    let quiz_btn = document.getElementById("menu-quiz");
+    quiz_btn.addEventListener("click",playQuiz);
+    let question_btn = document.getElementById("start-quiz");
+    question_btn.addEventListener("click",playQuiz);
+
+    // CREATE FUNCTION TO CREATE QUESTION----------------
     let edit_createbtn = document.getElementById("menu-create");
     edit_createbtn.addEventListener("click",createQuestion);
     let btn_editout = document.getElementById("create-questions");
     btn_editout.addEventListener("click",createQuestion);
 
+    // CREATE FUNCTION TO REVIEW QUESTIONS-------------------
+    let btnReview_1 = document.getElementById('view-question');
+    btnReview_1.addEventListener("click", reviewQuestion);
+    let btnReview_2 = document.getElementById('menu-question');
+    btnReview_2.addEventListener("click", reviewQuestion);
 
-    // hide
-    let quiz_btn = document.getElementById("menu-quiz");
-    quiz_btn.addEventListener("click",playQuiz);
-    let question_btn = document.getElementById("start-quiz");
-    question_btn.addEventListener("click",playQuiz);
 }
 
 // Define button next to get on next page
@@ -104,7 +109,7 @@ btnNext.addEventListener("click",nextPage);
 
 // ------------start coding Play quiz--------------------------
 function playQuiz(){
-    let question_card = document.querySelector(".question-card");
+    let question_card = document.querySelector(".container-create-questions");
     question_card.style.display = "none";
 
     let question_to_play = document.querySelector('.container-question');
@@ -115,6 +120,11 @@ function playQuiz(){
 
 // ------------start coding review question--------------------------
 function reviewQuestion(){
+    let question_to_play = document.querySelector('.container-question');
+    question_to_play.style.display = "none";
+
+    let question_card = document.querySelector(".container-create-questions");
+    question_card.style.display = "none";
 }
 
 // ------------end coding review question--------------------------
@@ -125,7 +135,7 @@ function createQuestion(){
     let question_to_play = document.querySelector('.container-question');
     question_to_play.style.display = "none";
 
-    let question_card = document.querySelector(".question-card");
+    let question_card = document.querySelector(".container-create-questions");
     question_card.style.display = "block";
 
 

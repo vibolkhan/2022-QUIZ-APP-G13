@@ -55,7 +55,7 @@ body{
     margin-top: 10px;
     font-size: 20px;
 }
-.container #next-button,#btn-edit{
+.container #next-button,#btn-edit, #next-question{
     margin-top: 20px;
     padding: 8px 20px;
     font-size: 20px;
@@ -67,7 +67,7 @@ body{
     font-family: "Battambang", sans-serif;
     letter-spacing: 2px;
 }
-.container #next-button:hover,#btn-edit:hover{
+.container #next-button:hover,#btn-edit:hover,#next-question:hover{
     transform: translateY(-2px);
     background-color: none;
     box-shadow: 2px 3px 8px 2px #aaa;
@@ -134,9 +134,7 @@ header {
     margin-right: 30px;
     padding-right: 36px;
 }
-.userName {
-    color: red;
-}
+
 /* / end header container  / */
 
 /* start create menu bar */
@@ -169,7 +167,7 @@ header {
 /* end create menu bar */
 
 /* card-question */
-.question-card {
+.container-create-questions {
     display: flex;
     width: 60%;
     background-color: grey;
@@ -254,11 +252,30 @@ header {
     width: 60%;
     padding: 16px 30px;
     border-radius: 8px;
-/* <!-- end show question to play one by one --> */
 }
+ 
+.container-question .multiple-answers{
+    padding: 20px;
+    background-color: #eee;
+    height: 30vh;
+}
+.container-question .multiple-answers .answer{
+    background: blue;
+    margin: 20px;
+    width: 50%;
+    padding: 10px 50px;
+    line-height: 80px;
+}
+.container-question .footer-question{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 0;
+}
+/* <!-- end show question to play one by one --> */
 
 /* add page edit and create display question after edit */
-.conteiner2 {
+/* .conteiner2 {
     padding: 10px;
     display: flex;
 }
@@ -319,6 +336,6 @@ header {
 .conteiner2 .card .card-body span:hover {
     background-color: #0593E3;
     color: #fff;
-}
+} */
 
 /* add page edit and create display question after edit */
