@@ -88,17 +88,19 @@ function createMenu(){
     let question_btn = document.getElementById("start-quiz");
     question_btn.addEventListener("click",playQuiz);
 
-    // CREATE FUNCTION TO CREATE QUESTION----------------
-    let edit_createbtn = document.getElementById("menu-create");
-    edit_createbtn.addEventListener("click",createQuestion);
-    let btn_editout = document.getElementById("create-questions");
-    btn_editout.addEventListener("click",createQuestion);
-
     // CREATE FUNCTION TO REVIEW QUESTIONS-------------------
     let btnReview_1 = document.getElementById('view-question');
     btnReview_1.addEventListener("click", reviewQuestion);
     let btnReview_2 = document.getElementById('menu-question');
     btnReview_2.addEventListener("click", reviewQuestion);
+
+    // CREATE FUNCTION TO CREATE QUESTION----------------
+    let edit_createbtn = document.getElementById("menu-create");
+    edit_createbtn.addEventListener("click",createQuestion);
+    let btn_editout = document.getElementById("create-questions");
+    btn_editout.addEventListener("click",createQuestion);
+    let btn_update = document.querySelector('#btn-edit');
+    btn_update.addEventListener("click",addQuestiontolist);
 
 }
 
@@ -136,6 +138,11 @@ function playQuiz(){
         let question_to_play = document.querySelector('.container-question');
         question_to_play.style.display = "block";
     }
+    let number_questions = document.getElementById('total-questions');
+    number_questions.textContent = total_questions;
+
+    let container2 = document.querySelector('.container2');
+    container2.style.display = 'none';
 }
 
 function nextQuestion(){
@@ -197,7 +204,8 @@ function reviewQuestion(){
         let question_to_play = document.querySelector('.container-question');
         question_to_play.style.display = "none";
     }
-
+    let container2 = document.querySelector('.container2')
+    container2.style.display = 'none'
 }
 
 // ------------end coding review question--------------------------
@@ -226,7 +234,88 @@ function createQuestion(){
         let question_to_play = document.querySelector('.container-question');
         question_to_play.style.display = "none";
     }
+
+    let btn_update = document.getElementById('btn-edit');
+    btn_update.addEventListener('click',displayAfterUpdate)
+
+    let container2 = document.querySelector('.container2')
+    container2.style.display = 'block'
 }
+
+// display after edit 
+function displayAfterUpdate(event) {
+    let container2 = document.querySelector('.container2')
+    container2.style.display = 'block'
+    // create card
+    let card = document.createElement('div');
+    card.className = 'card';
+    // create card header
+    let card_header = document.createElement('div');
+    card_header.className = 'card-header';
+
+    let icons = document.createElement('div');
+    icons.className = 'icons'
+
+    // create answer
+    let card_body = document.createElement('div');
+    card_body.className = 'card-body';
+
+    // create span answer
+    let spanAnswer1 = document.createElement('span');
+    let spanAnswer2 = document.createElement('span');
+    let spanAnswer3 = document.createElement('span');
+    let spanAnswer4 = document.createElement('span');
+
+    for (let object of list_of_questions) {
+        card_header.textContent = object.question;        
+
+        spanAnswer1.textContent = object.answers['answer_1']
+        card_body.appendChild(spanAnswer1)
+
+        spanAnswer2.textContent = object.answers['answer_2']
+        card_body.appendChild(spanAnswer2)
+
+        spanAnswer3.textContent = object.answers['answer_3']
+        card_body.appendChild(spanAnswer3)
+
+        spanAnswer4.textContent = object.answers['answer_4']
+        card_body.appendChild(spanAnswer4)
+    }
+    // add card header to card
+    card.appendChild(card_header)
+    // add card body to card
+    card.appendChild(card_body)
+    // add card to container
+    container2.appendChild(card);
+}
+
+// add question to object
+function addQuestiontolist (){
+    // create list for each question 
+    let listQandA = {};
+    // get the question from input
+    let questionInput = document.getElementById("questionInput")
+    // append the value get from question input to the question eache
+    listQandA["question"] = questionInput.value;
+    // create list for answer
+    let answers = {};
+    //get the value from input answer
+    for (let index = 1 ; index <= 4; index++ ){
+        answers["answer_"+index] = document.getElementById("anw"+index).value;
+    }
+    listQandA["answers"] = answers
+    //append question and answer to list of question 
+    list_of_questions.push(listQandA)
+    console.log(list_of_questions)
+
+    // refres value inside input
+    questionInput.value = ""
+    for (let index = 1 ; index <= 4; index++ ){
+     document.getElementById("anw"+index).value = ""
+    }
+    total_questions += 1
+}
+// end add question
 
 // ------------end coding create question--------------------------
 
@@ -287,7 +376,7 @@ function submit_answers(event){
         let count_question = document.createElement("div");
         count_question.className = "count-question";
         number_of_question += 1;
-        count_question.textContent = number_of_question + " /20 Questions";
+        count_question.textContent = number_of_question + " /"+total_questions+"Questions";
         foot_question.appendChild(count_question);
         question_to_play.appendChild(foot_question);
 
