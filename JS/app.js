@@ -420,7 +420,6 @@ var question_to_play = document.querySelector('.container-question');
 question_to_play.style.display = "none";
 
 let USER_NAME = "";
-let listOf_question = [];
 
 let list_of_questions = [
     {question: "How old are you? ", answers:{answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"} } ,
@@ -448,3 +447,4 @@ let list_of_questions = [
 let index_of_list_of_questions = 0;
 let total_questions = 20;
 let count_question = 0;
+
