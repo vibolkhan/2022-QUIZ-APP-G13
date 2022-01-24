@@ -87,13 +87,16 @@ function createMenu(){
     quiz_btn.addEventListener("click",playQuiz);
     let question_btn = document.getElementById("start-quiz");
     question_btn.addEventListener("click",playQuiz);
-
+    
     // CREATE FUNCTION TO REVIEW QUESTIONS-------------------
-    let btnReview_1 = document.getElementById('view-question');
-    btnReview_1.addEventListener("click", reviewQuestion);
     let btnReview_2 = document.getElementById('menu-question');
+    let btnReview_1 = document.getElementById('view-question');
+    btnReview_1.addEventListener("click",displayQuestionAll)
+    btnReview_2.addEventListener("click",displayQuestionAll)
+    btnReview_1.addEventListener("click", reviewQuestion);
     btnReview_2.addEventListener("click", reviewQuestion);
 
+    
     // CREATE FUNCTION TO CREATE QUESTION----------------
     let edit_createbtn = document.getElementById("menu-create");
     edit_createbtn.addEventListener("click",createQuestion);
@@ -101,7 +104,7 @@ function createMenu(){
     btn_editout.addEventListener("click",createQuestion);
     let btn_update = document.querySelector('#btn-edit');
     btn_update.addEventListener("click",addQuestiontolist);
-
+    
 }
 
 // Define button next to get on next page
@@ -143,6 +146,10 @@ function playQuiz(){
 
     let container2 = document.querySelector('.container2');
     container2.style.display = 'none';
+
+    // hide container display
+    let container_questindisplay = document.querySelector(".container_dg")
+    container_questindisplay.style.display = "none";
 }
 
 function nextQuestion(){
@@ -206,6 +213,10 @@ function reviewQuestion(){
     }
     let container2 = document.querySelector('.container2')
     container2.style.display = 'none'
+
+    // show  display question
+    let container_questindisplay = document.querySelector(".container_dg")
+    container_questindisplay.style.display = "block";
 }
 
 // ------------end coding review question--------------------------
@@ -240,6 +251,10 @@ function createQuestion(){
 
     let container2 = document.querySelector('.container2')
     container2.style.display = 'block'
+
+    // hide display question
+    let container_questindisplay = document.querySelector(".container_dg")
+    container_questindisplay.style.display = "none";
 }
 
 // display after edit 
@@ -289,6 +304,46 @@ function displayAfterUpdate(event) {
     container2.appendChild(card);
 }
 
+// display in question menu page - start
+function displayQuestionAll (){
+    let container_questindisplay = document.querySelector(".container_dg")
+    for (let element of list_of_questions){
+        
+        // create eache list for question and answer
+        let qANDa = document.createElement("div");
+        qANDa.className = "qANDa";
+
+        // create span for question text
+        let textQ = document.createElement("span");
+        textQ.className = "textQ";
+        textQ.textContent = element["question"]
+        qANDa.appendChild(textQ)
+
+        // create dive to store the button edit and delete
+        let eANDd = document.createElement("div");
+        eANDd.className = "eANDd";
+
+        // create button edit 
+        let edit_btn = document.createElement("i");
+        edit_btn.className = "fa fa-edit fa-3x";
+
+        // create delet button
+        let delet_btn = document.createElement("i");
+        delet_btn.className = "fa fa-trash fa-3x";
+
+        // append edit and delete button to the list that store it
+        eANDd.appendChild(edit_btn)
+        eANDd.appendChild(delet_btn)
+
+        // append the list that stroe btn edit and delete to list 
+        qANDa.appendChild(eANDd)
+
+        // append each list to the container in html
+        container_questindisplay.appendChild(qANDa)
+    }
+    container_questindisplay.style.display = "block";
+}
+// display in question menu page - end
 // add question to object
 function addQuestiontolist (){
     // create list for each question 
@@ -316,6 +371,9 @@ function addQuestiontolist (){
     total_questions += 1
 }
 // end add question
+
+
+
 
 // ------------end coding create question--------------------------
 
@@ -422,27 +480,29 @@ question_to_play.style.display = "none";
 let USER_NAME = "";
 
 let list_of_questions = [
-    {question: "How old are you? ", answers:{answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"} } ,
-    {question: "How old are you? ", answers:{answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"} } ,
-    {question: "How old are you? ", answers:{answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"} } ,
-    {question: "How old are you? ", answers:{answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"} } ,
-    {question: "How old are you? ", answers:{answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"} } ,
-    {question: "How old are you? ", answers:{answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"} } ,
-    {question: "How old are you? ", answers:{answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"} } ,
-    {question: "How old are you? ", answers:{answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"} } ,
-    {question: "How old are you? ", answers:{answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"} } ,
-    {question: "How old are you? ", answers:{answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"} } ,
-    {question: "How old are you? ", answers:{answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"} } ,
-    {question: "How old are you? ", answers:{answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"} } ,
-    {question: "How old are you? ", answers:{answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"} } ,
-    {question: "How old are you? ", answers:{answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"} } ,
-    {question: "How old are you? ", answers:{answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"} } ,
-    {question: "How old are you? ", answers:{answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"} } ,
-    {question: "How old are you? ", answers:{answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"} } ,
-    {question: "How old are you? ", answers:{answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"} } ,
-    {question: "How old are you? ", answers:{answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"} } ,
-    {question: "How old are you? ", answers:{answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"} } 
+    {question:'1/what is your name? ',answers: {answer_1 : "A", answer_2 : "B",answer_3 : "C",answer_4 :"Dw"}},
+    {question:'2/what is the capital of cambodia? ',answers: {answer_1 : "Battam Bang", answer_2 : "Phnom Penh",answer_3 : "Siem Reap",answer_4 :"Kompong Soum"}},
+    {question:'3/who is the preminister of cambodia? ',answers: {answer_1 : "Hun sen", answer_2 : "Prayut Jan ou Ja",answer_3 : "Vibol",answer_4 :"Sauth"}},
+    {question:'4/When PNC had created?? ',answers: {answer_1 : "2010", answer_2 : "2007",answer_3 : "2021",answer_4 :"2005"}},
+    {question:'5/How many major in PNC? ',answers: {answer_1 : "1", answer_2 : "2",answer_3 : "3",answer_4 :"4"}},
+    {question:'6/How many hour per day? ',answers: {answer_1 : "17", answer_2 : "23",answer_3 : "24",answer_4 :"10"}},
+    {question:'7/JS stand for? ',answers: {answer_1 : "Java Script", answer_2 : "Java security",answer_3 : "Java sleep",answer_4 :"Java String"}},
+    {question:'8/How many man studenta in SNA class in this year? ',answers: {answer_1 : "5", answer_2 : "4",answer_3 : "10",answer_4 :"0"}},
+    {question:'9/what is your name? ',answers: {answer_1 : "A", answer_2 : "B",answer_3 : "C",answer_4 :"Dw"}},
+    {question:'10/what is your name? ',answers: {answer_1 : "A", answer_2 : "B",answer_3 : "C",answer_4 :"Dw"}},
+    {question:'11/what is your name? ',answers: {answer_1 : "A", answer_2 : "B",answer_3 : "C",answer_4 :"Dw"}},
+    {question:'12/what is your name? ',answers: {answer_1 : "A", answer_2 : "B",answer_3 : "C",answer_4 :"Dw"}},
+    {question:'13/what is your name? ',answers: {answer_1 : "A", answer_2 : "B",answer_3 : "C",answer_4 :"Dw"}},
+    {question:'14/what is your name? ',answers: {answer_1 : "A", answer_2 : "B",answer_3 : "C",answer_4 :"Dw"}},
+    {question:'15/what is your name? ',answers: {answer_1 : "A", answer_2 : "B",answer_3 : "C",answer_4 :"Dw"}},
+    {question:'16/what is your name? ',answers: {answer_1 : "A", answer_2 : "B",answer_3 : "C",answer_4 :"Dw"}},
+    {question:'17/what is your name? ',answers: {answer_1 : "A", answer_2 : "B",answer_3 : "C",answer_4 :"Dw"}},
+    {question:'18/what is your name? ',answers: {answer_1 : "A", answer_2 : "B",answer_3 : "C",answer_4 :"Dw"}},
+    {question:'19/what is your name? ',answers: {answer_1 : "A", answer_2 : "B",answer_3 : "C",answer_4 :"Dw"}},
+    {question:'20/what is your name? ',answers: {answer_1 : "A", answer_2 : "B",answer_3 : "C",answer_4 :"Dw"}},
+    
 ]
+
 
 let index_of_list_of_questions = 0;
 let total_questions = 20;

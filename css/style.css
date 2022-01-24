@@ -295,3 +295,48 @@ header {
     display: none;
 }
 
+/* start display dg */
+.container_dg {
+    display: flex;
+    flex-wrap: wrap;
+    display: none;
+    width: 90%;
+    margin: auto;
+    
+}
+.qANDa {
+    width: 80%;
+    padding: 20px;
+    background-color: grey;
+    border: none;
+    margin: auto auto 10px auto ;
+    border-radius: 7px;
+    cursor: pointer;
+    border-top: 2px solid blue;
+    display: flex;
+    justify-content: space-between;
+   
+}
+.qANDa span {
+    width: 80%;
+    color: white;
+    font-weight: bold;
+    font-size: 25px;
+    text-align: center;
+    padding: 10px;
+}
+.eANDd {
+    width: 10%;
+    display: flex;
+    justify-content: space-between;
+}
+.fa-edit {
+    color: rgb(15, 15, 160) ;
+}
+.fa-trash {
+    color: rgb(175, 27, 27);
+}
+.qANDa:hover {
+    background-color: rgb(55, 58, 226);
+}
+/* end display dg */
