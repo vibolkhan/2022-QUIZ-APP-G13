@@ -123,9 +123,6 @@ function playQuiz(){
     let question_card = document.querySelector(".container-create-questions");
     question_card.style.display = "none";
 
-    // let question_to_play = document.querySelector('.container-question');
-    // question_to_play.style.display = "block";
-
     if (index_of_list_of_questions < total_questions){
         let next_question = document.getElementById("next-question");
         next_question.addEventListener("click",nextQuestion);
@@ -160,10 +157,9 @@ function nextQuestion(){
 
         let answer_3 = document.getElementById('answer-3');
         answer_3.textContent = list_of_questions[index_of_list_of_questions].answers["answer_3"];
-
+        
         let answer_4 = document.getElementById('answer-4');
         answer_4.textContent = list_of_questions[index_of_list_of_questions].answers["answer_4"];
-        
         // INCREMENT COUNT QUESTION ONE BY ONE
         count_question += 1;
         count.textContent = count_question;
@@ -171,6 +167,7 @@ function nextQuestion(){
         // INCREMENT INDEX BY 1
         index_of_list_of_questions += 1;
     }
+
     // CHECK, IF QUESTION EQUAL TO LIMITED QUESTION CHANGE FROM "NEXT QUE" TO "SUBMIT"
     if (index_of_list_of_questions === list_of_questions.length){
         btn_submit.style.display = "block";
@@ -235,8 +232,9 @@ function createQuestion(){
         question_to_play.style.display = "none";
     }
 
+
     let btn_update = document.getElementById('btn-edit');
-    btn_update.addEventListener('click',displayAfterUpdate)
+    btn_update.addEventListener('click',displayAfterUpdate);
 
     let container2 = document.querySelector('.container2')
     container2.style.display = 'block'
@@ -244,6 +242,7 @@ function createQuestion(){
 
 // display after edit 
 function displayAfterUpdate(event) {
+    
     let container2 = document.querySelector('.container2')
     container2.style.display = 'block'
     // create card
@@ -311,13 +310,26 @@ function addQuestiontolist (){
     // refres value inside input
     questionInput.value = ""
     for (let index = 1 ; index <= 4; index++ ){
-     document.getElementById("anw"+index).value = ""
+        document.getElementById("anw"+index).value = ""
     }
     total_questions += 1
 }
 // end add question
 
 // ------------end coding create question--------------------------
+//---------------START GET USER ANSWERS CHOOSE-----------
+// function getUserAnswer(event){
+//     let answer = event.target.textContent;
+//     if (event.target.textContent == "A/ 20 years"){
+//         event.target.style.background = "green";
+//         list_of_user_answer.push(answer)
+
+//     } else {
+//         event.target.style.background = "red";
+//     }
+
+// }
+// //---------------END GET USER ANSWERS CHOOSE-----------
 
     // START SUBMIT ANSWER---------------------------
 function submit_answers(event){
@@ -444,6 +456,29 @@ let list_of_questions = [
     {question: "How old are you? ", answers:{answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"} } 
 ]
 
+var list_of_correct_answers = [ "A/ 20 years",
+                                "C/ 20 years",
+                                "A/ 20 years",
+                                "B/ 20 years",
+                                "D/ 20 years",
+                                "A/ 20 years",
+                                "A/ 20 years",
+                                "A/ 20 years",
+                                "A/ 20 years",
+                                "A/ 20 years",
+                                "A/ 20 years",
+                                "A/ 20 years",
+                                "A/ 20 years",
+                                "A/ 20 years",
+                                "A/ 20 years",
+                                "A/ 20 years",
+                                "A/ 20 years",
+                                "A/ 20 years",
+                                "A/ 20 years",
+                                "A/ 20 years",
+                            ];
+
+var list_of_user_answer = [];
 let index_of_list_of_questions = 0;
 let total_questions = 20;
 let count_question = 0;

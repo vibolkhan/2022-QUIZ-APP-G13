@@ -254,12 +254,19 @@ header {
     border-radius: 12px;
     text-align: center;
     box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+} 
+.container-question .question h2{
+    padding: 16px 0px;
+    box-shadow: 2px 2px 8px 2px #aaa;
+    border-radius: 4px;
+    background-color: #ddd;
 }
 .container-question .multiple-answers,.card .card-body{
     padding: 10px 20px;
     background-color: #ddd;
     font-size: 20px;
     border-radius: 12px;
+    box-shadow: 2px 2px 8px 2px #aaa;
 }
 .container-question .multiple-answers .answer, .card .card-body span{
     padding: 12px 20px;
@@ -287,6 +294,9 @@ header {
 }
 .count-question{
     font-weight: 900;
+    padding: 12px 16px;
+    box-shadow: 0px 5px 6px #aaa;
+    border-radius: 4px;
 }
 /* <!-- end show question to play one by one --> */
 
