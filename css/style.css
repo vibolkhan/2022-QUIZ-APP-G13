@@ -245,7 +245,6 @@ header {
 
 /* <!-- start show question to play one by one --> */
 .container-question {
-    display: none;
     margin: 40px auto;
     font-size: 20px;
     background: #cccccc;
@@ -254,7 +253,7 @@ header {
     padding: 10px 30px;
     border-radius: 12px;
     text-align: center;
-        box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
 }
 .container-question .multiple-answers{
     padding: 10px 20px;
@@ -275,7 +274,7 @@ header {
     
 }
 .container-question .multiple-answers .answer:hover{
-    box-shadow: #aaa 0px 6px 6px;
+    box-shadow: #aaa 0px 4px 4px;
     transform: translateY(-2px);
     background: #0d6ba1;
 }
