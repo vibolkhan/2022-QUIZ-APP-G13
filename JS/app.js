@@ -270,6 +270,7 @@ function displayAfterUpdate(event) {
     container2.appendChild(card);
 }
 
+
 // add question to object
 function addQuestiontolist (){
     // create list for each question 
