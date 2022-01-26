@@ -47,11 +47,6 @@ function createMenu(){
     let li_1 = document.createElement('li');
     li_1.id = "start-quiz";
     li_1.textContent = "Play Quiz";
-
-    // create li with id name  "view-question" and text name  "View Questions"
-    let li_2 = document.createElement('li');
-    li_2.id = 'view-question';
-    li_2.textContent = "View Questions";
     
     // create li with id name  "create-questions" and text name  "Create Questions"
     let li_3 = document.createElement('li');
@@ -60,7 +55,6 @@ function createMenu(){
 
     // append all 3 li to ul-----------------------------------------
     ul.appendChild(li_1);
-    ul.appendChild(li_2);
     ul.appendChild(li_3);
 
     // append ul to menu------------------------
@@ -74,32 +68,18 @@ function createMenu(){
     let startquiz = document.getElementById('start-quiz');
     startquiz.addEventListener('click',inProgress);
 
-    // create button to review question 
-    let btnReview = document.getElementById('view-question');
-    btnReview.addEventListener('click',inProgress);
-
     // create button to edit question 
     let btnCreate = document.getElementById('create-questions');
     btnCreate.addEventListener('click',inProgress);
+    btnCreate.addEventListener("click",displayallquestion)
 
     // CREAT FUNCTION TO PLAY QUIZ
-    let quiz_btn = document.getElementById("menu-quiz");
-    quiz_btn.addEventListener("click",playQuiz);
+
     let question_btn = document.getElementById("start-quiz");
     question_btn.addEventListener("click",playQuiz);
     
-    // CREATE FUNCTION TO REVIEW QUESTIONS-------------------
-    let btnReview_2 = document.getElementById('menu-question');
-    let btnReview_1 = document.getElementById('view-question');
-    btnReview_1.addEventListener("click",displayQuestionAll)
-    btnReview_2.addEventListener("click",displayQuestionAll)
-    btnReview_1.addEventListener("click", reviewQuestion);
-    btnReview_2.addEventListener("click", reviewQuestion);
-
-    
     // CREATE FUNCTION TO CREATE QUESTION----------------
-    let edit_createbtn = document.getElementById("menu-create");
-    edit_createbtn.addEventListener("click",createQuestion);
+
     let btn_editout = document.getElementById("create-questions");
     btn_editout.addEventListener("click",createQuestion);
     let btn_update = document.querySelector('#btn-edit');
@@ -114,14 +94,6 @@ btnNext.addEventListener("click",nextPage);
 
 // ------------start coding Play quiz--------------------------
 function playQuiz(){
-    let quiz_btn = document.getElementById("menu-quiz");
-    quiz_btn.style.background = "#0d6ba1";
-
-    let edit_createbtn = document.getElementById("menu-create");
-    edit_createbtn.style.background = "#0593E3";
-
-    let btnReview_2 = document.getElementById('menu-question');
-    btnReview_2.style.background = "#0593E3";
 
     let question_card = document.querySelector(".container-create-questions");
     question_card.style.display = "none";
@@ -143,10 +115,6 @@ function playQuiz(){
 
     let container2 = document.querySelector('.container2');
     container2.style.display = 'none';
-
-    // hide container display
-    let container_questindisplay = document.querySelector(".container_dg")
-    container_questindisplay.style.display = "none";
 }
 
 function nextQuestion(){
@@ -186,51 +154,8 @@ function nextQuestion(){
 }
 // ------------end coding Play quiz--------------------------
 
-
-// ------------start coding review question--------------------------
-function reviewQuestion(){
-    let quiz_btn = document.getElementById("menu-quiz");
-    quiz_btn.style.background = "#0593E3";
-
-    let edit_createbtn = document.getElementById("menu-create");
-    edit_createbtn.style.background = "#0593E3";
-
-    let btnReview_2 = document.getElementById('menu-question');
-    btnReview_2.style.background = "#0d6ba1";
-
-    let question_card = document.querySelector(".container-create-questions");
-    question_card.style.display = "none";
-
-    if (index_of_list_of_questions >= total_questions){
-        let global_container = document.querySelector('.global-container');
-        global_container.style.display = "none";
-    } else{
-        let question_to_play = document.querySelector('.container-question');
-        question_to_play.style.display = "none";
-    }
-    let container2 = document.querySelector('.container2')
-    container2.style.display = 'none'
-
-    // show  display question
-    let container_questindisplay = document.querySelector(".container_dg")
-    container_questindisplay.style.display = "block";
-}
-
-// ------------end coding review question--------------------------
-
-
 // ------------start coding create question--------------------------
 function createQuestion(){
-    let quiz_btn = document.getElementById("menu-quiz");
-    quiz_btn.style.background = "#0593E3";
-
-    let edit_createbtn = document.getElementById("menu-create");
-    edit_createbtn.style.background = "#0d6ba1";
-
-    let btnReview_2 = document.getElementById('menu-question');
-    btnReview_2.style.background = "#0593E3";
-
-
     
     let question_card = document.querySelector(".container-create-questions");
     question_card.style.display = "block";
@@ -249,12 +174,51 @@ function createQuestion(){
 
     let container2 = document.querySelector('.container2')
     container2.style.display = 'block'
-
-    // hide display question
-    let container_questindisplay = document.querySelector(".container_dg")
-    container_questindisplay.style.display = "none";
 }
 
+// display all question 
+function displayallquestion (){
+    
+    for (let element of list_of_questions){
+        let card_question = document.createElement("div");
+        card_question.className = "card";
+
+        let spnaquestion = document.createElement("div");
+        spnaquestion.className = "question";
+
+        let h2 = document.createElement("h2");
+        h2.textContent = element.question;
+
+        spnaquestion.appendChild(h2);
+        card_question.appendChild(spnaquestion);
+
+        let listanswer = document.createElement("ul");
+        listanswer.className = "card-body";
+
+        let liAnswer1 = document.createElement('span');
+        liAnswer1.className = "answer";
+        liAnswer1.textContent = element.answers.answer_1;
+        listanswer.appendChild(liAnswer1);
+
+        let liAnswer2 = document.createElement('span');
+        liAnswer2.className = "answer";
+        liAnswer2.textContent = element.answers.answer_2;
+        listanswer.appendChild(liAnswer2);
+
+        let liAnswer3 = document.createElement('span');
+        liAnswer3.className = "answer";
+        liAnswer3.textContent = element.answers.answer_3;
+        listanswer.appendChild(liAnswer3);
+
+        let liAnswer4 = document.createElement('span');
+        liAnswer4.className = "answer";
+        liAnswer4.textContent = element.answers.answer_4;
+        listanswer.appendChild(liAnswer4);
+
+        card_question.appendChild(listanswer);
+        document.querySelector(".container2").appendChild(card_question)
+    }
+}
 // display after edit 
 function displayAfterUpdate(event) {
     
@@ -266,6 +230,8 @@ function displayAfterUpdate(event) {
     // create card header
     let card_header = document.createElement('div');
     card_header.className = 'card-header';
+
+    let h2 = document.createElement('h2')
 
     let icons = document.createElement('div');
     icons.className = 'icons'
@@ -281,7 +247,7 @@ function displayAfterUpdate(event) {
     let spanAnswer4 = document.createElement('span');
 
     for (let object of list_of_questions) {
-        card_header.textContent = object.question;        
+        h2.textContent = object.question;        
 
         spanAnswer1.textContent = object.answers['answer_1']
         card_body.appendChild(spanAnswer1)
@@ -296,6 +262,7 @@ function displayAfterUpdate(event) {
         card_body.appendChild(spanAnswer4)
     }
     // add card header to card
+    card_header.appendChild(h2);
     card.appendChild(card_header)
     // add card body to card
     card.appendChild(card_body)
@@ -303,67 +270,49 @@ function displayAfterUpdate(event) {
     container2.appendChild(card);
 }
 
-// display in question menu page - start
-function displayQuestionAll (){
-    let container_questindisplay = document.querySelector(".container_dg")
-    for (let element of list_of_questions){
-        
-        // create eache list for question and answer
-        let qANDa = document.createElement("div");
-        qANDa.className = "qANDa";
-
-        // create span for question text
-        let textQ = document.createElement("span");
-        textQ.className = "textQ";
-        textQ.textContent = element["question"]
-        qANDa.appendChild(textQ)
-
-        // create dive to store the button edit and delete
-        let eANDd = document.createElement("div");
-        eANDd.className = "eANDd";
-
-        // create button edit 
-        let edit_btn = document.createElement("i");
-        edit_btn.className = "fa fa-edit fa-3x";
-
-        // create delet button
-        let delet_btn = document.createElement("i");
-        delet_btn.className = "fa fa-trash fa-3x";
-
-        // append edit and delete button to the list that store it
-        eANDd.appendChild(edit_btn)
-        eANDd.appendChild(delet_btn)
-
-        // append the list that stroe btn edit and delete to list 
-        qANDa.appendChild(eANDd)
-
-        // append each list to the container in html
-        container_questindisplay.appendChild(qANDa)
-    }
-    container_questindisplay.style.display = "block";
-}
-// display in question menu page - end
 // add question to object
 function addQuestiontolist (){
     // create list for each question 
-    let listQandA = {};
+    let listQuestionandanswer = {};
     // get the question from input
     let questionInput = document.getElementById("questionInput")
     // append the value get from question input to the question eache
-    listQandA["question"] = questionInput.value;
+    listQuestionandanswer["question"] = questionInput.value;
     // create list for answer
     let answers = {};
     //get the value from input answer
     for (let index = 1 ; index <= 4; index++ ){
+        
         answers["answer_"+index] = document.getElementById("anw"+index).value;
     }
-    listQandA["answers"] = answers
+    listQuestionandanswer['answers']=answers;
+    // add correct answer
+    let correctanswer = document.querySelectorAll(".select-answer")
+    for (let elements of correctanswer){
+        if (elements.checked){
+            if (elements.value==1){
+                list_of_user_answer.push("A")
+            }else if (elements.value==2){
+                list_of_user_answer.push("B")
+            }else if (elements.value==3){
+                list_of_user_answer.push("C")
+            }else if (elements.value==4){
+                list_of_user_answer.push("D")
+            }
+        }
+    }
+    console.log(list_of_user_answer)
+    console.log(listQuestionandanswer)
+    listQuestionandanswer["answers"] = answers
     //append question and answer to list of question 
-    list_of_questions.push(listQandA)
+    list_of_questions.push(listQuestionandanswer)
     console.log(list_of_questions)
 
     // refres value inside input
     questionInput.value = ""
+    for (let elements of correctanswer){
+        elements.checked = false;
+    }
     for (let index = 1 ; index <= 4; index++ ){
         document.getElementById("anw"+index).value = ""
     }
@@ -371,23 +320,6 @@ function addQuestiontolist (){
 }
 // end add question
 
-
-
-
-// ------------end coding create question--------------------------
-//---------------START GET USER ANSWERS CHOOSE-----------
-// function getUserAnswer(event){
-//     let answer = event.target.textContent;
-//     if (event.target.textContent == "A/ 20 years"){
-//         event.target.style.background = "green";
-//         list_of_user_answer.push(answer)
-
-//     } else {
-//         event.target.style.background = "red";
-//     }
-
-// }
-// //---------------END GET USER ANSWERS CHOOSE-----------
 
     // START SUBMIT ANSWER---------------------------
 function submit_answers(event){
@@ -472,8 +404,7 @@ function inProgress(event){
     userName.className = "userName";
     userName.textContent =  USER_NAME;
     //create menu in start quiz page
-    let menu = document.querySelector(".menu");
-    menu.style.display = "block";
+
 
     // GET NEXT QUESTION
     nextQuestion();
@@ -492,26 +423,26 @@ question_to_play.style.display = "none";
 let USER_NAME = "";
 
 let list_of_questions = [
-    {question:'1/what is your name? ',answers: {answer_1 : "A", answer_2 : "B",answer_3 : "C",answer_4 :"Dw"}},
-    {question:'2/what is the capital of cambodia? ',answers: {answer_1 : "Battam Bang", answer_2 : "Phnom Penh",answer_3 : "Siem Reap",answer_4 :"Kompong Soum"}},
-    {question:'3/who is the preminister of cambodia? ',answers: {answer_1 : "Hun sen", answer_2 : "Prayut Jan ou Ja",answer_3 : "Vibol",answer_4 :"Sauth"}},
-    {question:'4/When PNC had created?? ',answers: {answer_1 : "2010", answer_2 : "2007",answer_3 : "2021",answer_4 :"2005"}},
-    {question:'5/How many major in PNC? ',answers: {answer_1 : "1", answer_2 : "2",answer_3 : "3",answer_4 :"4"}},
-    {question:'6/How many hour per day? ',answers: {answer_1 : "17", answer_2 : "23",answer_3 : "24",answer_4 :"10"}},
-    {question:'7/JS stand for? ',answers: {answer_1 : "Java Script", answer_2 : "Java security",answer_3 : "Java sleep",answer_4 :"Java String"}},
-    {question:'8/How many man studenta in SNA class in this year? ',answers: {answer_1 : "5", answer_2 : "4",answer_3 : "10",answer_4 :"0"}},
-    {question:'9/what is your name? ',answers: {answer_1 : "A", answer_2 : "B",answer_3 : "C",answer_4 :"Dw"}},
-    {question:'10/what is your name? ',answers: {answer_1 : "A", answer_2 : "B",answer_3 : "C",answer_4 :"Dw"}},
-    {question:'11/what is your name? ',answers: {answer_1 : "A", answer_2 : "B",answer_3 : "C",answer_4 :"Dw"}},
-    {question:'12/what is your name? ',answers: {answer_1 : "A", answer_2 : "B",answer_3 : "C",answer_4 :"Dw"}},
-    {question:'13/what is your name? ',answers: {answer_1 : "A", answer_2 : "B",answer_3 : "C",answer_4 :"Dw"}},
-    {question:'14/what is your name? ',answers: {answer_1 : "A", answer_2 : "B",answer_3 : "C",answer_4 :"Dw"}},
-    {question:'15/what is your name? ',answers: {answer_1 : "A", answer_2 : "B",answer_3 : "C",answer_4 :"Dw"}},
-    {question:'16/what is your name? ',answers: {answer_1 : "A", answer_2 : "B",answer_3 : "C",answer_4 :"Dw"}},
-    {question:'17/what is your name? ',answers: {answer_1 : "A", answer_2 : "B",answer_3 : "C",answer_4 :"Dw"}},
-    {question:'18/what is your name? ',answers: {answer_1 : "A", answer_2 : "B",answer_3 : "C",answer_4 :"Dw"}},
-    {question:'19/what is your name? ',answers: {answer_1 : "A", answer_2 : "B",answer_3 : "C",answer_4 :"Dw"}},
-    {question:'20/what is your name? ',answers: {answer_1 : "A", answer_2 : "B",answer_3 : "C",answer_4 :"Dw"}},
+    {question:'1/what is your name? ',answers: {answer_1 : "A", answer_2 : "B",answer_3 : "C",answer_4 :"Dw"}, correctAnswer: 'answer_1'},
+    // {question:'2/what is the capital of cambodia? ',answers: {answer_1 : "Battam Bang", answer_2 : "Phnom Penh",answer_3 : "Siem Reap",answer_4 :"Kompong Soum"}},
+    // {question:'3/who is the preminister of cambodia? ',answers: {answer_1 : "Hun sen", answer_2 : "Prayut Jan ou Ja",answer_3 : "Vibol",answer_4 :"Sauth"}},
+    // {question:'4/When PNC had created?? ',answers: {answer_1 : "2010", answer_2 : "2007",answer_3 : "2021",answer_4 :"2005"}},
+    // {question:'5/How many major in PNC? ',answers: {answer_1 : "1", answer_2 : "2",answer_3 : "3",answer_4 :"4"}},
+    // {question:'6/How many hour per day? ',answers: {answer_1 : "17", answer_2 : "23",answer_3 : "24",answer_4 :"10"}},
+    // {question:'7/JS stand for? ',answers: {answer_1 : "Java Script", answer_2 : "Java security",answer_3 : "Java sleep",answer_4 :"Java String"}},
+    // {question:'8/How many man studenta in SNA class in this year? ',answers: {answer_1 : "5", answer_2 : "4",answer_3 : "10",answer_4 :"0"}},
+    // {question:'9/what is your name? ',answers: {answer_1 : "A", answer_2 : "B",answer_3 : "C",answer_4 :"Dw"}},
+    // {question:'10/what is your name? ',answers: {answer_1 : "A", answer_2 : "B",answer_3 : "C",answer_4 :"Dw"}},
+    // {question:'11/what is your name? ',answers: {answer_1 : "A", answer_2 : "B",answer_3 : "C",answer_4 :"Dw"}},
+    // {question:'12/what is your name? ',answers: {answer_1 : "A", answer_2 : "B",answer_3 : "C",answer_4 :"Dw"}},
+    // {question:'13/what is your name? ',answers: {answer_1 : "A", answer_2 : "B",answer_3 : "C",answer_4 :"Dw"}},
+    // {question:'14/what is your name? ',answers: {answer_1 : "A", answer_2 : "B",answer_3 : "C",answer_4 :"Dw"}},
+    // {question:'15/what is your name? ',answers: {answer_1 : "A", answer_2 : "B",answer_3 : "C",answer_4 :"Dw"}},
+    // {question:'16/what is your name? ',answers: {answer_1 : "A", answer_2 : "B",answer_3 : "C",answer_4 :"Dw"}},
+    // {question:'17/what is your name? ',answers: {answer_1 : "A", answer_2 : "B",answer_3 : "C",answer_4 :"Dw"}},
+    // {question:'18/what is your name? ',answers: {answer_1 : "A", answer_2 : "B",answer_3 : "C",answer_4 :"Dw"}},
+    // {question:'19/what is your name? ',answers: {answer_1 : "A", answer_2 : "B",answer_3 : "C",answer_4 :"Dw"}},
+    // {question:'20/what is your name? ',answers: {answer_1 : "A", answer_2 : "B",answer_3 : "C",answer_4 :"Dw"}},
     
 ]
 
