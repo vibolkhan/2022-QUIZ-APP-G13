@@ -42,12 +42,12 @@
     </header>
     <!-- end header container  -->
     <!-- menu bar -->
-    <div class="menu">
+    <!-- <div class="menu">
         <ul>
             <li id="menu-quiz" class="active-quiz"> Quiz</li>
             <li id="menu-create" class="active-edit">Edit/Create</li>
         </ul>
-    </div>
+    </div> -->
     <!-- <-- end menu bar -->
 
     <!-- start add page edit and create display question after edit  -->
@@ -62,10 +62,22 @@
             <input type="text" id = "questionInput" placeholder="Type here to add question ...">
         </div>
         <div class="card-body">
-            <input type="text" id = "anw1" placeholder="Answer1">
-            <input type="text" id = "anw2" placeholder="Answer2">
-            <input type="text" id = "anw3" placeholder="Answer3">
-            <input type="text" id = "anw4" placeholder="Answer4">
+            <div class="input-group">
+                <input type="radio" name="select-answer" class = "select-answer"  id="answer1" value="1">
+                <input type="text" id = "anw1" placeholder="Answer1">
+            </div>
+            <div class="input-group">
+                <input type="radio" name="select-answer" class = "select-answer" id="answer1" value="2">
+                <input type="text" id = "anw2" placeholder="Answer2">
+            </div>
+            <div class="input-group">
+                <input type="radio" name="select-answer" class = "select-answer" id="answer1" value="3">
+                <input type="text" id = "anw3" placeholder="Answer3">
+            </div>
+            <div class="input-group">
+                <input type="radio" name="select-answer" class = "select-answer" id="answer1"  value="4">
+                <input type="text" id = "anw4" placeholder="Answer4">
+            </div>
         </div>
         <div class="card-footer">
             <button id = "btn-edit">Update</button>
@@ -92,8 +104,5 @@
     </div>
     <!-- end show question to play one by one -->
 
-    <div class="container_dg">
-
-    </div>
 </body>
 </ht
