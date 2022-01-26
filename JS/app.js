@@ -1,4 +1,4 @@
-// // ------------------------------------------------------------
+// ------------------------------------------------------------
 // -----------------Function ----------------------------------
 // ------------------------------------------------------------
 
@@ -161,6 +161,7 @@ function nextQuestion(){
             let content_li = document.createElement("div");
             content_li.className = "multiple-answers";
             
+            
             // CREATE LIST FOR ANSWER-1
             let answer1 = document.createElement('li');
             answer1.className = "answer";
@@ -237,10 +238,11 @@ function nextQuestion(){
             next_question.style.display = "none";
         }
         index_of_list_of_answer ++;
+        define_clicked = 0 ;
     } else {
-        alert("Choose one answer")
+        alert("Choose one answer");
     }
-    isClickedNext = true
+    isClickedNext = true;
 
     // GET ID NEXT QUESTION TO GET FUNCTION NEXTQUESTION
     let next_question = document.getElementById("next-question");
@@ -252,19 +254,17 @@ function nextQuestion(){
 function getUserAnswer(event){
     if (isClicked == false){
         let answer = event.target.textContent;
-        event.target.style.background = "red";
+        let backgroundAnswer = event.target.style.background = "red";
         if (answer[0] === list_of_correct_answer[index_of_list_of_answer-1]){
-            event.target.style.background = "green";
+            backgroundAnswer = event.target.style.background = "green";
+            user_score ++;
         }
-        // list_of_user_answer.push(answer[0]);
+        list_of_user_answer.push(answer[0]);
         // event.target.style.background = "#0d6ba1";
         isClicked = true;
         isClickedNext = false;
-
+        console.log(user_score)
     }
-    
-    
-
 
 }
 
@@ -272,10 +272,13 @@ function getUserAnswer(event){
 // START SUBMIT ANSWER---------------------------
 function submit_answers(event){
     global_container =document.querySelectorAll(".global-containers") ;
-    for (let container of global_container){
-        container.style.display = "block";
+    for (let containers of global_container){
+        // answer =document.querySelectorAll(".answer") ;
+        containers.style.display = "block";
     }
     event.target.parentElement.parentElement.remove();
+
+
 }
     // END SUBMIT ANSWER---------------------------
 
@@ -446,11 +449,13 @@ let list_of_questions = [
     {question: "Q. How old are you? ", answers:{answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"} } 
 ]
 
-// var list_of_user_answer = [];
 var list_of_correct_answer = ["A","B","D","C","A",
-                                "A","B","D","C","A",
-                                "A","B","D","C","A",
-                                "A","B","D","C","A",];
+                            "A","B","D","C","A",
+                            "A","B","D","C","A",
+                            "A","B","D","C","A",]
+
+// VARIABLES-----------------
+var list_of_user_answer = [];
 let index_of_list_of_questions = 0;
 let total_questions = 20;
 let count_question = 0;
@@ -459,3 +464,5 @@ let isClicked = false;
 let isClickedNext = false;
 let number_of_question = 0 ;
 let index_of_list_of_answer = 0;
+let user_score = 0 ; 
+
