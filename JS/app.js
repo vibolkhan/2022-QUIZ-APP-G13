@@ -1,4 +1,4 @@
-// // ------------------------------------------------------------
+// ------------------------------------------------------------
 // -----------------Function ----------------------------------
 // ------------------------------------------------------------
 
@@ -79,16 +79,7 @@ function createMenu(){
     quiz_btn.addEventListener("click",playQuiz);
     let question_btn = document.getElementById("start-quiz");
     question_btn.addEventListener("click",playQuiz);
-    
-    // CREATE FUNCTION TO REVIEW QUESTIONS-------------------
-    let btnReview_2 = document.getElementById('menu-question');
-    let btnReview_1 = document.getElementById('view-question');
-    btnReview_1.addEventListener("click",displayQuestionAll)
-    btnReview_2.addEventListener("click",displayQuestionAll)
-    btnReview_1.addEventListener("click", reviewQuestion);
-    btnReview_2.addEventListener("click", reviewQuestion);
 
-    
     // CREATE FUNCTION TO CREATE QUESTION----------------
     let edit_createbtn = document.getElementById("menu-create");
     edit_createbtn.addEventListener("click",createQuestion);
@@ -96,7 +87,7 @@ function createMenu(){
     btn_editout.addEventListener("click",createQuestion);
     let btn_update = document.querySelector('#btn-edit');
     btn_update.addEventListener("click",addQuestiontolist);
-    
+
 }
 
 // Define button next to get on next page
@@ -129,10 +120,6 @@ function playQuiz(){
 
     let container2 = document.querySelector('.container2');
     container2.style.display = 'none';
-
-    // hide container display
-    let container_questindisplay = document.querySelector(".container_dg")
-    container_questindisplay.style.display = "none";
 }
 
 function nextQuestion(){
@@ -173,6 +160,7 @@ function nextQuestion(){
             answer_1.textContent = list_of_questions[index_of_list_of_questions].answers["answer_1"];
             let content_li = document.createElement("div");
             content_li.className = "multiple-answers";
+            
             
             // CREATE LIST FOR ANSWER-1
             let answer1 = document.createElement('li');
@@ -250,15 +238,15 @@ function nextQuestion(){
             next_question.style.display = "none";
         }
         index_of_list_of_answer ++;
+        define_clicked = 0 ;
     } else {
-        alert("Choose one answer")
+        alert("Choose one answer");
     }
-    let container2 = document.querySelector('.container2')
-    container2.style.display = 'none'
+    isClickedNext = true;
 
-    // show  display question
-    let container_questindisplay = document.querySelector(".container_dg")
-    container_questindisplay.style.display = "block";
+    // GET ID NEXT QUESTION TO GET FUNCTION NEXTQUESTION
+    let next_question = document.getElementById("next-question");
+    next_question.addEventListener("click",nextQuestion);
 }
 
 // ------------end coding Play quiz--------------------------
@@ -266,19 +254,17 @@ function nextQuestion(){
 function getUserAnswer(event){
     if (isClicked == false){
         let answer = event.target.textContent;
-        event.target.style.background = "red";
+        let backgroundAnswer = event.target.style.background = "red";
         if (answer[0] === list_of_correct_answer[index_of_list_of_answer-1]){
-            event.target.style.background = "green";
+            backgroundAnswer = event.target.style.background = "green";
+            user_score ++;
         }
-        // list_of_user_answer.push(answer[0]);
+        list_of_user_answer.push(answer[0]);
         // event.target.style.background = "#0d6ba1";
         isClicked = true;
         isClickedNext = false;
-
+        console.log(user_score)
     }
-    
-    
-
 
 }
 
@@ -286,10 +272,13 @@ function getUserAnswer(event){
 // START SUBMIT ANSWER---------------------------
 function submit_answers(event){
     global_container =document.querySelectorAll(".global-containers") ;
-    for (let container of global_container){
-        container.style.display = "block";
+    for (let containers of global_container){
+        // answer =document.querySelectorAll(".answer") ;
+        containers.style.display = "block";
     }
     event.target.parentElement.parentElement.remove();
+
+
 }
     // END SUBMIT ANSWER---------------------------
 
@@ -319,12 +308,8 @@ function createQuestion(){
     let btn_update = document.getElementById('btn-edit');
     btn_update.addEventListener('click',displayAfterUpdate);
 
-    let container2 = document.querySelector('.container2')
-    container2.style.display = 'block'
-
-    // hide display question
-    let container_questindisplay = document.querySelector(".container_dg")
-    container_questindisplay.style.display = "none";
+    // let container2 = document.querySelector('.container2');
+    // container2.style.display = 'none';
 }
 
 // display after edit 
@@ -378,46 +363,6 @@ function displayAfterUpdate(event) {
     }
 }
 
-// display in question menu page - start
-function displayQuestionAll (){
-    let container_questindisplay = document.querySelector(".container_dg")
-    for (let element of list_of_questions){
-        
-        // create eache list for question and answer
-        let qANDa = document.createElement("div");
-        qANDa.className = "qANDa";
-
-        // create span for question text
-        let textQ = document.createElement("span");
-        textQ.className = "textQ";
-        textQ.textContent = element["question"]
-        qANDa.appendChild(textQ)
-
-        // create dive to store the button edit and delete
-        let eANDd = document.createElement("div");
-        eANDd.className = "eANDd";
-
-        // create button edit 
-        let edit_btn = document.createElement("i");
-        edit_btn.className = "fa fa-edit fa-3x";
-
-        // create delet button
-        let delet_btn = document.createElement("i");
-        delet_btn.className = "fa fa-trash fa-3x";
-
-        // append edit and delete button to the list that store it
-        eANDd.appendChild(edit_btn)
-        eANDd.appendChild(delet_btn)
-
-        // append the list that stroe btn edit and delete to list 
-        qANDa.appendChild(eANDd)
-
-        // append each list to the container in html
-        container_questindisplay.appendChild(qANDa)
-    }
-    container_questindisplay.style.display = "block";
-}
-// display in question menu page - end
 // add question to object
 function addQuestiontolist (){
     // create list for each question 
@@ -445,9 +390,6 @@ function addQuestiontolist (){
     total_questions += 1
 }
 // end add question
-
-
-
 
 // ------------end coding create question--------------------------
 
@@ -485,52 +427,34 @@ question_to_play.style.display = "none";
 let USER_NAME = "";
 
 let list_of_questions = [
-    {question:'1/what is your name? ',answers: {answer_1 : "A", answer_2 : "B",answer_3 : "C",answer_4 :"Dw"}},
-    {question:'2/what is the capital of cambodia? ',answers: {answer_1 : "Battam Bang", answer_2 : "Phnom Penh",answer_3 : "Siem Reap",answer_4 :"Kompong Soum"}},
-    {question:'3/who is the preminister of cambodia? ',answers: {answer_1 : "Hun sen", answer_2 : "Prayut Jan ou Ja",answer_3 : "Vibol",answer_4 :"Sauth"}},
-    {question:'4/When PNC had created?? ',answers: {answer_1 : "2010", answer_2 : "2007",answer_3 : "2021",answer_4 :"2005"}},
-    {question:'5/How many major in PNC? ',answers: {answer_1 : "1", answer_2 : "2",answer_3 : "3",answer_4 :"4"}},
-    {question:'6/How many hour per day? ',answers: {answer_1 : "17", answer_2 : "23",answer_3 : "24",answer_4 :"10"}},
-    {question:'7/JS stand for? ',answers: {answer_1 : "Java Script", answer_2 : "Java security",answer_3 : "Java sleep",answer_4 :"Java String"}},
-    {question:'8/How many man studenta in SNA class in this year? ',answers: {answer_1 : "5", answer_2 : "4",answer_3 : "10",answer_4 :"0"}},
-    {question:'9/what is your name? ',answers: {answer_1 : "A", answer_2 : "B",answer_3 : "C",answer_4 :"Dw"}},
-    {question:'10/what is your name? ',answers: {answer_1 : "A", answer_2 : "B",answer_3 : "C",answer_4 :"Dw"}},
-    {question:'11/what is your name? ',answers: {answer_1 : "A", answer_2 : "B",answer_3 : "C",answer_4 :"Dw"}},
-    {question:'12/what is your name? ',answers: {answer_1 : "A", answer_2 : "B",answer_3 : "C",answer_4 :"Dw"}},
-    {question:'13/what is your name? ',answers: {answer_1 : "A", answer_2 : "B",answer_3 : "C",answer_4 :"Dw"}},
-    {question:'14/what is your name? ',answers: {answer_1 : "A", answer_2 : "B",answer_3 : "C",answer_4 :"Dw"}},
-    {question:'15/what is your name? ',answers: {answer_1 : "A", answer_2 : "B",answer_3 : "C",answer_4 :"Dw"}},
-    {question:'16/what is your name? ',answers: {answer_1 : "A", answer_2 : "B",answer_3 : "C",answer_4 :"Dw"}},
-    {question:'17/what is your name? ',answers: {answer_1 : "A", answer_2 : "B",answer_3 : "C",answer_4 :"Dw"}},
-    {question:'18/what is your name? ',answers: {answer_1 : "A", answer_2 : "B",answer_3 : "C",answer_4 :"Dw"}},
-    {question:'19/what is your name? ',answers: {answer_1 : "A", answer_2 : "B",answer_3 : "C",answer_4 :"Dw"}},
-    {question:'20/what is your name? ',answers: {answer_1 : "A", answer_2 : "B",answer_3 : "C",answer_4 :"Dw"}},
-    
+    {question: "Q. Tom ________ in Serbia since he was 7 years old.", answers:{answer_1: "A/ lived", answer_2: "B/ is living", answer_3: "C/ has lived",answer_4: "D/ lives"} } ,
+    {question: "Q. They _________ go to the cinema every day.", answers:{answer_1: "A/ isn't", answer_2: "B/ doesn't", answer_3: "C/ aren't",answer_4: "D/ don't"} } ,
+    {question: "Q. She ___________ at a hotel every day", answers:{answer_1: "A/ working", answer_2: "B/ works", answer_3: "C/ is working",answer_4: "D/ work"} } ,
+    {question: "Q. While Tom (read) , Amely (watch) a documentary on TV.", answers:{answer_1: "A/ was reading / was watching", answer_2: "B/ was reading / were watching", answer_3: "C/ read / watched",answer_4: "D/ read / was watching"} } ,
+    {question: "Q. He (wake) up and (look) at his watch.", answers:{answer_1: "A/ waked / looked", answer_2: "B/ woke/ looked", answer_3: "C/ was waking / looked",answer_4: "D/ waked / was looking"} } ,
+    {question: "Q. While I (drive), I (have) an accident.", answers:{answer_1: "A/ drived/had", answer_2: "B/ drove / was having", answer_3: "C/ was driving/ had",answer_4: "D/ drove/ had"} } ,
+    {question: "Q. ...  you ...  London?  (ever/visit)", answers:{answer_1: "A/ Have you ever visited London?", answer_2: "B/ Did you ever visit London?", answer_3: "C/ Has you ever visited London?",answer_4: "D/ Did you ever visited London?"} } ,
+    {question: "Q. Susan and Jane ....  at home last Monday. (not/be)", answers:{answer_1: "A/ hasn't", answer_2: "B/ weren't", answer_3: "C/ wasn't",answer_4: "D/ haven't been"} } ,
+    {question: "Q. They ... shrimps. (already/eat)", answers:{answer_1: "A/ have eaten", answer_2: "B/ ate", answer_3: "C/ has eaten",answer_4: "D/ eated"} } ,
+    {question: "Q. How long .... each other before they .... to get married?", answers:{answer_1: "A/ had they known, decided", answer_2: "B/ knew, decided", answer_3: "C/ did they know, had decided",answer_4: "D/ do they know / decide"} } ,
+    {question: "Q. Before he went out of the office, Jim ... the door.", answers:{answer_1: "A/ locked", answer_2: "B/ had locked", answer_3: "C/ had lock",answer_4: "D/ has locked"} } ,
+    {question: "Q. Mrs Rush .... her children because they ... the window.", answers:{answer_1: "A/ had punished, had broken", answer_2: "B/ punished, had broken", answer_3: "C/ punished, broke",answer_4: "D/ punishes, breaks"} } ,
+    {question: "Q. Where ..........(you / be) yesterday?", answers:{answer_1: "A/ were you", answer_2: "B/ you were ", answer_3: "C/ did you be",answer_4: "D/ was you"} } ,
+    {question: "Q. .... you .... your homework yet?", answers:{answer_1: "A/ Were you do", answer_2: "B/ Has you done...", answer_3: "C/ Did you do...",answer_4: "D/ Have you done..."} } ,
+    {question: "Q. How old are you? ", answers:{answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"} } ,
+    {question: "Q. How old are you? ", answers:{answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"} } ,
+    {question: "Q. How old are you? ", answers:{answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"} } ,
+    {question: "Q. How old are you? ", answers:{answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"} } ,
+    {question: "Q. How old are you? ", answers:{answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"} } ,
+    {question: "Q. How old are you? ", answers:{answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"} } 
 ]
 
+var list_of_correct_answer = ["A","B","D","C","A",
+                            "A","B","D","C","A",
+                            "A","B","D","C","A",
+                            "A","B","D","C","A",]
 
-var list_of_correct_answers = [ "A/ 20 years",
-                                "C/ 20 years",
-                                "A/ 20 years",
-                                "B/ 20 years",
-                                "D/ 20 years",
-                                "A/ 20 years",
-                                "A/ 20 years",
-                                "A/ 20 years",
-                                "A/ 20 years",
-                                "A/ 20 years",
-                                "A/ 20 years",
-                                "A/ 20 years",
-                                "A/ 20 years",
-                                "A/ 20 years",
-                                "A/ 20 years",
-                                "A/ 20 years",
-                                "A/ 20 years",
-                                "A/ 20 years",
-                                "A/ 20 years",
-                                "A/ 20 years",
-                            ];
-
+// VARIABLES-----------------
 var list_of_user_answer = [];
 let index_of_list_of_questions = 0;
 let total_questions = 20;
@@ -540,3 +464,5 @@ let isClicked = false;
 let isClickedNext = false;
 let number_of_question = 0 ;
 let index_of_list_of_answer = 0;
+let user_score = 0 ; 
+
