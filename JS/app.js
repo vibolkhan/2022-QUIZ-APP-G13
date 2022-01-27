@@ -593,11 +593,11 @@ let list_of_questions = [
     {question: "Q. .... you .... your homework yet?", answers:{answer_1: "A/ Were you do", answer_2: "B/ Has you done...", answer_3: "C/ Did you do...",answer_4: "D/ Have you done..."} , correct_answer: "D"} ,
     {question: "Q. How old are you? ", answers:{answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"} , correct_answer: "A"} ,
 
-    {question: "Q. How old are you? ", answers:{answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"} , correct_answer: "A"} ,
-    {question: "Q. How old are you? ", answers:{answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"} , correct_answer: "A"} ,
-    {question: "Q. How old are you? ", answers:{answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"} , correct_answer: "A"} ,
-    {question: "Q. How old are you? ", answers:{answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"} , correct_answer: "A"} ,
-    {question: "Q. How old are you? ", answers:{answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"} , correct_answer: "A"} 
+    {question: "Q. What would you do if it ________ on your wedding day? ", answers:{answer_1: "A/ rained", answer_2: "B/  will rain", answer_3: "C/ would rain",answer_4: "D/ would have rained"} , correct_answer: "A"} ,
+    {question: "Q. If she comes, I _____ call you. ", answers:{answer_1: "A/ will", answer_2: "B/ would", answer_3: "C/ would have",answer_4: "D/ would had"} , correct_answer: "A"} ,
+    {question: "Q. If I eat peanut butter, I ________ sick. ", answers:{answer_1: "A/ would have gotten", answer_2: "B/ would get", answer_3: "C/ get",answer_4: "D/ got"} , correct_answer: "C"} ,
+    {question: "Q. What will you do if you ________ the history exam? ", answers:{answer_1: "A/ would fail", answer_2: "B/  will fail", answer_3: "C/ fail",answer_4: "D/ would have fail"} , correct_answer: "C"} ,
+    {question: "Q. If they had not _____ the car, I would have driven you. ", answers:{answer_1: "A/  take", answer_2: "B/ taken", answer_3: "C/ would take",answer_4: "D/ would have taken"} , correct_answer: "B"} 
 ]
 
 var list_of_correct_answer = ["C","D","B","A","B",
