@@ -7,11 +7,9 @@ function nextPage(){
     var inputName = document.getElementById('user-name');
     if (inputName.value === "" || inputName.value.length < 2){
         alertMessage();
-    } else if (message.style.display === "none"){
+    } else{
         displayNextWebpage(event);
         USER_NAME = inputName.value;
-    } else if (message.style.display === "block"){
-        inputName.value = "";
     }
 }
 
@@ -31,6 +29,8 @@ function alertMessage(){
 function displayNextWebpage(event){
     // remove input name and button next 
     event.target.parentElement.remove();
+    var message = document.querySelector(".message-alert");
+    message.style.display = "none";
     createMenu();
 }
 
@@ -254,26 +254,30 @@ function showCorrectAndUnCorrect(){
             
         
         // CREATE LIST FOR ANSWER-1
+        let emoji = document.createElement("img");
+        emoji.style.width = "4%";
+        emoji.style.left = "410px";
+        emoji.style.position = "absolute";
+        let iconBad = true;
+
         let answer1 = document.createElement('li');
         answer1.className = "answer";
         answer1.id = "answer-1";
         answer1.textContent = list_of_questions[i].answers["answer_1"];
+
         if (list_of_correct_answer[i] === list_of_questions[i].answers["answer_1"][0]){
             answer1.style.background = "green";
-            let goodEmoji = document.createElement("img");
-            goodEmoji.src = "images/good.png";
-            goodEmoji.style.width = "5%";
-            goodEmoji.style.left = "435px";
-            goodEmoji.style.position = "absolute";
-            content_li.appendChild(goodEmoji);
+            if (iconBad == true){
+                emoji.src = "images/good.png";
+                content_li.appendChild(emoji);
+            }
         } else if (idUserClick[i] === answer1.id){
+            iconBad = false;
             answer1.style.background = "red";
-            let badEmoji = document.createElement("img");
-            badEmoji.src = "images/bad.png";
-            badEmoji.style.width = "7%";
-            badEmoji.style.left = "420px";
-            badEmoji.style.position = "absolute";
-            content_li.appendChild(badEmoji);
+            if (iconBad == false){
+                emoji.src = "images/bad.png";
+                content_li.appendChild(emoji);
+            }
         }
         content_li.appendChild(answer1);
         
@@ -284,20 +288,17 @@ function showCorrectAndUnCorrect(){
         answer2.textContent = list_of_questions[i].answers["answer_2"];
         if (list_of_correct_answer[i] === list_of_questions[i].answers["answer_2"][0]){
             answer2.style.background = "green";
-            let goodEmoji = document.createElement("img");
-            goodEmoji.src = "images/good.png";
-            goodEmoji.style.width = "5%";
-            goodEmoji.style.left = "435px";
-            goodEmoji.style.position = "absolute";
-            content_li.appendChild(goodEmoji);
+            if (iconBad == true){
+                emoji.src = "images/good.png";
+                content_li.appendChild(emoji);
+            }
         } else if (idUserClick[i] === answer2.id){
             answer2.style.background = "red";
-            let badEmoji = document.createElement("img");
-            badEmoji.src = "images/bad.png";
-            badEmoji.style.width = "7%";
-            badEmoji.style.left = "420px";
-            badEmoji.style.position = "absolute";
-            content_li.appendChild(badEmoji);
+            iconBad = false;
+            if (iconBad == false){
+                emoji.src = "images/bad.png";
+                content_li.appendChild(emoji);
+            }
         }
         content_li.appendChild(answer2);
         
@@ -308,20 +309,17 @@ function showCorrectAndUnCorrect(){
         answer3.textContent = list_of_questions[i].answers["answer_3"];
         if (list_of_correct_answer[i] === list_of_questions[i].answers["answer_3"][0]){
             answer3.style.background = "green";
-            let goodEmoji = document.createElement("img");
-            goodEmoji.src = "images/good.png";
-            goodEmoji.style.width = "5%";
-            goodEmoji.style.left = "435px";
-            goodEmoji.style.position = "absolute";
-            content_li.appendChild(goodEmoji);
+            if (iconBad == true){
+                emoji.src = "images/good.png";
+                content_li.appendChild(emoji);
+            }
         }else if (idUserClick[i] === answer3.id){
             answer3.style.background = "red";
-            let badEmoji = document.createElement("img");
-            badEmoji.src = "images/bad.png";
-            badEmoji.style.width = "7%";
-            badEmoji.style.left = "420px";
-            badEmoji.style.position = "absolute";
-            content_li.appendChild(badEmoji);
+            iconBad = false;
+            if (iconBad == false){
+                emoji.src = "images/bad.png";
+                content_li.appendChild(emoji);
+            }
         }
         content_li.appendChild(answer3);
         
@@ -332,20 +330,17 @@ function showCorrectAndUnCorrect(){
         answer4.textContent = list_of_questions[i].answers["answer_4"];
         if (list_of_correct_answer[i] === list_of_questions[i].answers["answer_4"][0]){
             answer4.style.background = "green";
-            let goodEmoji = document.createElement("img");
-            goodEmoji.src = "images/good.png";
-            goodEmoji.style.width = "5%";
-            goodEmoji.style.left = "435px";
-            goodEmoji.style.position = "absolute";
-            content_li.appendChild(goodEmoji);
+            if (iconBad == true){
+                emoji.src = "images/good.png";
+                content_li.appendChild(emoji);
+            }
         }else if (idUserClick[i] === answer4.id){
             answer4.style.background = "red";
-            let badEmoji = document.createElement("img");
-            badEmoji.src = "images/bad.png";
-            badEmoji.style.width = "7%";
-            badEmoji.style.left = "420px";
-            badEmoji.style.position = "absolute";
-            content_li.appendChild(badEmoji);
+            iconBad = false;
+            if (iconBad == false){
+                emoji.src = "images/bad.png";
+                content_li.appendChild(emoji);
+            }
         }
         content_li.appendChild(answer4);
         
@@ -383,7 +378,6 @@ function createQuestion(){
     let global_containers = document.querySelectorAll(".global-containers");
     for (let containers of global_containers){
         containers.remove();
-        console.log("hellow")
     }
 
     let btn_update = document.getElementById('btn-edit');
@@ -612,15 +606,21 @@ var list_of_correct_answer = ["C","D","B","A","B",
                             "A","A","A","A","A",]
 
 // VARIABLES-----------------
+
+// TYPE ARRAY-----------------------
+let list_of_user_answer = [];
+let idUserClick = [];
+
+
+// TYPE INTEGER---------------------
 let index_of_list_of_questions = 0;
 let total_questions = 20;
 let count_question = 0;
-let list_of_user_answer = [];
-let isClicked = false;
-let isClickedNext = false;
 let number_of_question = 0 ;
 let index_of_list_of_answer = 0;
 let user_score = 0 ; 
 
-let idUserClick = [];
 
+// TYPE BOOLEAN---------------------
+let isClicked = false;
+let isClickedNext = false;

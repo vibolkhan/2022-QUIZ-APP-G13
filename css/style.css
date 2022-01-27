@@ -293,7 +293,7 @@ header {
 .multiple-answers .answer:hover,.card .card-body span:hover{
     box-shadow: #aaa 0px 4px 4px;
     transform: translateY(-2px);
-    background: #0d6ba1;
+    /* background: #0d6ba1; */
 }
 
 .footer-question,.card .card-footer{
