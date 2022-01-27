@@ -13,7 +13,6 @@ function nextPage(){
     }
 }
 
-
 function deleteMessage(){
     var message = document.querySelector(".message-alert");
     message.style.display = "none";
@@ -33,7 +32,6 @@ function displayNextWebpage(event){
     message.style.display = "none";
     createMenu();
 }
-
 
 // Create menu -------------------------------------------------
 function createMenu(){
@@ -90,7 +88,6 @@ function createMenu(){
 // Define button next to get on next page
 const btnNext = document.getElementById('next-button');
 btnNext.addEventListener("click",nextPage);
-
 
 // ------------start coding Play quiz--------------------------
 function playQuiz(){
@@ -182,7 +179,6 @@ function nextQuestion(){
     let next_question = document.getElementById("next-question");
     next_question.addEventListener("click",nextQuestion);
 }
-
 // ------------end coding Play quiz--------------------------
 //---------------START GET USER ANSWERS CHOOSE-----------
 function getUserAnswer(event){
@@ -200,7 +196,6 @@ function getUserAnswer(event){
         idUserClick.push(event.target.id);
         console.log(idUserClick);
     }
-
 }
 
 // //---------------END GET USER ANSWERS CHOOSE-----------
@@ -214,11 +209,7 @@ function submit_answers(event){
     let btn_editout = document.getElementById("create-questions");
     btn_editout.addEventListener("click",createQuestion);
 
-    // let edit_createbtn = document.getElementById("menu-create");
-    // edit_createbtn.addEventListener("click",createQuestion);
-    
     showCorrectAndUnCorrect();
-
 }
     // END SUBMIT ANSWER---------------------------
 
@@ -252,7 +243,6 @@ function showCorrectAndUnCorrect(){
         let content_li = document.createElement("div");
             content_li.className = "multiple-answers";
             
-        
         // CREATE LIST FOR ANSWER-1
         let emoji = document.createElement("img");
         emoji.style.width = "4%";
@@ -354,8 +344,6 @@ function showCorrectAndUnCorrect(){
         count_question.className = "count-question";
         count_question.textContent = number_questions + " / "+total_questions+" Questions";
         
-        
-
         foot_question.appendChild(count_question);
         question_to_play.appendChild(foot_question);
         global_container.appendChild(question_to_play);
@@ -363,13 +351,10 @@ function showCorrectAndUnCorrect(){
     let final_score = document.querySelector(".score");
     final_score.textContent = (user_score/total_questions)*100;
     final_result.style.display = "block";
-
 }
 
 
-// SHOW CORRECT OR UNCORRECT USER ANSWER-------------------
-
-
+// SHOW CORRECT OR UNCORRECT USER ANSWER------------------
 // ------------start coding create question--------------------------
 function createQuestion(){
     let question_card = document.querySelector(".container-create-questions");
@@ -379,12 +364,9 @@ function createQuestion(){
     for (let containers of global_containers){
         containers.remove();
     }
-
     let btn_update = document.getElementById('btn-edit');
     btn_update.addEventListener('click',displayAfterUpdate);
-
 }
-
 // display all question 
 function displayallquestion (){
     
@@ -428,9 +410,6 @@ function displayallquestion (){
         document.querySelector(".container2").appendChild(card_question)
     }
 }
-
-
-
 // display after edit 
 function displayAfterUpdate(event) {
     
@@ -539,11 +518,6 @@ function addQuestiontolist (){
 }
 // end add question
 
-
-// ------------end coding create question--------------------------
-
-
-
 // start Headers--------------------------------------------------
 function inProgress(event){
     let container = document.querySelector('.container');
@@ -587,11 +561,11 @@ let list_of_questions = [
     {question: "Q. They ... shrimps. (already/eat)", answers:{answer_1: "A/ have eaten", answer_2: "B/ ate", answer_3: "C/ has eaten",answer_4: "D/ eated"} , correct_answer: "A"} ,
     {question: "Q. How long .... each other before they .... to get married?", answers:{answer_1: "A/ had they known, decided", answer_2: "B/ knew, decided", answer_3: "C/ did they know, had decided",answer_4: "D/ do they know / decide"} , correct_answer: "A"} ,
 
-    {question: "Q. Before he went out of the office, Jim ... the door.", answers:{answer_1: "A/ locked", answer_2: "B/ had locked", answer_3: "C/ had lock",answer_4: "D/ has locked"} , correct_answer: "C"} ,
+    {question: "Q. Before he went out of the office, Jim ... the door.", answers:{answer_1: "A/ locked", answer_2: "B/ had locked", answer_3: "C/ had lock",answer_4: "D/ has locked"} , correct_answer: "B"} ,
     {question: "Q. Mrs Rush .... her children because they ... the window.", answers:{answer_1: "A/ had punished, had broken", answer_2: "B/ punished, had broken", answer_3: "C/ punished, broke",answer_4: "D/ punishes, breaks"} , correct_answer: "C"} ,
     {question: "Q. Where ..........(you / be) yesterday?", answers:{answer_1: "A/ were you", answer_2: "B/ you were ", answer_3: "C/ did you be",answer_4: "D/ was you"} , correct_answer: "A"} ,
     {question: "Q. .... you .... your homework yet?", answers:{answer_1: "A/ Were you do", answer_2: "B/ Has you done...", answer_3: "C/ Did you do...",answer_4: "D/ Have you done..."} , correct_answer: "D"} ,
-    {question: "Q. How old are you? ", answers:{answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"} , correct_answer: "A"} ,
+    {question: "Q.  If it snows, ________ still drive to the coast? ", answers:{answer_1: "A/ will you", answer_2: "B/ would you", answer_3: "C/ would you had",answer_4: "D/ would you have"} , correct_answer: "A"} ,
 
     {question: "Q. What would you do if it ________ on your wedding day? ", answers:{answer_1: "A/ rained", answer_2: "B/  will rain", answer_3: "C/ would rain",answer_4: "D/ would have rained"} , correct_answer: "A"} ,
     {question: "Q. If she comes, I _____ call you. ", answers:{answer_1: "A/ will", answer_2: "B/ would", answer_3: "C/ would have",answer_4: "D/ would had"} , correct_answer: "A"} ,
@@ -602,8 +576,8 @@ let list_of_questions = [
 
 var list_of_correct_answer = ["C","D","B","A","B",
                             "C","A","B","A","A",
-                            "C","C","A","D","A",
-                            "A","A","A","A","A",]
+                            "A","C","A","D","A",
+                            "A","A","C","C","B",]
 
 // VARIABLES-----------------
 
