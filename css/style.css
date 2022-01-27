@@ -236,23 +236,11 @@ header {
     cursor: pointer;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#btn_back {
+    position: absolute;
+    top: 20%;
+    left: 10%;
+}
 
 /* <!-- start show question to play one by one --> */
 .container-question,.container2,.container-score{
