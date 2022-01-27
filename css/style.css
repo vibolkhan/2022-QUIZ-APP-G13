@@ -255,7 +255,7 @@ header {
 
 
 /* <!-- start show question to play one by one --> */
-.container-question,.container2{
+.container-question,.container2,.container-score{
     margin: 40px auto;
     font-size: 20px;
     background: #cccccc;
@@ -315,3 +315,7 @@ header {
 .container2 {
     display: none;
 }
+
+
+
+

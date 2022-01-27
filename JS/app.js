@@ -74,6 +74,9 @@ function createMenu(){
     let btnCreate = document.getElementById('create-questions');
     btnCreate.addEventListener('click',inProgress);
 
+    let createQuiz = document.getElementById('create-questions');
+    createQuiz.addEventListener('click',createQuestion);
+
     // CREAT FUNCTION TO PLAY QUIZ
     let quiz_btn = document.getElementById("menu-quiz");
     quiz_btn.addEventListener("click",playQuiz);
@@ -81,10 +84,6 @@ function createMenu(){
     question_btn.addEventListener("click",playQuiz);
 
     // CREATE FUNCTION TO CREATE QUESTION----------------
-    let edit_createbtn = document.getElementById("menu-create");
-    edit_createbtn.addEventListener("click",createQuestion);
-    let btn_editout = document.getElementById("create-questions");
-    btn_editout.addEventListener("click",createQuestion);
     let btn_update = document.querySelector('#btn-edit');
     btn_update.addEventListener("click",addQuestiontolist);
 
@@ -126,35 +125,17 @@ function nextQuestion(){
     if (isClickedNext === false){
         let question = document.querySelector('.question h2');
         let count = document.getElementById('count');
-        // CREATE GLOBAL CONTAINER TO CONTENT ALL CONTAINERS
-        let global_container = document.createElement("div");
-        global_container.className = "global-containers";
-        global_container.style.display = "none";
-        // APPEND GLOBAL CONTAINER TO BODY
-        document.body.appendChild(global_container);
-        
+
         number_of_question += 1
         if (index_of_list_of_questions < total_questions){
+            let getAnswers = document.querySelectorAll(".answer");
+            for (let answer of getAnswers){
+                answer.style.background = "#0593E3";
+                answer.addEventListener("click",getUserAnswer);
+            } 
     
             // GET QUESTION FROM ARRAY OF OBJECTS
             question.textContent = list_of_questions[index_of_list_of_questions]["question"];
-    
-            // CREATE DIV WITH CLASS NAME "CONTAINER-QUESTION"
-            let question_to_play = document.createElement("div");
-            question_to_play.className = "container-question";
-    
-            // CREATE DIV WITH CLASS NAME "QUESTION"
-            let content_question = document.createElement("div");
-            content_question.className = "question";
-    
-            // CREATE HEADING H2 AND APPEND IT TO CONTENT_QUESTION
-            let h2 = document.createElement("h2");
-            h2.textContent = question.textContent;
-            content_question.appendChild(h2);
-    
-            // APPEND CONTENT_QUESTION TO CONTAINER-QUESTION
-            question_to_play.appendChild(content_question);
-    
             // CHANGE ANSWER ALL TIME WHENEVER USER CLICK NEXT
             let answer_1 = document.getElementById('answer-1');
             answer_1.textContent = list_of_questions[index_of_list_of_questions].answers["answer_1"];
@@ -172,57 +153,19 @@ function nextQuestion(){
             // CREATE LIST FOR ANSWER-2
             let answer_2 = document.getElementById('answer-2');
             answer_2.textContent = list_of_questions[index_of_list_of_questions].answers["answer_2"];
-            let answer2 = document.createElement('li');
-            answer2.className = "answer";
-            answer2.id = "answer-2";
-            answer2.textContent = answer_2.textContent;
-            content_li.appendChild(answer2);
-            
-            
             // CREATE LIST FOR ANSWER-3
             let answer_3 = document.getElementById('answer-3');
             answer_3.textContent = list_of_questions[index_of_list_of_questions].answers["answer_3"];
-            let answer3 = document.createElement('li');
-            answer3.className = "answer";
-            answer3.id = "answer-3";
-            answer3.textContent = answer_3.textContent;
-            content_li.appendChild(answer3);
-            
+
             // CREATE LIST FOR ANSWER-4
             let answer_4 = document.getElementById('answer-4');
             answer_4.textContent = list_of_questions[index_of_list_of_questions].answers["answer_4"];
-            let answer4 = document.createElement('li');
-            answer4.className = "answer";
-            answer4.id = "answer-4";
-            answer4.textContent = answer_4.textContent;
-            content_li.appendChild(answer4);
-            
-            // APPEND CONTENT LIST TO 
-            question_to_play.appendChild(content_li);
-        
-            let foot_question = document.createElement("div");
-            foot_question.className = "footer-question";
-    
-            let count_question = document.createElement("div");
-            count_question.className = "count-question";
-            count_question.textContent = number_of_question + " / "+total_questions+" Questions";
-            foot_question.appendChild(count_question);
-    
-            foot_question.appendChild(count_question);
-            question_to_play.appendChild(foot_question);
-            global_container.appendChild(question_to_play);
     
             // INCREMENT COUNT QUESTION ONE BY ONE
             count.textContent = number_of_question;
             
             // INCREMENT INDEX BY 1
             index_of_list_of_questions += 1;
-    
-            let getAnswers = document.querySelectorAll(".answer");
-            for (let answer of getAnswers){
-                answer.style.background = "#0593E3";
-                answer.addEventListener("click",getUserAnswer);
-            } 
             isClicked = false;
         }
     
@@ -238,7 +181,6 @@ function nextQuestion(){
             next_question.style.display = "none";
         }
         index_of_list_of_answer ++;
-        define_clicked = 0 ;
     } else {
         alert("Choose one answer");
     }
@@ -254,16 +196,17 @@ function nextQuestion(){
 function getUserAnswer(event){
     if (isClicked == false){
         let answer = event.target.textContent;
-        let backgroundAnswer = event.target.style.background = "red";
+        // event.target.style.background = "red";
+        event.target.style.background = "#0d6ba1";
         if (answer[0] === list_of_correct_answer[index_of_list_of_answer-1]){
-            backgroundAnswer = event.target.style.background = "green";
             user_score ++;
+            console.log(user_score);
         }
         list_of_user_answer.push(answer[0]);
-        // event.target.style.background = "#0d6ba1";
         isClicked = true;
         isClickedNext = false;
-        console.log(user_score)
+        idUserClick.push(event.target.id);
+        console.log(idUserClick);
     }
 
 }
@@ -273,15 +216,171 @@ function getUserAnswer(event){
 function submit_answers(event){
     global_container =document.querySelectorAll(".global-containers") ;
     for (let containers of global_container){
-        // answer =document.querySelectorAll(".answer") ;
         containers.style.display = "block";
     }
     event.target.parentElement.parentElement.remove();
+    let btn_editout = document.getElementById("create-questions");
+    btn_editout.addEventListener("click",createQuestion);
 
+    let edit_createbtn = document.getElementById("menu-create");
+    edit_createbtn.addEventListener("click",createQuestion);
+    
+    showCorrectAndUnCorrect();
 
 }
     // END SUBMIT ANSWER---------------------------
 
+// SHOW CORRECT OR UNCORRECT USER ANSWER------------------
+function showCorrectAndUnCorrect(){
+    // CREATE GLOBAL CONTAINER TO CONTENT ALL CONTAINERS
+    let global_container = document.createElement("div");
+    global_container.className = "global-containers";
+    // global_container.style.display = "none";
+    document.body.appendChild(global_container);
+
+    let number_questions = 0 
+    for (let i in list_of_questions){
+        number_questions += 1
+        // CREATE DIV WITH CLASS NAME "CONTAINER-QUESTION"
+        let question_to_play = document.createElement("div");
+        question_to_play.className = "container-question";
+    
+        // CREATE DIV WITH CLASS NAME "QUESTION"
+        let content_question = document.createElement("div");
+        content_question.className = "question";
+    
+        // CREATE HEADING H2 AND APPEND IT TO CONTENT_QUESTION
+        let h2 = document.createElement("h2");
+        h2.textContent = list_of_questions[i]["question"];
+        content_question.appendChild(h2);
+    
+        // APPEND CONTENT_QUESTION TO CONTAINER-QUESTION
+        question_to_play.appendChild(content_question);
+    
+        let content_li = document.createElement("div");
+            content_li.className = "multiple-answers";
+            
+        
+        // CREATE LIST FOR ANSWER-1
+        let answer1 = document.createElement('li');
+        answer1.className = "answer";
+        answer1.id = "answer-1";
+        answer1.textContent = list_of_questions[i].answers["answer_1"];
+        if (list_of_correct_answer[i] === list_of_questions[i].answers["answer_1"][0]){
+            answer1.style.background = "green";
+            let goodEmoji = document.createElement("img");
+            goodEmoji.src = "images/good.png";
+            goodEmoji.style.width = "5%";
+            goodEmoji.style.left = "435px";
+            goodEmoji.style.position = "absolute";
+            content_li.appendChild(goodEmoji);
+        } else if (idUserClick[i] === answer1.id){
+            answer1.style.background = "red";
+            let badEmoji = document.createElement("img");
+            badEmoji.src = "images/bad.png";
+            badEmoji.style.width = "7%";
+            badEmoji.style.left = "420px";
+            badEmoji.style.position = "absolute";
+            content_li.appendChild(badEmoji);
+        }
+        content_li.appendChild(answer1);
+        
+        // CREATE LIST FOR ANSWER-2
+        let answer2 = document.createElement('li');
+        answer2.className = "answer";
+        answer2.id = "answer-2";
+        answer2.textContent = list_of_questions[i].answers["answer_2"];
+        if (list_of_correct_answer[i] === list_of_questions[i].answers["answer_2"][0]){
+            answer2.style.background = "green";
+            let goodEmoji = document.createElement("img");
+            goodEmoji.src = "images/good.png";
+            goodEmoji.style.width = "5%";
+            goodEmoji.style.left = "435px";
+            goodEmoji.style.position = "absolute";
+            content_li.appendChild(goodEmoji);
+        } else if (idUserClick[i] === answer2.id){
+            answer2.style.background = "red";
+            let badEmoji = document.createElement("img");
+            badEmoji.src = "images/bad.png";
+            badEmoji.style.width = "7%";
+            badEmoji.style.left = "420px";
+            badEmoji.style.position = "absolute";
+            content_li.appendChild(badEmoji);
+        }
+        content_li.appendChild(answer2);
+        
+        // CREATE LIST FOR ANSWER-3
+        let answer3 = document.createElement('li');
+        answer3.className = "answer";
+        answer3.id = "answer-3";
+        answer3.textContent = list_of_questions[i].answers["answer_3"];
+        if (list_of_correct_answer[i] === list_of_questions[i].answers["answer_3"][0]){
+            answer3.style.background = "green";
+            let goodEmoji = document.createElement("img");
+            goodEmoji.src = "images/good.png";
+            goodEmoji.style.width = "5%";
+            goodEmoji.style.left = "435px";
+            goodEmoji.style.position = "absolute";
+            content_li.appendChild(goodEmoji);
+        }else if (idUserClick[i] === answer3.id){
+            answer3.style.background = "red";
+            let badEmoji = document.createElement("img");
+            badEmoji.src = "images/bad.png";
+            badEmoji.style.width = "7%";
+            badEmoji.style.left = "420px";
+            badEmoji.style.position = "absolute";
+            content_li.appendChild(badEmoji);
+        }
+        content_li.appendChild(answer3);
+        
+        // CREATE LIST FOR ANSWER-4
+        let answer4 = document.createElement('li');
+        answer4.className = "answer";
+        answer4.id = "answer-4";
+        answer4.textContent = list_of_questions[i].answers["answer_4"];
+        if (list_of_correct_answer[i] === list_of_questions[i].answers["answer_4"][0]){
+            answer4.style.background = "green";
+            let goodEmoji = document.createElement("img");
+            goodEmoji.src = "images/good.png";
+            goodEmoji.style.width = "5%";
+            goodEmoji.style.left = "435px";
+            goodEmoji.style.position = "absolute";
+            content_li.appendChild(goodEmoji);
+        }else if (idUserClick[i] === answer4.id){
+            answer4.style.background = "red";
+            let badEmoji = document.createElement("img");
+            badEmoji.src = "images/bad.png";
+            badEmoji.style.width = "7%";
+            badEmoji.style.left = "420px";
+            badEmoji.style.position = "absolute";
+            content_li.appendChild(badEmoji);
+        }
+        content_li.appendChild(answer4);
+        
+        // APPEND CONTENT LIST TO 
+        question_to_play.appendChild(content_li);
+    
+        let foot_question = document.createElement("div");
+        foot_question.className = "footer-question";
+    
+        let count_question = document.createElement("div");
+        count_question.className = "count-question";
+        count_question.textContent = number_questions + " / "+total_questions+" Questions";
+        
+        
+
+        foot_question.appendChild(count_question);
+        question_to_play.appendChild(foot_question);
+        global_container.appendChild(question_to_play);
+    }
+    let final_score = document.querySelector(".score");
+    final_score.textContent = (user_score/total_questions)*100;
+    final_result.style.display = "block";
+
+}
+
+
+// SHOW CORRECT OR UNCORRECT USER ANSWER-------------------
 
 
 // ------------start coding create question--------------------------
@@ -296,17 +395,35 @@ function createQuestion(){
     let question_card = document.querySelector(".container-create-questions");
     question_card.style.display = "block";
     
-    if (index_of_list_of_questions >= total_questions){
-        let global_container = document.querySelector('.global-container');
-        global_container.style.display = "none";
-    } else{
-        let question_to_play = document.querySelector('.container-question');
-        question_to_play.style.display = "none";
+    // if (index_of_list_of_questions >= total_questions){
+    //     let global_container = document.querySelector('.global-container');
+    //     global_container.style.display = "block";
+    // } else{
+    //     let question_to_play = document.querySelector('.container-question');
+    //     question_to_play.style.display = "none";
+    // }
+
+
+    let global_containers = document.querySelectorAll(".global-containers");
+    for (let containers of global_containers){
+        containers.remove();
+        console.log("hellow")
     }
 
 
     let btn_update = document.getElementById('btn-edit');
     btn_update.addEventListener('click',displayAfterUpdate);
+
+    // RESTART VARIABLES
+    list_of_user_answer = [];
+    index_of_list_of_questions = 0;
+    count_question = 0;
+
+    isClicked = false;
+    isClickedNext = false;
+    number_of_question = 0 ;
+    index_of_list_of_answer = 0;
+    user_score = 0 ; 
 
     // let container2 = document.querySelector('.container2');
     // container2.style.display = 'none';
@@ -424,35 +541,40 @@ btn_submit.style.display = "none";
 var question_to_play = document.querySelector('.container-question');
 question_to_play.style.display = "none";
 
+var final_result = document.querySelector(".container-score");
+final_result.style.display = "none"
 let USER_NAME = "";
 
 let list_of_questions = [
-    {question: "Q. Tom ________ in Serbia since he was 7 years old.", answers:{answer_1: "A/ lived", answer_2: "B/ is living", answer_3: "C/ has lived",answer_4: "D/ lives"} } ,
-    {question: "Q. They _________ go to the cinema every day.", answers:{answer_1: "A/ isn't", answer_2: "B/ doesn't", answer_3: "C/ aren't",answer_4: "D/ don't"} } ,
-    {question: "Q. She ___________ at a hotel every day", answers:{answer_1: "A/ working", answer_2: "B/ works", answer_3: "C/ is working",answer_4: "D/ work"} } ,
-    {question: "Q. While Tom (read) , Amely (watch) a documentary on TV.", answers:{answer_1: "A/ was reading / was watching", answer_2: "B/ was reading / were watching", answer_3: "C/ read / watched",answer_4: "D/ read / was watching"} } ,
-    {question: "Q. He (wake) up and (look) at his watch.", answers:{answer_1: "A/ waked / looked", answer_2: "B/ woke/ looked", answer_3: "C/ was waking / looked",answer_4: "D/ waked / was looking"} } ,
-    {question: "Q. While I (drive), I (have) an accident.", answers:{answer_1: "A/ drived/had", answer_2: "B/ drove / was having", answer_3: "C/ was driving/ had",answer_4: "D/ drove/ had"} } ,
-    {question: "Q. ...  you ...  London?  (ever/visit)", answers:{answer_1: "A/ Have you ever visited London?", answer_2: "B/ Did you ever visit London?", answer_3: "C/ Has you ever visited London?",answer_4: "D/ Did you ever visited London?"} } ,
-    {question: "Q. Susan and Jane ....  at home last Monday. (not/be)", answers:{answer_1: "A/ hasn't", answer_2: "B/ weren't", answer_3: "C/ wasn't",answer_4: "D/ haven't been"} } ,
-    {question: "Q. They ... shrimps. (already/eat)", answers:{answer_1: "A/ have eaten", answer_2: "B/ ate", answer_3: "C/ has eaten",answer_4: "D/ eated"} } ,
-    {question: "Q. How long .... each other before they .... to get married?", answers:{answer_1: "A/ had they known, decided", answer_2: "B/ knew, decided", answer_3: "C/ did they know, had decided",answer_4: "D/ do they know / decide"} } ,
-    {question: "Q. Before he went out of the office, Jim ... the door.", answers:{answer_1: "A/ locked", answer_2: "B/ had locked", answer_3: "C/ had lock",answer_4: "D/ has locked"} } ,
-    {question: "Q. Mrs Rush .... her children because they ... the window.", answers:{answer_1: "A/ had punished, had broken", answer_2: "B/ punished, had broken", answer_3: "C/ punished, broke",answer_4: "D/ punishes, breaks"} } ,
-    {question: "Q. Where ..........(you / be) yesterday?", answers:{answer_1: "A/ were you", answer_2: "B/ you were ", answer_3: "C/ did you be",answer_4: "D/ was you"} } ,
-    {question: "Q. .... you .... your homework yet?", answers:{answer_1: "A/ Were you do", answer_2: "B/ Has you done...", answer_3: "C/ Did you do...",answer_4: "D/ Have you done..."} } ,
-    {question: "Q. How old are you? ", answers:{answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"} } ,
-    {question: "Q. How old are you? ", answers:{answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"} } ,
-    {question: "Q. How old are you? ", answers:{answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"} } ,
-    {question: "Q. How old are you? ", answers:{answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"} } ,
-    {question: "Q. How old are you? ", answers:{answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"} } ,
-    {question: "Q. How old are you? ", answers:{answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"} } 
+    {question: "Q. Tom ________ in Serbia since he was 7 years old.", answers:{answer_1: "A/ lived", answer_2: "B/ is living", answer_3: "C/ has lived",answer_4: "D/ lives"}, correct_answer: "C"} ,
+    {question: "Q. They _________ go to the cinema every day.", answers:{answer_1: "A/ isn't", answer_2: "B/ doesn't", answer_3: "C/ aren't",answer_4: "D/ don't"} , correct_answer: "D"} ,
+    {question: "Q. She ___________ at a hotel every day", answers:{answer_1: "A/ working", answer_2: "B/ works", answer_3: "C/ is working",answer_4: "D/ work"} , correct_answer: "B"} ,
+    {question: "Q. While Tom (read) , Amely (watch) a documentary on TV.", answers:{answer_1: "A/ was reading / was watching", answer_2: "B/ was reading / were watching", answer_3: "C/ read / watched",answer_4: "D/ read / was watching"} , correct_answer: "A"} ,
+    {question: "Q. He (wake) up and (look) at his watch.", answers:{answer_1: "A/ waked / looked", answer_2: "B/ woke/ looked", answer_3: "C/ was waking / looked",answer_4: "D/ waked / was looking"} , correct_answer: "B"} ,
+
+    {question: "Q. While I (drive), I (have) an accident.", answers:{answer_1: "A/ drived/had", answer_2: "B/ drove / was having", answer_3: "C/ was driving/ had",answer_4: "D/ drove/ had"}, correct_answer: "C" } ,
+    {question: "Q. ...  you ...  London?  (ever/visit)", answers:{answer_1: "A/ Have you ever visited London?", answer_2: "B/ Did you ever visit London?", answer_3: "C/ Has you ever visited London?",answer_4: "D/ Did you ever visited London?"} , correct_answer: "A"} ,
+    {question: "Q. Susan and Jane ....  at home last Monday. (not/be)", answers:{answer_1: "A/ hasn't", answer_2: "B/ weren't", answer_3: "C/ wasn't",answer_4: "D/ haven't been"} , correct_answer: "B"} ,
+    {question: "Q. They ... shrimps. (already/eat)", answers:{answer_1: "A/ have eaten", answer_2: "B/ ate", answer_3: "C/ has eaten",answer_4: "D/ eated"} , correct_answer: "A"} ,
+    {question: "Q. How long .... each other before they .... to get married?", answers:{answer_1: "A/ had they known, decided", answer_2: "B/ knew, decided", answer_3: "C/ did they know, had decided",answer_4: "D/ do they know / decide"} , correct_answer: "A"} ,
+
+    {question: "Q. Before he went out of the office, Jim ... the door.", answers:{answer_1: "A/ locked", answer_2: "B/ had locked", answer_3: "C/ had lock",answer_4: "D/ has locked"} , correct_answer: "C"} ,
+    {question: "Q. Mrs Rush .... her children because they ... the window.", answers:{answer_1: "A/ had punished, had broken", answer_2: "B/ punished, had broken", answer_3: "C/ punished, broke",answer_4: "D/ punishes, breaks"} , correct_answer: "C"} ,
+    {question: "Q. Where ..........(you / be) yesterday?", answers:{answer_1: "A/ were you", answer_2: "B/ you were ", answer_3: "C/ did you be",answer_4: "D/ was you"} , correct_answer: "A"} ,
+    {question: "Q. .... you .... your homework yet?", answers:{answer_1: "A/ Were you do", answer_2: "B/ Has you done...", answer_3: "C/ Did you do...",answer_4: "D/ Have you done..."} , correct_answer: "D"} ,
+    {question: "Q. How old are you? ", answers:{answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"} , correct_answer: "A"} ,
+
+    {question: "Q. How old are you? ", answers:{answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"} , correct_answer: "A"} ,
+    {question: "Q. How old are you? ", answers:{answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"} , correct_answer: "A"} ,
+    {question: "Q. How old are you? ", answers:{answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"} , correct_answer: "A"} ,
+    {question: "Q. How old are you? ", answers:{answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"} , correct_answer: "A"} ,
+    {question: "Q. How old are you? ", answers:{answer_1: "A/ 20 years", answer_2: "B/ 20 years", answer_3: "C/ 20 years",answer_4: "D/ 20 years"} , correct_answer: "A"} 
 ]
 
-var list_of_correct_answer = ["A","B","D","C","A",
-                            "A","B","D","C","A",
-                            "A","B","D","C","A",
-                            "A","B","D","C","A",]
+var list_of_correct_answer = ["C","D","B","A","B",
+                            "C","A","B","A","A",
+                            "C","C","A","D","A",
+                            "A","A","A","A","A",]
 
 // VARIABLES-----------------
 var list_of_user_answer = [];
@@ -465,4 +587,6 @@ let isClickedNext = false;
 let number_of_question = 0 ;
 let index_of_list_of_answer = 0;
 let user_score = 0 ; 
+
+let idUserClick = [];
 
