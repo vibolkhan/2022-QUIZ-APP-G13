@@ -73,16 +73,12 @@ function createMenu(){
     // create button to edit question 
     let btnCreate = document.getElementById('create-questions');
     btnCreate.addEventListener('click',inProgress);
-
+    btnCreate.addEventListener("click",displayallquestion)
     // CREAT FUNCTION TO PLAY QUIZ
-    let quiz_btn = document.getElementById("menu-quiz");
-    quiz_btn.addEventListener("click",playQuiz);
     let question_btn = document.getElementById("start-quiz");
     question_btn.addEventListener("click",playQuiz);
 
     // CREATE FUNCTION TO CREATE QUESTION----------------
-    let edit_createbtn = document.getElementById("menu-create");
-    edit_createbtn.addEventListener("click",createQuestion);
     let btn_editout = document.getElementById("create-questions");
     btn_editout.addEventListener("click",createQuestion);
     let btn_update = document.querySelector('#btn-edit');
@@ -97,12 +93,6 @@ btnNext.addEventListener("click",nextPage);
 
 // ------------start coding Play quiz--------------------------
 function playQuiz(){
-    let quiz_btn = document.getElementById("menu-quiz");
-    quiz_btn.style.background = "#0d6ba1";
-
-    let edit_createbtn = document.getElementById("menu-create");
-    edit_createbtn.style.background = "#0593E3";
-
     let question_card = document.querySelector(".container-create-questions");
     question_card.style.display = "none";
 
@@ -259,7 +249,7 @@ function getUserAnswer(event){
             backgroundAnswer = event.target.style.background = "green";
             user_score ++;
         }
-        list_of_user_answer.push(answer[0]);
+        list_of_correct_answer.push(answer[0]);
         // event.target.style.background = "#0d6ba1";
         isClicked = true;
         isClickedNext = false;
@@ -286,13 +276,6 @@ function submit_answers(event){
 
 // ------------start coding create question--------------------------
 function createQuestion(){
-    let quiz_btn = document.getElementById("menu-quiz");
-    quiz_btn.style.background = "#0593E3";
-
-    let edit_createbtn = document.getElementById("menu-create");
-    edit_createbtn.style.background = "#0d6ba1";
-
-    
     let question_card = document.querySelector(".container-create-questions");
     question_card.style.display = "block";
     
@@ -304,45 +287,88 @@ function createQuestion(){
         question_to_play.style.display = "none";
     }
 
-
     let btn_update = document.getElementById('btn-edit');
     btn_update.addEventListener('click',displayAfterUpdate);
 
-    // let container2 = document.querySelector('.container2');
-    // container2.style.display = 'none';
+    let container2 = document.querySelector('.container2')
+    container2.style.display = 'block'
 }
+
+// display all question 
+function displayallquestion (){
+    
+    for (let element of list_of_questions){
+        let card_question = document.createElement("div");
+        card_question.className = "card";
+
+        let spnaquestion = document.createElement("div");
+        spnaquestion.className = "question";
+
+        let h2 = document.createElement("h2");
+        h2.textContent = element.question;
+
+        spnaquestion.appendChild(h2);
+        card_question.appendChild(spnaquestion);
+
+        let listanswer = document.createElement("ul");
+        listanswer.className = "card-body";
+
+        let liAnswer1 = document.createElement('span');
+        liAnswer1.className = "answer";
+        liAnswer1.textContent = element.answers.answer_1;
+        listanswer.appendChild(liAnswer1);
+
+        let liAnswer2 = document.createElement('span');
+        liAnswer2.className = "answer";
+        liAnswer2.textContent = element.answers.answer_2;
+        listanswer.appendChild(liAnswer2);
+
+        let liAnswer3 = document.createElement('span');
+        liAnswer3.className = "answer";
+        liAnswer3.textContent = element.answers.answer_3;
+        listanswer.appendChild(liAnswer3);
+
+        let liAnswer4 = document.createElement('span');
+        liAnswer4.className = "answer";
+        liAnswer4.textContent = element.answers.answer_4;
+        listanswer.appendChild(liAnswer4);
+
+        card_question.appendChild(listanswer);
+        document.querySelector(".container2").appendChild(card_question)
+    }
+}
+
+
 
 // display after edit 
 function displayAfterUpdate(event) {
     
     let container2 = document.querySelector('.container2')
-    container2.style.display = 'block';
+    container2.style.display = 'block'
     // create card
     let card = document.createElement('div');
-    card.className = 'question';
+    card.className = 'card';
     // create card header
-    let card_header = document.createElement('h2');
+    let card_header = document.createElement('div');
+    card_header.className = 'card-header';
+
+    let h2 = document.createElement('h2')
+
+    let icons = document.createElement('div');
+    icons.className = 'icons'
 
     // create answer
     let card_body = document.createElement('div');
-    card_body.className = 'multiple-answers';
+    card_body.className = 'card-body';
 
     // create span answer
-    let spanAnswer1 = document.createElement('li');
-    spanAnswer1.className = "answer";
-    spanAnswer1.id = "answer-1";
-    let spanAnswer2 = document.createElement('li');
-    spanAnswer2.className = "answer";
-    spanAnswer2.id = "answer-2";
-    let spanAnswer3 = document.createElement('li');
-    spanAnswer3.className = "answer";
-    spanAnswer3.id = "answer-3";
-    let spanAnswer4 = document.createElement('li');
-    spanAnswer4.className = "answer";
-    spanAnswer4.id = "answer-4";
+    let spanAnswer1 = document.createElement('span');
+    let spanAnswer2 = document.createElement('span');
+    let spanAnswer3 = document.createElement('span');
+    let spanAnswer4 = document.createElement('span');
 
     for (let object of list_of_questions) {
-        card_header.textContent = object.question;        
+        h2.textContent = object.question;        
 
         spanAnswer1.textContent = object.answers['answer_1']
         card_body.appendChild(spanAnswer1)
@@ -355,41 +381,73 @@ function displayAfterUpdate(event) {
 
         spanAnswer4.textContent = object.answers['answer_4']
         card_body.appendChild(spanAnswer4)
-        // add card header to card
-        card.appendChild(card_header)
-        // add card to container
-        container2.appendChild(card);
-        container2.appendChild(card_body);
     }
+    // add card header to card
+    card_header.appendChild(h2);
+    card.appendChild(card_header)
+    // add card body to card
+    card.appendChild(card_body)
+    // add card to container
+    container2.appendChild(card);
 }
 
 // add question to object
 function addQuestiontolist (){
     // create list for each question 
-    let listQandA = {};
+    let listQuestionandanswer = {};
     // get the question from input
     let questionInput = document.getElementById("questionInput")
     // append the value get from question input to the question eache
-    listQandA["question"] = questionInput.value;
+    listQuestionandanswer["question"] = questionInput.value;
     // create list for answer
     let answers = {};
     //get the value from input answer
     for (let index = 1 ; index <= 4; index++ ){
+        
         answers["answer_"+index] = document.getElementById("anw"+index).value;
     }
-    listQandA["answers"] = answers
+    listQuestionandanswer['answers']=answers;
+    // add correct answer
+    let correctanswer = document.querySelectorAll(".select-answer")
+    for (let elements of correctanswer){
+        if (elements.checked){
+            if (elements.value==1){
+                list_of_correct_answer.push("A")
+            }else if (elements.value==2){
+                list_of_correct_answer.push("B")
+            }else if (elements.value==3){
+                list_of_correct_answer.push("C")
+            }else if (elements.value==4){
+                list_of_correct_answer.push("D")
+            }
+        }
+    }
+    console.log(list_of_correct_answer)
+    console.log(listQuestionandanswer)
+    listQuestionandanswer["answers"] = answers
     //append question and answer to list of question 
-    list_of_questions.push(listQandA)
+    
+    // if (questionInput.value=="" || list_of_questions.answers.answer_1.value == "" || list_of_questions.answers.answer_2.value == "" || list_of_questions.answers.answer_3.value == "" ||list_of_questions.answers.answer_4.value == ""){
+    //     window.alert("Please input all information")
+    // }else {
+        
+    // }
+
+    list_of_questions.push(listQuestionandanswer)
     console.log(list_of_questions)
 
     // refres value inside input
     questionInput.value = ""
+    for (let elements of correctanswer){
+        elements.checked = false;
+    }
     for (let index = 1 ; index <= 4; index++ ){
         document.getElementById("anw"+index).value = ""
     }
     total_questions += 1
 }
 // end add question
+
 
 // ------------end coding create question--------------------------
 
@@ -406,9 +464,6 @@ function inProgress(event){
     let userName = document.querySelector('.header-right h1');
     userName.className = "userName";
     userName.textContent =  USER_NAME;
-    //create menu in start quiz page
-    let menu = document.querySelector(".menu");
-    menu.style.display = "block";
 
     // GET NEXT QUESTION
     nextQuestion();
@@ -455,7 +510,6 @@ var list_of_correct_answer = ["A","B","D","C","A",
                             "A","B","D","C","A",]
 
 // VARIABLES-----------------
-var list_of_user_answer = [];
 let index_of_list_of_questions = 0;
 let total_questions = 20;
 let count_question = 0;
