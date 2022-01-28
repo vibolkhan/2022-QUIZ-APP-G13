@@ -71,6 +71,7 @@ function createMenu(){
     // create button to edit question 
     let btnCreate = document.getElementById('create-questions');
     btnCreate.addEventListener('click',inProgress);
+    btnCreate.addEventListener("click",displayallquestion)
 
     let createQuiz = document.getElementById('create-questions');
     createQuiz.addEventListener('click',createQuestion);
@@ -82,6 +83,7 @@ function createMenu(){
     // CREATE FUNCTION TO CREATE QUESTION----------------
     let btn_update = document.querySelector('#btn-edit');
     btn_update.addEventListener("click",addQuestiontolist);
+    btn_update.addEventListener("click",displayallquestion);
 
 }
 
@@ -124,7 +126,7 @@ function nextQuestion(){
             } 
     
             // GET QUESTION FROM ARRAY OF OBJECTS
-            question.textContent = list_of_questions[index_of_list_of_questions]["question"];
+            question.textContent = list_of_questions[index_of_list_of_questions].question;
             // CHANGE ANSWER ALL TIME WHENEVER USER CLICK NEXT
             let answer_1 = document.getElementById('answer-1');
             answer_1.textContent = list_of_questions[index_of_list_of_questions].answers["answer_1"];
@@ -180,6 +182,7 @@ function nextQuestion(){
     next_question.addEventListener("click",nextQuestion);
 }
 // ------------end coding Play quiz--------------------------
+
 //---------------START GET USER ANSWERS CHOOSE-----------
 function getUserAnswer(event){
     if (isClicked == false){
@@ -197,8 +200,8 @@ function getUserAnswer(event){
         console.log(idUserClick);
     }
 }
-
 // //---------------END GET USER ANSWERS CHOOSE-----------
+
 // START SUBMIT ANSWER---------------------------
 function submit_answers(event){
     global_container =document.querySelectorAll(".global-containers") ;
@@ -349,9 +352,12 @@ function showCorrectAndUnCorrect(){
         global_container.appendChild(question_to_play);
     }
     let final_score = document.querySelector(".score");
-    final_score.textContent = (user_score/total_questions)*100;
+    final_score.textContent = parseInt((user_score/total_questions)*100);
     final_result.style.display = "block";
 }
+
+let btn_back = document.getElementById('back');
+btn_back.addEventListener('click',playQuiz)
 
 
 // SHOW CORRECT OR UNCORRECT USER ANSWER------------------
@@ -364,12 +370,28 @@ function createQuestion(){
     for (let containers of global_containers){
         containers.remove();
     }
-    let btn_update = document.getElementById('btn-edit');
-    btn_update.addEventListener('click',displayAfterUpdate);
-}
-// display all question 
-function displayallquestion (){
     
+    if (index_of_list_of_questions >= total_questions){
+        let global_container = document.querySelector('.global-container');
+        global_container.style.display = "none";
+    } else{
+        let question_to_play = document.querySelector('.container-question');
+        question_to_play.style.display = "none";
+    }
+
+    let container2 = document.querySelector('.container2')
+    container2.style.display = 'block'
+
+}
+
+// display all question 
+function displayallquestion (event){
+    let card = document.querySelectorAll(".card")
+    if (card.length>1){
+        for (let values of card){
+            values.parentNode.removeChild(values)
+        }
+    }
     for (let element of list_of_questions){
         let card_question = document.createElement("div");
         card_question.className = "card";
@@ -389,79 +411,47 @@ function displayallquestion (){
         let liAnswer1 = document.createElement('span');
         liAnswer1.className = "answer";
         liAnswer1.textContent = element.answers.answer_1;
-        listanswer.appendChild(liAnswer1);
+    
 
         let liAnswer2 = document.createElement('span');
         liAnswer2.className = "answer";
         liAnswer2.textContent = element.answers.answer_2;
-        listanswer.appendChild(liAnswer2);
+       
 
         let liAnswer3 = document.createElement('span');
         liAnswer3.className = "answer";
         liAnswer3.textContent = element.answers.answer_3;
-        listanswer.appendChild(liAnswer3);
+        
 
         let liAnswer4 = document.createElement('span');
         liAnswer4.className = "answer";
         liAnswer4.textContent = element.answers.answer_4;
+        
+        if (element['correct_answer']=='A'){
+           liAnswer1.style.backgroundColor = "green"
+           console.log("num1");
+        }else if (element['correct_answer']=='B'){
+            liAnswer2.style.backgroundColor = "green"
+            console.log("num2");
+        }else if (element['correct_answer']=='C'){
+            liAnswer3.style.backgroundColor = "green"
+            console.log("num3");
+        }else if (element['correct_answer']=='D'){
+            liAnswer4.style.backgroundColor = "green"
+            console.log("num4");
+        }
+
+        listanswer.appendChild(liAnswer1);
+        listanswer.appendChild(liAnswer2);
+        listanswer.appendChild(liAnswer3);
         listanswer.appendChild(liAnswer4);
 
         card_question.appendChild(listanswer);
         document.querySelector(".container2").appendChild(card_question)
     }
 }
-// display after edit 
-function displayAfterUpdate(event) {
-    
-    let container2 = document.querySelector('.container2')
-    container2.style.display = 'block'
-    // create card
-    let card = document.createElement('div');
-    card.className = 'card';
-    // create card header
-    let card_header = document.createElement('div');
-    card_header.className = 'card-header';
 
-    let h2 = document.createElement('h2')
-
-    let icons = document.createElement('div');
-    icons.className = 'icons'
-
-    // create answer
-    let card_body = document.createElement('div');
-    card_body.className = 'card-body';
-
-    // create span answer
-    let spanAnswer1 = document.createElement('span');
-    let spanAnswer2 = document.createElement('span');
-    let spanAnswer3 = document.createElement('span');
-    let spanAnswer4 = document.createElement('span');
-
-    for (let object of list_of_questions) {
-        h2.textContent = object.question;        
-
-        spanAnswer1.textContent = object.answers['answer_1']
-        card_body.appendChild(spanAnswer1)
-
-        spanAnswer2.textContent = object.answers['answer_2']
-        card_body.appendChild(spanAnswer2)
-
-        spanAnswer3.textContent = object.answers['answer_3']
-        card_body.appendChild(spanAnswer3)
-
-        spanAnswer4.textContent = object.answers['answer_4']
-        card_body.appendChild(spanAnswer4)
-    }
-    // add card header to card
-    card_header.appendChild(h2);
-    card.appendChild(card_header)
-    // add card body to card
-    card.appendChild(card_body)
-    // add card to container
-    container2.appendChild(card);
-}
-
-// add question to object
+/// add question to object
 function addQuestiontolist (){
     // create list for each question 
     let listQuestionandanswer = {};
@@ -481,29 +471,32 @@ function addQuestiontolist (){
     let correctanswer = document.querySelectorAll(".select-answer")
     for (let elements of correctanswer){
         if (elements.checked){
-            if (elements.value==1){
-                list_of_correct_answer.push("A")
-            }else if (elements.value==2){
-                list_of_correct_answer.push("B")
-            }else if (elements.value==3){
-                list_of_correct_answer.push("C")
-            }else if (elements.value==4){
-                list_of_correct_answer.push("D")
+            if (elements.value=='A'){
+                list_of_user_answer.push("A")
+                listQuestionandanswer['correct_answer']='A';
+            }else if (elements.value=='B'){
+                list_of_user_answer.push("B")
+                listQuestionandanswer['correct_answer']='B';
+            }else if (elements.value=='C'){
+                list_of_user_answer.push("C")
+                listQuestionandanswer['correct_answer']='C';
+            }else if (elements.value=='D'){
+                list_of_user_answer.push("D")
+                listQuestionandanswer['correct_answer']='D';
             }
         }
     }
-    console.log(list_of_correct_answer)
+    console.log(list_of_user_answer)
     console.log(listQuestionandanswer)
+
     listQuestionandanswer["answers"] = answers
     //append question and answer to list of question 
-    
-    // if (questionInput.value=="" || list_of_questions.answers.answer_1.value == "" || list_of_questions.answers.answer_2.value == "" || list_of_questions.answers.answer_3.value == "" ||list_of_questions.answers.answer_4.value == ""){
-    //     window.alert("Please input all information")
-    // }else {
-        
-    // }
-
-    list_of_questions.push(listQuestionandanswer)
+    if (questionInput.value !="" && document.getElementById("anw"+1).value !="" && document.getElementById("anw"+2).value !="" && document.getElementById("anw"+3).value !="" && document.getElementById("anw"+4).value !="") {
+        list_of_questions.push(listQuestionandanswer)
+    }else {
+        window.alert("Please in put all information before add question!")
+    }
+   
     console.log(list_of_questions)
 
     // refres value inside input
