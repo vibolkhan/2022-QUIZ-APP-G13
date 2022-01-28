@@ -112,11 +112,16 @@ function playQuiz(){
     container2.style.display = 'none';
 }
 
+let arrayOfAnswers = ["answer_1","answer_2","answer_3","answer_4"];
 function nextQuestion(){
     if (isClickedNext === false){
         let question = document.querySelector('.question h2');
         let count = document.getElementById('count');
 
+        // TO SHUFFLE ANSWER 
+        arrayOfAnswers.sort((a,b) => 0.5 - Math.random());
+        
+        console.log(arrayOfAnswers)
         number_of_question += 1
         if (index_of_list_of_questions < total_questions){
             let getAnswers = document.querySelectorAll(".answer");
@@ -129,28 +134,28 @@ function nextQuestion(){
             question.textContent = list_of_questions[index_of_list_of_questions]["question"];
             // CHANGE ANSWER ALL TIME WHENEVER USER CLICK NEXT
             let answer_1 = document.getElementById('answer-1');
-            answer_1.textContent = list_of_questions[index_of_list_of_questions].answers["answer_1"];
-            let content_li = document.createElement("div");
-            content_li.className = "multiple-answers";
+            answer_1.textContent = list_of_questions[index_of_list_of_questions].answers[arrayOfAnswers[0]];
+            // let content_li = document.createElement("div");
+            // content_li.className = "multiple-answers";
             
             
-            // CREATE LIST FOR ANSWER-1
-            let answer1 = document.createElement('li');
-            answer1.className = "answer";
-            answer1.id = "answer-1";
-            answer1.textContent = answer_1.textContent;
-            content_li.appendChild(answer1);
+            // // CREATE LIST FOR ANSWER-1
+            // let answer1 = document.createElement('li');
+            // answer1.className = "answer";
+            // answer1.id = "answer-1";
+            // answer1.textContent = answer_1.textContent;
+            // content_li.appendChild(answer1);
             
             // CREATE LIST FOR ANSWER-2
             let answer_2 = document.getElementById('answer-2');
-            answer_2.textContent = list_of_questions[index_of_list_of_questions].answers["answer_2"];
+            answer_2.textContent = list_of_questions[index_of_list_of_questions].answers[arrayOfAnswers[1]];
             // CREATE LIST FOR ANSWER-3
             let answer_3 = document.getElementById('answer-3');
-            answer_3.textContent = list_of_questions[index_of_list_of_questions].answers["answer_3"];
+            answer_3.textContent = list_of_questions[index_of_list_of_questions].answers[arrayOfAnswers[2]];
 
             // CREATE LIST FOR ANSWER-4
             let answer_4 = document.getElementById('answer-4');
-            answer_4.textContent = list_of_questions[index_of_list_of_questions].answers["answer_4"];
+            answer_4.textContent = list_of_questions[index_of_list_of_questions].answers[arrayOfAnswers[3]];
     
             // INCREMENT COUNT QUESTION ONE BY ONE
             count.textContent = number_of_question;
