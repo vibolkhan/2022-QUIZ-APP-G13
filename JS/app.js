@@ -30,38 +30,37 @@ function displayNextWebpage(event){
     event.target.parentElement.remove();
     var message = document.querySelector(".message-alert");
     message.style.display = "none";
+
+    let container = document.querySelector('.container');
+    container.style.display = "none"
     createMenu();
 }
 
 // Create menu -------------------------------------------------
 function createMenu(){
-    let menu = document.createElement('div');
-    menu.className = "menu-bar";
-
-    // create ul and append it to menu
-    let ul = document.createElement('ul');
-
     // create li with id name  "start-quiz" and text name  "start-quiz"
-    let li_1 = document.createElement('li');
-    li_1.id = "start-quiz";
-    li_1.textContent = "Play Quiz";
+    let card_play = document.createElement('div');
+    card_play.className = "card"
+    card_play.id = "start-quiz";
+    let start = document.createElement("p");
+    start.textContent = "Play Quiz";
+    card_play.appendChild(start);
 
     
     // create li with id name  "create-questions" and text name  "Create Questions"
-    let li_3 = document.createElement('li');
-    li_3.id = "create-questions";
-    li_3.textContent = "Create Questions";
+    let card_create = document.createElement('div');
+    card_create.className = "card"
+    card_create.id = "create-questions";
+    let create = document.createElement("p");
+    create.textContent = "Create Questions";
+    card_create.appendChild(create);
 
-    // append all 3 li to ul-----------------------------------------
-    ul.appendChild(li_1);
-    ul.appendChild(li_3);
-
-    // append ul to menu------------------------
-    menu.appendChild(ul);
-    
     // append menu to container-------------------------------
-    let container = document.querySelector('.container');
-    container.appendChild(menu);
+    let container = document.createElement('div');
+    container.className = "new-container";
+    container.appendChild(card_play);
+    container.appendChild(card_create);
+    document.body.appendChild(container);
 
     // // start quiz menu
     let startquiz = document.getElementById('start-quiz');
@@ -93,6 +92,9 @@ btnNext.addEventListener("click",nextPage);
 function playQuiz(){
     let question_card = document.querySelector(".container-create-questions");
     question_card.style.display = "none";
+
+    let container = document.querySelector(".new-container");
+    container.style.display = "none";
 
 
 
@@ -178,10 +180,6 @@ function nextQuestion(){
     // GET ID NEXT QUESTION TO GET FUNCTION NEXTQUESTION
     let next_question = document.getElementById("next-question");
     next_question.addEventListener("click",nextQuestion);
-
-    var btnBack = document.querySelector("#btn_back");
-    // btnBack.style.display = "none";
-    btnBack.addEventListener("click",createMenu);
 }
 // ------------end coding Play quiz--------------------------
 //---------------START GET USER ANSWERS CHOOSE-----------
@@ -212,7 +210,8 @@ function submit_answers(event){
     event.target.parentElement.parentElement.remove();
     let btn_editout = document.getElementById("create-questions");
     btn_editout.addEventListener("click",createQuestion);
-
+    // document.body.style.backgroundImage = "none";
+    // document.body.style.backgroundImage = 
     showCorrectAndUnCorrect();
 }
     // END SUBMIT ANSWER---------------------------
@@ -363,6 +362,10 @@ function showCorrectAndUnCorrect(){
 function createQuestion(){
     let question_card = document.querySelector(".container-create-questions");
     question_card.style.display = "block";
+
+    let container = document.querySelector(".new-container");
+    container.style.display = "none";
+
 
     let global_containers = document.querySelectorAll(".global-containers");
     for (let containers of global_containers){
@@ -534,7 +537,6 @@ function inProgress(event){
     userName.className = "userName";
     userName.textContent =  USER_NAME;
 
-    btnBack.style.display = "block";
 
     // GET NEXT QUESTION
     nextQuestion();
@@ -552,12 +554,6 @@ question_to_play.style.display = "none";
 
 var final_result = document.querySelector(".container-score");
 final_result.style.display = "none";
-
-
-
-var btnBack = document.querySelector("#btn_back");
-btnBack.style.display = "none";
-// btnBack.addEventListener("click",createMenu);
 
 let list_of_questions = [
     {question: "Q. Tom ________ in Serbia since he was 7 years old.", answers:{answer_1: "A/ lived", answer_2: "B/ is living", answer_3: "C/ has lived",answer_4: "D/ lives"}, correct_answer: "C"} ,
