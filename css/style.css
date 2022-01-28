@@ -257,7 +257,7 @@ header {
 }
 
 /* <!-- start show question to play one by one --> */
-.container-question,.container2,.container-score{
+.container-question,.card,.container-score{
     margin: 40px auto;
     font-size: 20px;
     background: rgba(240, 240, 240, 0.219);
@@ -318,6 +318,11 @@ header {
 /* add page edit and create display question after edit */
 .container2 {
     display: none;
+}
+
+#btn-back {
+    display: none;
+    margin-left: 5%;
 }
 
 
