@@ -87,6 +87,7 @@ function createMenu(){
 
 }
 
+
 // Define button next to get on next page
 const btnNext = document.getElementById('next-button');
 btnNext.addEventListener("click",nextPage);
@@ -96,7 +97,8 @@ function playQuiz(){
     let question_card = document.querySelector(".container-create-questions");
     question_card.style.display = "none";
 
-
+    let btn_back = document.getElementById('btn-back');
+    btn_back.style.display='block';
 
     if (index_of_list_of_questions >= total_questions){
         let global_container = document.querySelector('.global-container');
@@ -180,10 +182,6 @@ function nextQuestion(){
     // GET ID NEXT QUESTION TO GET FUNCTION NEXTQUESTION
     let next_question = document.getElementById("next-question");
     next_question.addEventListener("click",nextQuestion);
-
-    var btnBack = document.querySelector("#btn_back");
-    // btnBack.style.display = "none";
-    btnBack.addEventListener("click",createMenu);
 }
 // ------------end coding Play quiz--------------------------
 
@@ -360,8 +358,8 @@ function showCorrectAndUnCorrect(){
     final_result.style.display = "block";
 }
 
-let btn_back = document.getElementById('back');
-btn_back.addEventListener('click',playQuiz)
+let back_to_play_quiz = document.getElementById('play');
+back_to_play_quiz.addEventListener('click',playQuiz)
 
 
 // SHOW CORRECT OR UNCORRECT USER ANSWER------------------
@@ -527,12 +525,13 @@ function inProgress(event){
     userName.className = "userName";
     userName.textContent =  USER_NAME;
 
-    btnBack.style.display = "block";
-
     // GET NEXT QUESTION
     nextQuestion();
 }
 // end header-----------------------------------------------------
+
+// var btn_back = document.getElementById('btn-back');
+// btn_back.addEventListener('click',createMenu);
 
 var message = document.querySelector(".message-alert");
 message.style.display = "none";
@@ -545,12 +544,6 @@ question_to_play.style.display = "none";
 
 var final_result = document.querySelector(".container-score");
 final_result.style.display = "none";
-
-
-
-var btnBack = document.querySelector("#btn_back");
-btnBack.style.display = "none";
-// btnBack.addEventListener("click",createMenu);
 
 let list_of_questions = [
     {question: "Q. Tom ________ in Serbia since he was 7 years old.", answers:{answer_1: "A/ lived", answer_2: "B/ is living", answer_3: "C/ has lived",answer_4: "D/ lives"}, correct_answer: "C"} ,
@@ -582,6 +575,71 @@ var list_of_correct_answer = ["C","D","B","A","B",
                             "C","A","B","A","A",
                             "A","C","A","D","A",
                             "A","A","C","C","B",]
+
+
+function back_to_menu() {
+
+    let btn_back = document.querySelector('#btn-back');
+    btn_back.style.backgroundColor = 'red'
+
+    let container_question = document.querySelector('.container-question');
+    container_question.style.display = 'none';
+
+    let menu = document.createElement('div');
+    menu.className = "menu-bar";
+
+    // create ul and append it to menu
+    let ul = document.createElement('ul');
+
+    // create li with id name  "start-quiz" and text name  "start-quiz"
+    let li_1 = document.createElement('li');
+    li_1.id = "start-quiz";
+    li_1.textContent = "Play Quiz";
+
+    
+    // create li with id name  "create-questions" and text name  "Create Questions"
+    let li_3 = document.createElement('li');
+    li_3.id = "create-questions";
+    li_3.textContent = "Create Questions";
+
+    // append all 3 li to ul-----------------------------------------
+    ul.appendChild(li_1);
+    ul.appendChild(li_3);
+
+    // append ul to menu------------------------
+    menu.appendChild(ul);
+    
+    // append menu to container-------------------------------
+    let container = document.querySelector('.container');
+    container.appendChild(menu);
+
+    // // start quiz menu
+    let startquiz = document.getElementById('start-quiz');
+    startquiz.addEventListener('click',inProgress);
+
+
+    // create button to edit question 
+    let btnCreate = document.getElementById('create-questions');
+    btnCreate.addEventListener('click',inProgress);
+    btnCreate.addEventListener("click",displayallquestion)
+
+    let createQuiz = document.getElementById('create-questions');
+    createQuiz.addEventListener('click',createQuestion);
+
+    // CREAT FUNCTION TO PLAY QUIZ
+    let question_btn = document.getElementById("start-quiz");
+    question_btn.addEventListener("click",playQuiz);
+
+    // CREATE FUNCTION TO CREATE QUESTION----------------
+    let btn_update = document.querySelector('#btn-edit');
+    btn_update.addEventListener("click",addQuestiontolist);
+    btn_update.addEventListener("click",displayallquestion);
+
+}
+
+let btn_back = document.querySelector('#btn-back');
+btn_back.addEventListener('click',back_to_menu)
+// btn_back.addEventListener('click',createMenu)
 
 // VARIABLES-----------------
 
