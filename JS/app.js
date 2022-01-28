@@ -180,6 +180,10 @@ function nextQuestion(){
     // GET ID NEXT QUESTION TO GET FUNCTION NEXTQUESTION
     let next_question = document.getElementById("next-question");
     next_question.addEventListener("click",nextQuestion);
+
+    var btnBack = document.querySelector("#btn_back");
+    // btnBack.style.display = "none";
+    btnBack.addEventListener("click",createMenu);
 }
 // ------------end coding Play quiz--------------------------
 
@@ -523,6 +527,8 @@ function inProgress(event){
     userName.className = "userName";
     userName.textContent =  USER_NAME;
 
+    btnBack.style.display = "block";
+
     // GET NEXT QUESTION
     nextQuestion();
 }
@@ -538,8 +544,13 @@ var question_to_play = document.querySelector('.container-question');
 question_to_play.style.display = "none";
 
 var final_result = document.querySelector(".container-score");
-final_result.style.display = "none"
-let USER_NAME = "";
+final_result.style.display = "none";
+
+
+
+var btnBack = document.querySelector("#btn_back");
+btnBack.style.display = "none";
+// btnBack.addEventListener("click",createMenu);
 
 let list_of_questions = [
     {question: "Q. Tom ________ in Serbia since he was 7 years old.", answers:{answer_1: "A/ lived", answer_2: "B/ is living", answer_3: "C/ has lived",answer_4: "D/ lives"}, correct_answer: "C"} ,
@@ -586,7 +597,7 @@ let count_question = 0;
 let number_of_question = 0 ;
 let index_of_list_of_answer = 0;
 let user_score = 0 ; 
-
+let USER_NAME = "";
 
 // TYPE BOOLEAN---------------------
 let isClicked = false;
