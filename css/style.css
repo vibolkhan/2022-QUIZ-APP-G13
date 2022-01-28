@@ -55,9 +55,9 @@ body{
     width: 100%;
 }
 .container .fill-input #user-name{
-    padding: 8px;
-    width: 20%;
-    font-size: 18px;
+    padding: 10px 8px;
+    width: 24%;
+    font-size: 20px;
     background: transparent;
     outline: 1px solid #0593E3;
     border: none;
@@ -74,8 +74,8 @@ body{
 } */
 button{
     margin-top: 20px;
-    padding: 8px 20px;
-    font-size: 20px;
+    padding: 12px 20px;
+    font-size: 22px;
     border-radius: 6px;
     border: none;
     background: #0593E3;
@@ -84,13 +84,23 @@ button{
     font-family: 'Ubuntu', sans-serif;
     letter-spacing: 1px;
     font-weight: bold;
+    background: #00934C;
 }
 button:hover{
     transform: scale(1.05);
     transition: .6s ease-in-out;
     /* background-color: none; */
-    box-shadow: 2px 3px 8px 2px #aaa;
+    box-shadow: 2px 3px 8px 1px #fff;
 }
+
+#next-button{
+    padding: 8px 12px;
+    text-transform: uppercase;
+    background: #00934C;
+    margin-top: 60px;
+}
+
+
 
 .new-container {   
     display: flex;
@@ -142,7 +152,7 @@ button:hover{
     top: 81%;
     letter-spacing: 1px;
     opacity: 0;
-    transition: 1s ease-in-out;
+    transition: .6s ease-in-out;
 }
 .new-container .card:hover p{
     opacity: 1.0;
@@ -154,7 +164,7 @@ header {
     align-items: center;
     width: 100%;
     display: none;
-    background-color: rgba(255, 255, 255, 0.739);
+    background-color: #fff;
     box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
 }
 
@@ -179,33 +189,6 @@ header {
 }
 
 /* / end header container  / */
-
-/* start create menu bar */
-.menu {
-    display: none;
-    margin: auto;
-}
-.menu ul{
-    display: flex;
-    margin-top: -0.5px;
-    justify-content: center;
-    
-}
-.menu ul li {
-    list-style: none;
-    font-size: 20px;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-    padding: 20px 40px;    
-    background-color: #0593E3;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-}
-.menu ul li:hover {
-    transform: scale(1.1);
-}
-/* end create menu bar */
 
 /* card-question */
 .container-create-questions {
@@ -277,7 +260,7 @@ header {
 .container-question,.container2,.container-score{
     margin: 40px auto;
     font-size: 20px;
-    background: rgba(240, 240, 240, 0.459);
+    background: rgba(240, 240, 240, 0.219);
     border-top: 8px solid #0593E3;
     width: 60%;
     padding: 20px 30px;
@@ -289,12 +272,10 @@ header {
     padding: 16px 0px;
     box-shadow: 0px 2px 8px 1px rgb(141, 141, 141);
     border-radius: 4px;
-    background-color: #dddddd3b;
     color:#0593E3 ;
 }
 .multiple-answers,.card .card-body{
     padding: 10px 20px;
-    background-color: rgba(221, 221, 221, 0.5);
     font-size: 20px;
     border-radius: 12px;
     box-shadow: 2px 2px 8px 2px #aaa;
@@ -309,10 +290,12 @@ header {
     margin: 20px auto;
     list-style: none;
     background: #0593E3;
+    font-size: 22px;
 }
 .multiple-answers .answer:hover,.card .card-body span:hover{
     box-shadow: #aaa 0px 4px 4px;
-    transform: translateY(-2px);
+    transform: scale(1.02);
+    transition: .6s ease-in-out;
     /* background: #0d6ba1; */
 }
 

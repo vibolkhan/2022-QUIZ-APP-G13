@@ -210,8 +210,7 @@ function submit_answers(event){
     event.target.parentElement.parentElement.remove();
     let btn_editout = document.getElementById("create-questions");
     btn_editout.addEventListener("click",createQuestion);
-    // document.body.style.backgroundImage = "none";
-    // document.body.style.backgroundImage = 
+
     showCorrectAndUnCorrect();
 }
     // END SUBMIT ANSWER---------------------------
@@ -583,7 +582,7 @@ let list_of_questions = [
 
 var list_of_correct_answer = ["C","D","B","A","B",
                             "C","A","B","A","A",
-                            "A","C","A","D","A",
+                            "B","C","A","D","A",
                             "A","A","C","C","B",]
 
 // VARIABLES-----------------
