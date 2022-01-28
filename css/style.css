@@ -74,7 +74,7 @@ body{
 } */
 button{
     margin-top: 20px;
-    padding: 12px 20px;
+    padding: 10px 20px;
     font-size: 22px;
     border-radius: 6px;
     border: none;
@@ -273,6 +273,7 @@ header {
     box-shadow: 0px 2px 8px 1px rgb(141, 141, 141);
     border-radius: 4px;
     color:#0593E3 ;
+    background: rgba(240, 240, 240, 0.726);
 }
 .multiple-answers,.card .card-body{
     padding: 10px 20px;
@@ -293,7 +294,7 @@ header {
     font-size: 22px;
 }
 .multiple-answers .answer:hover,.card .card-body span:hover{
-    box-shadow: #aaa 0px 4px 4px;
+    /* box-shadow: #aaa 0px 4px 4px; */
     transform: scale(1.02);
     transition: .6s ease-in-out;
     /* background: #0d6ba1; */
@@ -323,6 +324,14 @@ header {
 #btn-back {
     display: none;
     margin-left: 5%;
+    
+}
+.container-score{
+    background-image: url(../images/background\ result.png);
+    background-size: contain;
+    background-position: center;
+    color: #0593E3;
+    font-size: 26px;
 }
 
 
