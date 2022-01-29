@@ -111,23 +111,6 @@ function createMenu(){
     // hide button back
     document.querySelector('.back-to-home').style.display = 'none';
 
-    // VARIABLES-----------------
-
-    // TYPE ARRAY-----------------------
-    list_of_user_answer = [];
-    idUserClick = [];
-
-    // TYPE INTEGER---------------------
-    index_of_list_of_questions = 0;
-    total_questions = 20;
-    count_question = 0;
-    number_of_question = 0 ;
-    index_of_list_of_answer = 0;
-    user_score = 0 ; 
-
-    // TYPE BOOLEAN---------------------
-    isClicked = false;
-    isClickedNext = false;
 }
 
 // BACK TO MENU
@@ -160,11 +143,15 @@ function playQuiz(){
 
     let container2 = document.querySelector('.container2');
     container2.style.display = 'none';
+
+    // GET ID NEXT QUESTION TO GET FUNCTION NEXTQUESTION
+    let next_question = document.getElementById("next-question");
+    next_question.addEventListener("click",nextQuestion);
+    next_question.addEventListener("change",nextQuestion);
 }
 
 function nextQuestion(){
     if (isClickedNext === false){
-        let question = document.querySelector('.question h2');
         let count = document.getElementById('count');
 
         // TO SHUFFLE ANSWER 
@@ -180,7 +167,14 @@ function nextQuestion(){
             } 
     
             // GET QUESTION FROM ARRAY OF OBJECTS
-            question.textContent = list_of_questions[index_of_list_of_questions]["question"];
+            let question = document.querySelector("h2")
+            question.textContent = list_of_questions[index_of_list_of_questions]['question'];
+      
+            console.log( list_of_questions[index_of_list_of_questions]['question']);
+            let card = document.createElement("div");
+            card.className = "card";
+            // CREATE LIST FOR ANSWER-2
+            // let card_answer = document.c
             // CHANGE ANSWER ALL TIME WHENEVER USER CLICK NEXT
             // // CREATE LIST FOR ANSWER-1
             let answer_1 = document.getElementById('answer-1');
@@ -222,9 +216,7 @@ function nextQuestion(){
     }
     isClickedNext = true;
 
-    // GET ID NEXT QUESTION TO GET FUNCTION NEXTQUESTION
-    let next_question = document.getElementById("next-question");
-    next_question.addEventListener("click",nextQuestion);
+ 
 }
 // ------------end coding Play quiz--------------------------
 //---------------START GET USER ANSWERS CHOOSE-----------
@@ -403,6 +395,7 @@ function showCorrectAndUnCorrect(){
 
 }
 
+let button = document.querySelector(".show-meaning")
 // SHOW CORRECT OR UNCORRECT USER ANSWER------------------
 // ------------start coding create question--------------------------
 function createQuestion(){
@@ -413,6 +406,7 @@ function createQuestion(){
     container.style.display = "none";
 
     let global_containers = document.querySelectorAll(".global-containers");
+    // global_containers.style.display = 'none'
     for (let containers of global_containers){
         containers.remove();
     }
@@ -424,7 +418,7 @@ function createQuestion(){
 // display all question 
 function displayallquestion (event){
     let card = document.querySelectorAll(".card")
-    if (card.length>1){
+    if (card.length>0){
         for (let values of card){
             values.parentNode.removeChild(values)
         }
@@ -462,13 +456,14 @@ function displayallquestion (event){
         liAnswer4.textContent = element.answers.answer_4;
         
         if (element['correct_answer']=='A'){
+           liAnswer1.style.backgroundColor = "green";
             liAnswer1.style.backgroundColor = "green"
         }else if (element['correct_answer']=='B'){
-            liAnswer2.style.backgroundColor = "green"
+            liAnswer2.style.backgroundColor = "green";
         }else if (element['correct_answer']=='C'){
-            liAnswer3.style.backgroundColor = "green"
+            liAnswer3.style.backgroundColor = "green";
         }else if (element['correct_answer']=='D'){
-            liAnswer4.style.backgroundColor = "green"
+            liAnswer4.style.backgroundColor = "green";
         }
 
         listanswer.appendChild(liAnswer1);
@@ -477,10 +472,61 @@ function displayallquestion (event){
         listanswer.appendChild(liAnswer4);
 
         card_question.appendChild(listanswer);
+        // create trash icon and append it to footer
+        let footer = document.createElement("div");
+        footer.className = "footer";
+
+        // create edit icon and append it to footer
+        let edit = document.createElement("i");
+        edit.className = "fa fa-edit";
+
+
+        let trash_icon = document.createElement("i");
+        trash_icon.className = "fa fa-trash";
+
+        footer.appendChild(trash_icon);
+        footer.appendChild(edit)
+        card_question.appendChild(footer);
+
+        document.querySelector(".container2").appendChild(card_question)
         document.querySelector(".container2").appendChild(card_question);
+    }
+    document.body.addEventListener('click',delete_question)
+    document.body.addEventListener('click',edit_question)
+
+}
+
+// Edit question 
+function edit_question (event){
+    let edit = document.querySelectorAll(".fa-edit");
+    for (let index in edit){
+        if (edit[index]==event.target){
+            console.log(edit[index].parentElement.parentElement)
+
+            let card_question = document.querySelector('.container-create-questions');
+            card_question.style.display = "block";
+
+            let container2 = document.querySelector(".container2");
+            container2.style.display = "none";
+
+            let btn_update = document.querySelector("#btn-edit");
+            btn_update.addEventListener('click',displayallquestion)
+
+        }
     }
 }
 
+// delete question 
+function delete_question (event){
+    let allquestion = document.querySelectorAll(".fa-trash")
+    for (let index in allquestion){
+        if (allquestion[index]==event.target){
+            console.log(allquestion[index].parentElement.parentElement)
+            event.target.parentElement.parentElement.remove();
+            list_of_questions.splice(index,1)
+        }
+    }
+}
 /// add question to object
 function addQuestiontolist (){
     // create list for each question 
@@ -516,12 +562,16 @@ function addQuestiontolist (){
             }
         }
     }
+    
     // console.log(list_of_user_answer)
     // console.log(listQuestionandanswer)
 
     listQuestionandanswer["answers"] = answers
     //append question and answer to list of question 
-    if (questionInput.value !="" && document.getElementById("anw"+1).value !="" && document.getElementById("anw"+2).value !="" && document.getElementById("anw"+3).value !="" && document.getElementById("anw"+4).value !="") {
+    let radio = document.querySelectorAll(".select-answer");
+    let radion_condition = radio[0].checked || radio[1].checked || radio[2].checked || radio[3].checked;
+    let answer_condition = document.getElementById("anw"+1).value !="" && document.getElementById("anw"+2).value !="" && document.getElementById("anw"+3).value !="" && document.getElementById("anw"+4).value !="";
+    if (questionInput.value !="" && answer_condition && radion_condition) {
         list_of_questions.push(listQuestionandanswer)
     }else {
         window.alert("Please in put all information before add question!")
@@ -538,6 +588,7 @@ function addQuestiontolist (){
     total_questions += 1
 }
 // end add question
+
 
 // start Headers--------------------------------------------------
 function inProgress(event){
@@ -621,7 +672,7 @@ let idUserClick = [];
 
 // TYPE INTEGER---------------------
 let index_of_list_of_questions = 0;
-let total_questions = 20;
+let total_questions = list_of_questions.length;
 let count_question = 0;
 let number_of_question = 0 ;
 let index_of_list_of_answer = 0;

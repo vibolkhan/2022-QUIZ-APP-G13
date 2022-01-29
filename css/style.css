@@ -321,6 +321,7 @@ header {
                 inset -5px -5px 5px rgba(255, 255, 255, 0.2),
                 inset 5px 5px 5px rgba(0, 0, 0, 0.1);
 } 
+
 .question h2,.card-header h2,.card-header{
     padding: 16px 0px;
     box-shadow: -15px -15px 15px rgba(255,255,255,0.2),
@@ -331,6 +332,10 @@ header {
     color:#0593E3 ;
     background: rgba(240, 240, 240, 0.726);
 }
+/* .card-header h2 {
+
+} */
+
 .multiple-answers,.card .card-body,.card-body{
     padding: 10px 20px;
     font-size: 20px;
@@ -393,7 +398,34 @@ header {
     font-size: 26px;
 }
 
+/* footer */
+.footer {
+    width: 20%;
+    margin:20px  auto;
+    display: flex;
+    justify-content: space-between;
+}
+/* trash icon */
+.fa-trash {
+    font-size: 50px;
+    cursor: pointer;
+}
+.fa-trash:hover {
+    color: red;
+}
+.fa-edit {
+    font-size: 45px;
+    margin-top: 5px;
+    cursor: pointer;
+}
+.fa-edit:hover {
+    color: rgb(11, 219, 11);
+}
 
+/* Menu button */
+.back-to-menu {
+    display: none;
+}
 .back-to-home{
     left: 3%;
     top: 50%;
