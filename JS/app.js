@@ -2,6 +2,30 @@
 // -----------------Function ----------------------------------
 // ------------------------------------------------------------
 
+function changeToDark(){
+    document.body.style.background = "#1b2a41";
+
+    document.querySelector(".dark").style.display = "none";
+    document.querySelector(".light").style.display = "block";
+
+    document.querySelector(".header").style.background = "#1b2a41"
+    document.querySelector(".header").style.color = "#fff";
+}
+function changeToLight(){
+    // document.body.style.backgroundImage = ("url(images/online-education-background.png)");
+    document.body.style.background = "#ddd";
+
+    document.querySelector(".dark").style.display = "block";
+    document.querySelector(".light").style.display = "none";
+    
+    document.querySelector(".header").style.color = "#0593E3"
+    document.querySelector(".header").style.background = "#ccc";
+
+}
+
+document.querySelector(".dark").addEventListener("click",changeToDark);
+document.querySelector(".light").addEventListener("click",changeToLight);
+
 // Forward new page--------------------------------------------
 function nextPage(){
     var inputName = document.getElementById('user-name');
@@ -70,6 +94,7 @@ function createMenu(){
     // create button to edit question 
     let btnCreate = document.getElementById('create-questions');
     btnCreate.addEventListener('click',inProgress);
+    btnCreate.addEventListener("click",displayallquestion)
 
     let createQuiz = document.getElementById('create-questions');
     createQuiz.addEventListener('click',createQuestion);
@@ -81,22 +106,48 @@ function createMenu(){
     // CREATE FUNCTION TO CREATE QUESTION----------------
     let btn_update = document.querySelector('#btn-edit');
     btn_update.addEventListener("click",addQuestiontolist);
+    btn_update.addEventListener("click",displayallquestion)
 
+    // hide button back
+    document.querySelector('.back-to-home').style.display = 'none';
+
+    // VARIABLES-----------------
+
+    // TYPE ARRAY-----------------------
+    list_of_user_answer = [];
+    idUserClick = [];
+
+    // TYPE INTEGER---------------------
+    index_of_list_of_questions = 0;
+    total_questions = 20;
+    count_question = 0;
+    number_of_question = 0 ;
+    index_of_list_of_answer = 0;
+    user_score = 0 ; 
+
+    // TYPE BOOLEAN---------------------
+    isClicked = false;
+    isClickedNext = false;
 }
 
-// Define button next to get on next page
-const btnNext = document.getElementById('next-button');
-btnNext.addEventListener("click",nextPage);
+// BACK TO MENU
+function back_to_menu() {
+    document.querySelector('.container-question').style.display = 'none';
+    let header = document.querySelector("header");
+    header.style.display = "none";
+    document.querySelector('.new-container').remove();
+    createMenu();
+}
 
 // ------------start coding Play quiz--------------------------
 function playQuiz(){
     let question_card = document.querySelector(".container-create-questions");
     question_card.style.display = "none";
 
+    document.querySelector(".back-to-home").style.display = "block"
+    
     let container = document.querySelector(".new-container");
     container.style.display = "none";
-
-
 
     if (index_of_list_of_questions >= total_questions){
         let global_container = document.querySelector('.global-container');
@@ -112,7 +163,6 @@ function playQuiz(){
     container2.style.display = 'none';
 }
 
-let arrayOfAnswers = ["answer_1","answer_2","answer_3","answer_4"];
 function nextQuestion(){
     if (isClickedNext === false){
         let question = document.querySelector('.question h2');
@@ -133,18 +183,9 @@ function nextQuestion(){
             // GET QUESTION FROM ARRAY OF OBJECTS
             question.textContent = list_of_questions[index_of_list_of_questions]["question"];
             // CHANGE ANSWER ALL TIME WHENEVER USER CLICK NEXT
+            // // CREATE LIST FOR ANSWER-1
             let answer_1 = document.getElementById('answer-1');
             answer_1.textContent = list_of_questions[index_of_list_of_questions].answers[arrayOfAnswers[0]];
-            // let content_li = document.createElement("div");
-            // content_li.className = "multiple-answers";
-            
-            
-            // // CREATE LIST FOR ANSWER-1
-            // let answer1 = document.createElement('li');
-            // answer1.className = "answer";
-            // answer1.id = "answer-1";
-            // answer1.textContent = answer_1.textContent;
-            // content_li.appendChild(answer1);
             
             // CREATE LIST FOR ANSWER-2
             let answer_2 = document.getElementById('answer-2');
@@ -216,6 +257,7 @@ function submit_answers(event){
     let btn_editout = document.getElementById("create-questions");
     btn_editout.addEventListener("click",createQuestion);
 
+    document.querySelector('.back-to-home').style.display = 'none';
     showCorrectAndUnCorrect();
 }
     // END SUBMIT ANSWER---------------------------
@@ -255,6 +297,7 @@ function showCorrectAndUnCorrect(){
         emoji.style.width = "4%";
         emoji.style.left = "410px";
         emoji.style.position = "absolute";
+        emoji.style.zIndex = "-1"
         let iconBad = true;
 
         let answer1 = document.createElement('li');
@@ -358,8 +401,8 @@ function showCorrectAndUnCorrect(){
     let final_score = document.querySelector(".score");
     final_score.textContent = (user_score/total_questions)*100;
     final_result.style.display = "block";
-}
 
+}
 
 // SHOW CORRECT OR UNCORRECT USER ANSWER------------------
 // ------------start coding create question--------------------------
@@ -370,17 +413,23 @@ function createQuestion(){
     let container = document.querySelector(".new-container");
     container.style.display = "none";
 
-
     let global_containers = document.querySelectorAll(".global-containers");
     for (let containers of global_containers){
         containers.remove();
     }
-    let btn_update = document.getElementById('btn-edit');
-    btn_update.addEventListener('click',displayAfterUpdate);
+
+    let container2 = document.querySelector('.container2');
+    container2.style.display = 'block';
 }
+
 // display all question 
-function displayallquestion (){
-    
+function displayallquestion (event){
+    let card = document.querySelectorAll(".card")
+    if (card.length>1){
+        for (let values of card){
+            values.parentNode.removeChild(values)
+        }
+    }
     for (let element of list_of_questions){
         let card_question = document.createElement("div");
         card_question.className = "card";
@@ -400,79 +449,40 @@ function displayallquestion (){
         let liAnswer1 = document.createElement('span');
         liAnswer1.className = "answer";
         liAnswer1.textContent = element.answers.answer_1;
-        listanswer.appendChild(liAnswer1);
-
+    
         let liAnswer2 = document.createElement('span');
         liAnswer2.className = "answer";
         liAnswer2.textContent = element.answers.answer_2;
-        listanswer.appendChild(liAnswer2);
 
         let liAnswer3 = document.createElement('span');
         liAnswer3.className = "answer";
         liAnswer3.textContent = element.answers.answer_3;
-        listanswer.appendChild(liAnswer3);
-
+        
         let liAnswer4 = document.createElement('span');
         liAnswer4.className = "answer";
         liAnswer4.textContent = element.answers.answer_4;
+        
+        if (element['correct_answer']=='A'){
+            liAnswer1.style.backgroundColor = "green"
+        }else if (element['correct_answer']=='B'){
+            liAnswer2.style.backgroundColor = "green"
+        }else if (element['correct_answer']=='C'){
+            liAnswer3.style.backgroundColor = "green"
+        }else if (element['correct_answer']=='D'){
+            liAnswer4.style.backgroundColor = "green"
+        }
+
+        listanswer.appendChild(liAnswer1);
+        listanswer.appendChild(liAnswer2);
+        listanswer.appendChild(liAnswer3);
         listanswer.appendChild(liAnswer4);
 
         card_question.appendChild(listanswer);
         document.querySelector(".container2").appendChild(card_question)
     }
 }
-// display after edit 
-function displayAfterUpdate(event) {
-    
-    let container2 = document.querySelector('.container2')
-    container2.style.display = 'block'
-    // create card
-    let card = document.createElement('div');
-    card.className = 'card';
-    // create card header
-    let card_header = document.createElement('div');
-    card_header.className = 'card-header';
 
-    let h2 = document.createElement('h2')
-
-    let icons = document.createElement('div');
-    icons.className = 'icons'
-
-    // create answer
-    let card_body = document.createElement('div');
-    card_body.className = 'card-body';
-
-    // create span answer
-    let spanAnswer1 = document.createElement('span');
-    let spanAnswer2 = document.createElement('span');
-    let spanAnswer3 = document.createElement('span');
-    let spanAnswer4 = document.createElement('span');
-
-    for (let object of list_of_questions) {
-        h2.textContent = object.question;        
-
-        spanAnswer1.textContent = object.answers['answer_1']
-        card_body.appendChild(spanAnswer1)
-
-        spanAnswer2.textContent = object.answers['answer_2']
-        card_body.appendChild(spanAnswer2)
-
-        spanAnswer3.textContent = object.answers['answer_3']
-        card_body.appendChild(spanAnswer3)
-
-        spanAnswer4.textContent = object.answers['answer_4']
-        card_body.appendChild(spanAnswer4)
-    }
-    // add card header to card
-    card_header.appendChild(h2);
-    card.appendChild(card_header)
-    // add card body to card
-    card.appendChild(card_body)
-    // add card to container
-    container2.appendChild(card);
-}
-
-// add question to object
+/// add question to object
 function addQuestiontolist (){
     // create list for each question 
     let listQuestionandanswer = {};
@@ -492,30 +502,31 @@ function addQuestiontolist (){
     let correctanswer = document.querySelectorAll(".select-answer")
     for (let elements of correctanswer){
         if (elements.checked){
-            if (elements.value==1){
-                list_of_correct_answer.push("A")
-            }else if (elements.value==2){
-                list_of_correct_answer.push("B")
-            }else if (elements.value==3){
-                list_of_correct_answer.push("C")
-            }else if (elements.value==4){
-                list_of_correct_answer.push("D")
+            if (elements.value=='A'){
+                list_of_user_answer.push("A")
+                listQuestionandanswer['correct_answer']='A';
+            }else if (elements.value=='B'){
+                list_of_user_answer.push("B")
+                listQuestionandanswer['correct_answer']='B';
+            }else if (elements.value=='C'){
+                list_of_user_answer.push("C")
+                listQuestionandanswer['correct_answer']='C';
+            }else if (elements.value=='D'){
+                list_of_user_answer.push("D")
+                listQuestionandanswer['correct_answer']='D';
             }
         }
     }
-    console.log(list_of_correct_answer)
-    console.log(listQuestionandanswer)
+    // console.log(list_of_user_answer)
+    // console.log(listQuestionandanswer)
+
     listQuestionandanswer["answers"] = answers
     //append question and answer to list of question 
-    
-    // if (questionInput.value=="" || list_of_questions.answers.answer_1.value == "" || list_of_questions.answers.answer_2.value == "" || list_of_questions.answers.answer_3.value == "" ||list_of_questions.answers.answer_4.value == ""){
-    //     window.alert("Please input all information")
-    // }else {
-        
-    // }
-
-    list_of_questions.push(listQuestionandanswer)
-    console.log(list_of_questions)
+    if (questionInput.value !="" && document.getElementById("anw"+1).value !="" && document.getElementById("anw"+2).value !="" && document.getElementById("anw"+3).value !="" && document.getElementById("anw"+4).value !="") {
+        list_of_questions.push(listQuestionandanswer)
+    }else {
+        window.alert("Please in put all information before add question!")
+    }
 
     // refres value inside input
     questionInput.value = ""
@@ -541,11 +552,16 @@ function inProgress(event){
     userName.className = "userName";
     userName.textContent =  USER_NAME;
 
-
     // GET NEXT QUESTION
     nextQuestion();
 }
 // end header-----------------------------------------------------
+
+
+
+// btn play quiz
+let btn_play_quiz = document.getElementById('play-quiz');
+btn_play_quiz.addEventListener('click',playQuiz);
 
 var message = document.querySelector(".message-alert");
 message.style.display = "none";
@@ -559,32 +575,40 @@ question_to_play.style.display = "none";
 var final_result = document.querySelector(".container-score");
 final_result.style.display = "none";
 
+// Define button next to get on next page
+const btnNext = document.getElementById('next-button');
+btnNext.addEventListener("click",nextPage);
+
+let btn_back = document.querySelector('#btn-back');
+btn_back.addEventListener('click',back_to_menu);
+
 let list_of_questions = [
-    {question: "Q. Tom ________ in Serbia since he was 7 years old.", answers:{answer_1: "A/ lived", answer_2: "B/ is living", answer_3: "C/ has lived",answer_4: "D/ lives"}, correct_answer: "C"} ,
-    {question: "Q. They _________ go to the cinema every day.", answers:{answer_1: "A/ isn't", answer_2: "B/ doesn't", answer_3: "C/ aren't",answer_4: "D/ don't"} , correct_answer: "D"} ,
-    {question: "Q. She ___________ at a hotel every day", answers:{answer_1: "A/ working", answer_2: "B/ works", answer_3: "C/ is working",answer_4: "D/ work"} , correct_answer: "B"} ,
-    {question: "Q. While Tom (read) , Amely (watch) a documentary on TV.", answers:{answer_1: "A/ was reading / was watching", answer_2: "B/ was reading / were watching", answer_3: "C/ read / watched",answer_4: "D/ read / was watching"} , correct_answer: "A"} ,
-    {question: "Q. He (wake) up and (look) at his watch.", answers:{answer_1: "A/ waked / looked", answer_2: "B/ woke/ looked", answer_3: "C/ was waking / looked",answer_4: "D/ waked / was looking"} , correct_answer: "B"} ,
-
-    {question: "Q. While I (drive), I (have) an accident.", answers:{answer_1: "A/ drived/had", answer_2: "B/ drove / was having", answer_3: "C/ was driving/ had",answer_4: "D/ drove/ had"}, correct_answer: "C" } ,
-    {question: "Q. ...  you ...  London?  (ever/visit)", answers:{answer_1: "A/ Have you ever visited London?", answer_2: "B/ Did you ever visit London?", answer_3: "C/ Has you ever visited London?",answer_4: "D/ Did you ever visited London?"} , correct_answer: "A"} ,
-    {question: "Q. Susan and Jane ....  at home last Monday. (not/be)", answers:{answer_1: "A/ hasn't", answer_2: "B/ weren't", answer_3: "C/ wasn't",answer_4: "D/ haven't been"} , correct_answer: "B"} ,
-    {question: "Q. They ... shrimps. (already/eat)", answers:{answer_1: "A/ have eaten", answer_2: "B/ ate", answer_3: "C/ has eaten",answer_4: "D/ eated"} , correct_answer: "A"} ,
-    {question: "Q. How long .... each other before they .... to get married?", answers:{answer_1: "A/ had they known, decided", answer_2: "B/ knew, decided", answer_3: "C/ did they know, had decided",answer_4: "D/ do they know / decide"} , correct_answer: "A"} ,
-
-    {question: "Q. Before he went out of the office, Jim ... the door.", answers:{answer_1: "A/ locked", answer_2: "B/ had locked", answer_3: "C/ had lock",answer_4: "D/ has locked"} , correct_answer: "B"} ,
+    {question: "Q. Tom ________ in Serbia since he was 7 years old.", answers:{answer_1: "A. lived", answer_2: "B. is living", answer_3: "C. has lived",answer_4: "D. lives"}, correct_answer: "C"} ,
+    {question: "Q. They _________ go to the cinema every day.", answers:{answer_1: "A. isn't", answer_2: "B. doesn't", answer_3: "C. aren't",answer_4: "D. don't"} , correct_answer: "D"} ,
+    {question: "Q. She ___________ at a hotel every day", answers:{answer_1: "A. working", answer_2: "B. works", answer_3: "C. is working",answer_4: "D. work"} , correct_answer: "B"} ,
+    {question: "Q. While Tom (read) , Amely (watch) a documentary on TV.", answers:{answer_1: "A. was reading / was watching", answer_2: "B. was reading / were watching", answer_3: "C. read / watched",answer_4: "D. read / was watching"} , correct_answer: "A"} ,
+    {question: "Q. He (wake) up and (look) at his watch.", answers:{answer_1: "A. waked / looked", answer_2: "B. woke/ looked", answer_3: "C. was waking / looked",answer_4: "D. waked / was looking"} , correct_answer: "B"} ,
+    
+    {question: "Q. While I (drive), I (have) an accident.", answers:{answer_1: "A. drived/had", answer_2: "B. drove / was having", answer_3: "C. was driving/ had",answer_4: "D. drove/ had"}, correct_answer: "C" } ,
+    {question: "Q. ...  you ...  London?  (ever/visit)", answers:{answer_1: "A. Have you ever visited London?", answer_2: "B. Did you ever visit London?", answer_3: "C. Has you ever visited London?",answer_4: "D. Did you ever visited London?"} , correct_answer: "A"} ,
+    {question: "Q. Susan and Jane ....  at home last Monday. (not/be)", answers:{answer_1: "A. hasn't", answer_2: "B. weren't", answer_3: "C. wasn't",answer_4: "D. haven't been"} , correct_answer: "B"} ,
+    {question: "Q. They ... shrimps. (already/eat)", answers:{answer_1: "A. have eaten", answer_2: "B. ate", answer_3: "C. has eaten",answer_4: "D. eated"} , correct_answer: "A"} ,
+    {question: "Q. How long .... each other before they .... to get married?", answers:{answer_1: "A. had they known, decided", answer_2: "B. knew, decided", answer_3: "C. did they know, had decided",answer_4: "D. do they know, decide"} , correct_answer: "A"} ,
+    
+    {question: "Q. Before he went out of the office, Jim ... the door.", answers:{answer_1: "A. locked", answer_2: "B. had locked", answer_3: "C. had lock",answer_4: "D. has locked"} , correct_answer: "B"} ,
     {question: "Q. Mrs Rush .... her children because they ... the window.", answers:{answer_1: "A/ had punished, had broken", answer_2: "B/ punished, had broken", answer_3: "C/ punished, broke",answer_4: "D/ punishes, breaks"} , correct_answer: "C"} ,
-    {question: "Q. Where ..........(you / be) yesterday?", answers:{answer_1: "A/ were you", answer_2: "B/ you were ", answer_3: "C/ did you be",answer_4: "D/ was you"} , correct_answer: "A"} ,
-    {question: "Q. .... you .... your homework yet?", answers:{answer_1: "A/ Were you do", answer_2: "B/ Has you done...", answer_3: "C/ Did you do...",answer_4: "D/ Have you done..."} , correct_answer: "D"} ,
-    {question: "Q.  If it snows, ________ still drive to the coast? ", answers:{answer_1: "A/ will you", answer_2: "B/ would you", answer_3: "C/ would you had",answer_4: "D/ would you have"} , correct_answer: "A"} ,
-
-    {question: "Q. What would you do if it ________ on your wedding day? ", answers:{answer_1: "A/ rained", answer_2: "B/  will rain", answer_3: "C/ would rain",answer_4: "D/ would have rained"} , correct_answer: "A"} ,
-    {question: "Q. If she comes, I _____ call you. ", answers:{answer_1: "A/ will", answer_2: "B/ would", answer_3: "C/ would have",answer_4: "D/ would had"} , correct_answer: "A"} ,
-    {question: "Q. If I eat peanut butter, I ________ sick. ", answers:{answer_1: "A/ would have gotten", answer_2: "B/ would get", answer_3: "C/ get",answer_4: "D/ got"} , correct_answer: "C"} ,
-    {question: "Q. What will you do if you ________ the history exam? ", answers:{answer_1: "A/ would fail", answer_2: "B/  will fail", answer_3: "C/ fail",answer_4: "D/ would have fail"} , correct_answer: "C"} ,
-    {question: "Q. If they had not _____ the car, I would have driven you. ", answers:{answer_1: "A/  take", answer_2: "B/ taken", answer_3: "C/ would take",answer_4: "D/ would have taken"} , correct_answer: "B"} 
+    {question: "Q. Where ..........(you / be) yesterday?", answers:{answer_1: "A. were you", answer_2: "B. you were ", answer_3: "C. did you be",answer_4: "D. was you"} , correct_answer: "A"} ,
+    {question: "Q. .... you .... your homework yet?", answers:{answer_1: "A. Were you do", answer_2: "B. Has you done...", answer_3: "C. Did you do...",answer_4: "D. Have you done..."} , correct_answer: "D"} ,
+    {question: "Q.  If it snows, ________ still drive to the coast? ", answers:{answer_1: "A. will you", answer_2: "B. would you", answer_3: "C. would you had",answer_4: "D. would you have"} , correct_answer: "A"} ,
+    
+    {question: "Q. What would you do if it ________ on your wedding day? ", answers:{answer_1: "A. rained", answer_2: "B.  will rain", answer_3: "C. would rain",answer_4: "D. would have rained"} , correct_answer: "A"} ,
+    {question: "Q. If she comes, I _____ call you. ", answers:{answer_1: "A. will", answer_2: "B. would", answer_3: "C. would have",answer_4: "D. would had"} , correct_answer: "A"} ,
+    {question: "Q. If I eat peanut butter, I ________ sick. ", answers:{answer_1: "A. would have gotten", answer_2: "B. would get", answer_3: "C. get",answer_4: "D. got"} , correct_answer: "C"} ,
+    {question: "Q. What will you do if you ________ the history exam? ", answers:{answer_1: "A. would fail", answer_2: "B.  will fail", answer_3: "C. fail",answer_4: "D. would have fail"} , correct_answer: "C"} ,
+    {question: "Q. If they had not _____ the car, I would have driven you. ", answers:{answer_1: "A.  take", answer_2: "B. taken", answer_3: "C. would take",answer_4: "D. would have taken"} , correct_answer: "B"} 
 ]
 
+let arrayOfAnswers = ["answer_1","answer_2","answer_3","answer_4"];
 var list_of_correct_answer = ["C","D","B","A","B",
                             "C","A","B","A","A",
                             "B","C","A","D","A",
@@ -596,7 +620,6 @@ var list_of_correct_answer = ["C","D","B","A","B",
 let list_of_user_answer = [];
 let idUserClick = [];
 
-
 // TYPE INTEGER---------------------
 let index_of_list_of_questions = 0;
 let total_questions = 20;
@@ -604,6 +627,8 @@ let count_question = 0;
 let number_of_question = 0 ;
 let index_of_list_of_answer = 0;
 let user_score = 0 ; 
+
+// TYPE STRING----------------------
 let USER_NAME = "";
 
 // TYPE BOOLEAN---------------------
