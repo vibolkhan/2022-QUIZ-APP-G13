@@ -51,7 +51,7 @@ body{
     transition: .6s ease-in-out;
 }
 .mode .light{
-    background: #e6e6e6;
+    background: #fff;
 }
 .fa-sun-o{
     color: orange;
@@ -357,10 +357,8 @@ header {
     inset 5px 5px 5px rgba(0, 0, 0, 0.1);
 }
 .multiple-answers .answer:hover,.card .card-body span:hover{
-    /* box-shadow: #aaa 0px 4px 4px; */
-    transform: scale(1.02);
+    /* transform: scale(1.02); */
     transition: .6s ease-in-out;
-    /* background: #0d6ba1; */
 }
 
 .footer-question,.card .card-footer{
