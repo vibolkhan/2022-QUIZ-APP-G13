@@ -268,13 +268,16 @@ header {
     text-align: center;
     box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
 } 
-.question h2,.card-header h2{
+.question h2{
     padding: 16px 0px;
     box-shadow: 0px 2px 8px 1px rgb(141, 141, 141);
     border-radius: 4px;
     color:#0593E3 ;
     background: rgba(240, 240, 240, 0.726);
 }
+/* .card-header h2 {
+
+} */
 .multiple-answers,.card .card-body{
     padding: 10px 20px;
     font-size: 20px;
@@ -334,6 +337,31 @@ header {
     font-size: 26px;
 }
 
+/* footer */
+.footer {
+    width: 20%;
+    margin:20px  auto;
+    display: flex;
+    justify-content: space-between;
+}
+/* trash icon */
+.fa-trash {
+    font-size: 50px;
+    cursor: pointer;
+}
+.fa-trash:hover {
+    color: red;
+}
+.fa-edit {
+    font-size: 45px;
+    margin-top: 5px;
+    cursor: pointer;
+}
+.fa-edit:hover {
+    color: rgb(11, 219, 11);
+}
 
-
-
+/* Menu button */
+.back-to-menu {
+    display: none;
+}
