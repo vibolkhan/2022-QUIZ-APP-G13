@@ -11,6 +11,11 @@
     <link rel="shortcut icon" href="images/pnc-logo.png" type="image/x-icon">
 </head>
 <body>
+    <!-- LIGHT MODE -->
+    <DIV class="mode">
+        <div class="light"></div>
+        <div class="dark"></div>
+    </DIV>
 
     <!-- ------------------Starting webpage --------------------------- -->
     <div class="container">
@@ -19,7 +24,7 @@
             <img src="images/pnc-logo.png" alt="pnc-logo.png" width="100%">
         </div>
         <div class="container-body">
-            <h1 class="title">Study English Here</h1>
+            <h1 class="title">Study English Now</h1>
         </div> 
         <div class="fill-input">
             <input type="text" id="user-name" placeholder="Your name..." required> <br>
@@ -34,7 +39,7 @@
             <div class="logo">
                 <img class="img" src="images/pnc-logo.png" style="width: 80px;">
             </div>
-            <h1 class="logo-title">StudyEnglishHere</h1>
+            <h1 class="logo-title">StudyEnglishNow</h1>
         </div>
         <div class="header-right">
             <h1></h1>
@@ -44,7 +49,7 @@
 
     <!-- start add page edit and create display question after edit  -->
     <div class="container2">
-        <button id="play-quiz">Play Quiz</button>
+        <button id="play-quiz">Start Quiz</button>
     </div>
     <!-- end add page edit and create display question after edit  -->
     
@@ -78,7 +83,12 @@
     <!-- end card question -->
                       
     <!-- start show question to play one by one -->
-    <button id="btn-back"><i class="fa fa-chevron-left"></i> Back</button>
+    <div class="back-to-home">
+        <div class="show-meaning"><p>Back to home</p></div>
+        <div id="btn-back"><i class="fa fa-chevron-left"></i></div>
+    </div>
+
+   
     <div class="container-question">
         <div class="question">
             <h2></h2>
@@ -100,8 +110,6 @@
     <div class="container_dg">
 
     </div>
-
-
 
     <!-- SHOW USER SCORE AND RESULT -->
 
