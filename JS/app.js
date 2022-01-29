@@ -133,8 +133,7 @@ function createMenu(){
 // BACK TO MENU
 function back_to_menu() {
     document.querySelector('.container-question').style.display = 'none';
-    let header = document.querySelector("header");
-    header.style.display = "none";
+    document.querySelector("header").style.display = "none";
     document.querySelector('.new-container').remove();
     createMenu();
 }
@@ -478,7 +477,7 @@ function displayallquestion (event){
         listanswer.appendChild(liAnswer4);
 
         card_question.appendChild(listanswer);
-        document.querySelector(".container2").appendChild(card_question)
+        document.querySelector(".container2").appendChild(card_question);
     }
 }
 
