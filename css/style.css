@@ -399,26 +399,39 @@ header {
 }
 
 /* footer */
+
 .footer {
-    width: 20%;
-    margin:20px  auto;
+    width: 14%;
+    margin:auto;
     display: flex;
     justify-content: space-between;
+    box-shadow: -15px -15px 15px rgba(255,255,255,0.2),
+    15px 15px 15px rgba(0, 0, 0, 0.1),
+    inset -5px -5px 5px rgba(255, 255, 255, 0.2),
+    inset 5px 5px 5px rgba(0, 0, 0, 0.1);
+    padding: 8px 20px;
+    color: #0593E3;
+
+    /* text-align: center; */
 }
 /* trash icon */
 .fa-trash {
-    font-size: 50px;
+    font-size: 36px;
     cursor: pointer;
 }
 .fa-trash:hover {
     color: red;
+    transform: scale(1.04);
+    transition: all .4s ease-in-out;
 }
 .fa-edit {
-    font-size: 45px;
+    font-size: 36px;
     margin-top: 5px;
     cursor: pointer;
 }
 .fa-edit:hover {
+    transform: scale(1.04);
+    transition: all .4s ease-in-out;
     color: rgb(11, 219, 11);
 }
 

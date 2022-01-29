@@ -153,11 +153,6 @@ function playQuiz(){
 function nextQuestion(){
     if (isClickedNext === false){
         let count = document.getElementById('count');
-
-        // TO SHUFFLE ANSWER 
-        arrayOfAnswers.sort((a,b) => 0.5 - Math.random());
-        
-        console.log(arrayOfAnswers)
         number_of_question += 1
         if (index_of_list_of_questions < total_questions){
             let getAnswers = document.querySelectorAll(".answer");
@@ -167,29 +162,26 @@ function nextQuestion(){
             } 
     
             // GET QUESTION FROM ARRAY OF OBJECTS
-            let question = document.querySelector("h2")
+            let question = document.querySelector(".question h2")
             question.textContent = list_of_questions[index_of_list_of_questions]['question'];
-      
-            console.log( list_of_questions[index_of_list_of_questions]['question']);
             let card = document.createElement("div");
             card.className = "card";
             // CREATE LIST FOR ANSWER-2
-            // let card_answer = document.c
             // CHANGE ANSWER ALL TIME WHENEVER USER CLICK NEXT
             // // CREATE LIST FOR ANSWER-1
             let answer_1 = document.getElementById('answer-1');
-            answer_1.textContent = list_of_questions[index_of_list_of_questions].answers[arrayOfAnswers[0]];
+            answer_1.textContent = list_of_questions[index_of_list_of_questions].answers["answer_1"];
             
             // CREATE LIST FOR ANSWER-2
             let answer_2 = document.getElementById('answer-2');
-            answer_2.textContent = list_of_questions[index_of_list_of_questions].answers[arrayOfAnswers[1]];
+            answer_2.textContent = list_of_questions[index_of_list_of_questions].answers["answer_2"];
             // CREATE LIST FOR ANSWER-3
             let answer_3 = document.getElementById('answer-3');
-            answer_3.textContent = list_of_questions[index_of_list_of_questions].answers[arrayOfAnswers[2]];
+            answer_3.textContent = list_of_questions[index_of_list_of_questions].answers["answer_3"];
 
             // CREATE LIST FOR ANSWER-4
             let answer_4 = document.getElementById('answer-4');
-            answer_4.textContent = list_of_questions[index_of_list_of_questions].answers[arrayOfAnswers[3]];
+            answer_4.textContent = list_of_questions[index_of_list_of_questions].answers["answer_4"];
     
             // INCREMENT COUNT QUESTION ONE BY ONE
             count.textContent = number_of_question;
@@ -211,19 +203,14 @@ function nextQuestion(){
             next_question.style.display = "none";
         }
         index_of_list_of_answer ++;
-    } else {
-        alert("Choose one answer");
     }
     isClickedNext = true;
-
- 
 }
 // ------------end coding Play quiz--------------------------
 //---------------START GET USER ANSWERS CHOOSE-----------
 function getUserAnswer(event){
     if (isClicked == false){
         let answer = event.target.textContent;
-        // event.target.style.background = "red";
         event.target.style.background = "#0d6ba1";
         if (answer[0] === list_of_correct_answer[index_of_list_of_answer-1]){
             user_score ++;
@@ -233,7 +220,6 @@ function getUserAnswer(event){
         isClicked = true;
         isClickedNext = false;
         idUserClick.push(event.target.id);
-        console.log(idUserClick);
     }
 }
 
@@ -395,7 +381,6 @@ function showCorrectAndUnCorrect(){
 
 }
 
-let button = document.querySelector(".show-meaning")
 // SHOW CORRECT OR UNCORRECT USER ANSWER------------------
 // ------------start coding create question--------------------------
 function createQuestion(){
@@ -456,8 +441,7 @@ function displayallquestion (event){
         liAnswer4.textContent = element.answers.answer_4;
         
         if (element['correct_answer']=='A'){
-           liAnswer1.style.backgroundColor = "green";
-            liAnswer1.style.backgroundColor = "green"
+            liAnswer1.style.backgroundColor = "green";
         }else if (element['correct_answer']=='B'){
             liAnswer2.style.backgroundColor = "green";
         }else if (element['correct_answer']=='C'){
@@ -479,7 +463,6 @@ function displayallquestion (event){
         // create edit icon and append it to footer
         let edit = document.createElement("i");
         edit.className = "fa fa-edit";
-
 
         let trash_icon = document.createElement("i");
         trash_icon.className = "fa fa-trash";
@@ -657,8 +640,6 @@ let list_of_questions = [
     {question: "Q. What will you do if you ________ the history exam? ", answers:{answer_1: "A. would fail", answer_2: "B.  will fail", answer_3: "C. fail",answer_4: "D. would have fail"} , correct_answer: "C"} ,
     {question: "Q. If they had not _____ the car, I would have driven you. ", answers:{answer_1: "A.  take", answer_2: "B. taken", answer_3: "C. would take",answer_4: "D. would have taken"} , correct_answer: "B"} 
 ]
-
-let arrayOfAnswers = ["answer_1","answer_2","answer_3","answer_4"];
 var list_of_correct_answer = ["C","D","B","A","B",
                             "C","A","B","A","A",
                             "B","C","A","D","A",
