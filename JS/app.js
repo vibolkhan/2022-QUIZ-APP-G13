@@ -111,6 +111,25 @@ function createMenu(){
     // hide button back
     document.querySelector('.back-to-home').style.display = 'none';
 
+    list_of_user_answer = [];
+    idUserClick = [];
+
+    // TYPE INTEGER---------------------
+    index_of_list_of_questions = 0;
+
+    console.log(total_questions);
+    count_question = 0;
+    number_of_question = 0 ;
+    index_of_list_of_answer = 0;
+    user_score = 0 ; 
+
+    // TYPE STRING----------------------
+
+    // TYPE BOOLEAN---------------------
+    isClicked = false;
+    isClickedNext = false;
+
+
 }
 
 // BACK TO MENU
@@ -118,6 +137,7 @@ function back_to_menu() {
     document.querySelector('.container-question').style.display = 'none';
     document.querySelector("header").style.display = "none";
     document.querySelector('.new-container').remove();
+    // document.body.removeChild(document.querySelectorAll('.container2'))
     createMenu();
 }
 
@@ -125,7 +145,7 @@ function back_to_menu() {
 function playQuiz(){
     let question_card = document.querySelector(".container-create-questions");
     question_card.style.display = "none";
-
+    total_questions = list_of_questions.length;
     document.querySelector(".back-to-home").style.display = "block"
     
     let container = document.querySelector(".new-container");
@@ -231,8 +251,8 @@ function submit_answers(event){
         containers.style.display = "block";
     }
     event.target.parentElement.parentElement.remove();
-    let btn_editout = document.getElementById("create-questions");
-    btn_editout.addEventListener("click",createQuestion);
+    // let btn_editout = document.getElementById("create-questions");
+    // btn_editout.addEventListener("click",createQuestion);
 
     document.querySelector('.back-to-home').style.display = 'none';
     showCorrectAndUnCorrect();
@@ -376,7 +396,7 @@ function showCorrectAndUnCorrect(){
         global_container.appendChild(question_to_play);
     }
     let final_score = document.querySelector(".score");
-    final_score.textContent = (user_score/total_questions)*100;
+    final_score.textContent = parseInt((user_score/total_questions)*100);
     final_result.style.display = "block";
 
 }
@@ -415,7 +435,7 @@ function displayallquestion (event){
         let spnaquestion = document.createElement("div");
         spnaquestion.className = "question";
 
-        let h2 = document.createElement("h2");
+        let h2 = document.createElement("h3");
         h2.textContent = element.question;
 
         spnaquestion.appendChild(h2);
@@ -474,7 +494,15 @@ function displayallquestion (event){
         document.querySelector(".container2").appendChild(card_question)
         document.querySelector(".container2").appendChild(card_question);
     }
-    document.body.addEventListener('click',delete_question)
+    // document.body.addEventListener('click',delete_question)
+    let trash = document.querySelectorAll(".fa-trash");
+    for (let i in trash ){
+        if (trash[i].addEventListener('click',function (){
+            trash[i].parentElement.parentElement.remove()
+            console.log(i);
+            list_of_questions.pop(list_of_questions[i])
+        }));
+    }
     document.body.addEventListener('click',edit_question)
 
 }
@@ -503,10 +531,11 @@ function edit_question (event){
 function delete_question (event){
     let allquestion = document.querySelectorAll(".fa-trash")
     for (let index in allquestion){
-        if (allquestion[index]==event.target){
+        if (allquestion[index]){
             console.log(allquestion[index].parentElement.parentElement)
             event.target.parentElement.parentElement.remove();
-            list_of_questions.splice(index,1)
+            // list_of_questions.splice(index,1)
+            console.log(list_of_questions[index]);
         }
     }
 }
@@ -533,6 +562,7 @@ function addQuestiontolist (){
             if (elements.value=='A'){
                 list_of_user_answer.push("A")
                 listQuestionandanswer['correct_answer']='A';
+                
             }else if (elements.value=='B'){
                 list_of_user_answer.push("B")
                 listQuestionandanswer['correct_answer']='B';
