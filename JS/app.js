@@ -116,8 +116,7 @@ function createMenu(){
 // BACK TO MENU
 function back_to_menu() {
     document.querySelector('.container-question').style.display = 'none';
-    let header = document.querySelector("header");
-    header.style.display = "none";
+    document.querySelector("header").style.display = "none";
     document.querySelector('.new-container').remove();
     createMenu();
 }
@@ -490,6 +489,7 @@ function displayallquestion (event){
         card_question.appendChild(footer);
 
         document.querySelector(".container2").appendChild(card_question)
+        document.querySelector(".container2").appendChild(card_question);
     }
     document.body.addEventListener('click',delete_question)
     document.body.addEventListener('click',edit_question)
