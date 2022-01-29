@@ -183,7 +183,7 @@ button:hover{
 }
 
 .new-container #start-quiz{
-    background-image: url(../images/online-quiz.jpg);
+    background-image: url(../images/online-quiz.png);
     background-size: cover;
     background-position: center;
 }
