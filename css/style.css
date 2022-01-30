@@ -322,7 +322,7 @@ header {
                 inset 5px 5px 5px rgba(0, 0, 0, 0.1);
 } 
 
-.question h2,.card-header h2,.card-header{
+.question h2,.card-header h2,.card-header, h3{
     padding: 16px 0px;
     box-shadow: -15px -15px 15px rgba(255,255,255,0.2),
     15px 15px 15px rgba(0, 0, 0, 0.1),
